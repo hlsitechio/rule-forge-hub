@@ -4,16 +4,22 @@ import { AuthDialog } from '@/components/auth/AuthDialog';
 import { useAuth } from '@/components/auth/AuthProvider';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { MobileNav } from '@/components/layout/MobileNav';
 import { User, LogOut, ShoppingBag } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export const Header = () => {
   const [authOpen, setAuthOpen] = useState(false);
   const { user, signOut } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <div className="flex items-center space-x-2">
+        <div 
+          className="flex items-center space-x-2 cursor-pointer"
+          onClick={() => navigate('/')}
+        >
           <div className="w-8 h-8 bg-gradient-silver rounded-lg flex items-center justify-center">
             <span className="text-primary-foreground font-bold text-sm">AI</span>
           </div>
@@ -35,6 +41,7 @@ export const Header = () => {
         </nav>
 
         <div className="flex items-center space-x-4">
+          <MobileNav />
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -47,11 +54,17 @@ export const Header = () => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56 bg-card border-border" align="end" forceMount>
-                <DropdownMenuItem className="cursor-pointer">
+                <DropdownMenuItem 
+                  className="cursor-pointer"
+                  onClick={() => navigate('/profile')}
+                >
                   <User className="mr-2 h-4 w-4" />
                   <span>Profile</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer">
+                <DropdownMenuItem 
+                  className="cursor-pointer"
+                  onClick={() => navigate('/dashboard')}
+                >
                   <ShoppingBag className="mr-2 h-4 w-4" />
                   <span>My Purchases</span>
                 </DropdownMenuItem>

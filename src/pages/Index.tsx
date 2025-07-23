@@ -2,18 +2,22 @@ import { useState } from 'react';
 import { Header } from '@/components/layout/Header';
 import { Hero } from '@/components/layout/Hero';
 import { ProductCard } from '@/components/product/ProductCard';
+import { SearchBar } from '@/components/layout/SearchBar';
 import { AuthProvider, useAuth } from '@/components/auth/AuthProvider';
 import { AuthDialog } from '@/components/auth/AuthDialog';
 import { useProducts, useFeaturedProducts } from '@/hooks/useProducts';
 import { usePurchase } from '@/hooks/usePurchase';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const ProductsSection = () => {
   const { data: products, isLoading } = useProducts();
   const { data: featuredProducts } = useFeaturedProducts();
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [authOpen, setAuthOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const { purchaseProduct, loading: purchaseLoading } = usePurchase();
 
   const handlePurchase = async (productId: string) => {
@@ -33,9 +37,15 @@ const ProductsSection = () => {
   const categories = ['all', 'cursor', 'windsurf', 'lovable', 'bolt'];
   const [selectedCategory, setSelectedCategory] = useState('all');
 
-  const filteredProducts = products?.filter(product => 
-    selectedCategory === 'all' || product.category === selectedCategory
-  );
+  const filteredProducts = products?.filter(product => {
+    const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
+    const matchesSearch = !searchQuery || 
+      product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.tags?.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+    
+    return matchesCategory && matchesSearch;
+  });
 
   if (isLoading) {
     return (
@@ -62,19 +72,27 @@ const ProductsSection = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {featuredProducts.map((product) => (
-                <ProductCard
+                <div 
                   key={product.id}
-                  id={product.id}
-                  title={product.title}
-                  description={product.description}
-                  shortDescription={product.short_description || ''}
-                  price={product.price}
-                  category={product.category}
-                  tags={product.tags || []}
-                  downloadsCount={product.downloads_count}
-                  isFeatured={product.is_featured}
-                  onPurchase={handlePurchase}
-                />
+                  onClick={() => navigate(`/product/${product.id}`)}
+                  className="cursor-pointer"
+                >
+                  <ProductCard
+                    id={product.id}
+                    title={product.title}
+                    description={product.description}
+                    shortDescription={product.short_description || ''}
+                    price={product.price}
+                    category={product.category}
+                    tags={product.tags || []}
+                    downloadsCount={product.downloads_count}
+                    isFeatured={product.is_featured}
+                    onPurchase={(e) => {
+                      e.stopPropagation();
+                      handlePurchase(product.id);
+                    }}
+                  />
+                </div>
               ))}
             </div>
           </div>
@@ -91,8 +109,16 @@ const ProductsSection = () => {
             </p>
           </div>
 
-          {/* Category Filter */}
-          <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
+          {/* Search and Filters */}
+          <div className="space-y-6 mb-8">
+            <div className="max-w-md mx-auto">
+              <SearchBar 
+                onSearch={setSearchQuery}
+                placeholder="Search AI rules, tags, categories..."
+              />
+            </div>
+            
+            <div className="flex flex-wrap items-center justify-center gap-2">
             {categories.map((category) => (
               <Button
                 key={category}
@@ -111,20 +137,29 @@ const ProductsSection = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredProducts?.map((product) => (
-              <ProductCard
+              <div 
                 key={product.id}
-                id={product.id}
-                title={product.title}
-                description={product.description}
-                shortDescription={product.short_description || ''}
-                price={product.price}
-                category={product.category}
-                tags={product.tags || []}
-                downloadsCount={product.downloads_count}
-                isFeatured={product.is_featured}
-                onPurchase={handlePurchase}
-              />
+                onClick={() => navigate(`/product/${product.id}`)}
+                className="cursor-pointer"
+              >
+                <ProductCard
+                  id={product.id}
+                  title={product.title}
+                  description={product.description}
+                  shortDescription={product.short_description || ''}
+                  price={product.price}
+                  category={product.category}
+                  tags={product.tags || []}
+                  downloadsCount={product.downloads_count}
+                  isFeatured={product.is_featured}
+                  onPurchase={(e) => {
+                    e.stopPropagation();
+                    handlePurchase(product.id);
+                  }}
+                />
+              </div>
             ))}
+            </div>
           </div>
         </div>
       </section>

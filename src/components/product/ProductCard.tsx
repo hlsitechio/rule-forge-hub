@@ -13,7 +13,7 @@ interface ProductCardProps {
   tags: string[];
   downloadsCount: number;
   isFeatured: boolean;
-  onPurchase: (productId: string) => void;
+  onPurchase: (e: React.MouseEvent, productId: string) => void;
 }
 
 export const ProductCard = ({
@@ -106,7 +106,7 @@ export const ProductCard = ({
             {formatPrice(price)}
           </div>
           <Button
-            onClick={() => onPurchase(id)}
+            onClick={(e) => onPurchase(e, id)}
             className="bg-gradient-accent text-accent-foreground hover:shadow-glow-accent transition-all duration-300"
           >
             Purchase
