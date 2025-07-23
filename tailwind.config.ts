@@ -52,6 +52,11 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				silver: {
+					primary: 'hsl(var(--silver-primary))',
+					secondary: 'hsl(var(--silver-secondary))',
+					muted: 'hsl(var(--silver-muted))'
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
@@ -67,6 +72,15 @@ export default {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
+			},
+			backgroundImage: {
+				'gradient-silver': 'var(--gradient-silver)',
+				'gradient-dark': 'var(--gradient-dark)',
+				'gradient-accent': 'var(--gradient-accent)'
+			},
+			boxShadow: {
+				'glow-silver': 'var(--glow-silver)',
+				'glow-accent': 'var(--glow-accent)'
 			},
 			keyframes: {
 				'accordion-down': {
