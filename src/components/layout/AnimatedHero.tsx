@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Code2, Zap, Users, Star, Sparkles, Target } from 'lucide-react';
 import { motion } from 'framer-motion';
-import heroDeveloperImage from '@/assets/hero-developer-hooded.jpg';
+// Video will be loaded directly in component
 import { useEffect, useState } from 'react';
 
 // Typewriter animation component for hero text
@@ -59,13 +59,18 @@ export const AnimatedHero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Developer background image with reduced fade effect */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
-        style={{
-          backgroundImage: `url(${heroDeveloperImage})`,
-        }}
-      />
+      {/* Background video with reduced fade effect */}
+      <video
+        className="absolute inset-0 w-full h-full object-cover opacity-40"
+        autoPlay
+        muted
+        loop
+        playsInline
+      >
+        <source src="https://i.imgur.com/okkcUbY.mp4" type="video/mp4" />
+        {/* Fallback for when video doesn't load */}
+        <div className="absolute inset-0 bg-gradient-to-br from-background/80 to-background/60" />
+      </video>
       
       {/* Lighter gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-background/60 via-background/50 to-background/70" />
