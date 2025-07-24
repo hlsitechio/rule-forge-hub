@@ -1,0 +1,2 @@
+-- Set the RESEND_API_KEY secret
+-- This will be configured through the secrets management
