@@ -126,55 +126,104 @@ export const AnimatedHero = () => {
           {/* Enhanced Typewriter Hero Text */}
           <div className="text-center max-w-5xl mx-auto mb-12">
             <motion.div 
-              className="min-h-[450px] flex flex-col justify-center"
+              className="min-h-[500px] flex flex-col justify-center"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1 }}
             >
-              <div className="text-center leading-tight whitespace-pre-wrap font-sans">
-                {textSections.map((section, index) => {
-                  const sectionStart = textSections.slice(0, index).reduce((acc, s) => acc + s.text.length + (index > 0 && index < 3 ? 1 : 0), 0);
-                  const sectionEnd = sectionStart + section.text.length;
-                  const visibleText = displayedText.slice(sectionStart, sectionEnd);
-                  
-                  return (
-                    <motion.span
-                      key={index}
-                      className={section.className}
-                      style={{ 
-                        display: index < 2 ? 'block' : 'inline',
-                        marginBottom: index === 1 ? '2rem' : '0'
-                      }}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ 
-                        opacity: visibleText.length > 0 ? 1 : 0,
-                        y: visibleText.length > 0 ? 0 : 20
-                      }}
-                      transition={{ duration: 0.5, type: "spring", bounce: 0.3 }}
-                    >
-                      {visibleText.split('').map((char, charIndex) => (
-                        <motion.span
-                          key={charIndex}
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ 
-                            duration: 0.05,
-                            delay: charIndex * 0.02
-                          }}
+              <div className="space-y-6">
+                {/* Title sections */}
+                <div className="space-y-4">
+                  {textSections.slice(0, 2).map((section, index) => {
+                    const sectionStart = textSections.slice(0, index).reduce((acc, s) => acc + s.text.length + (index > 0 ? 1 : 0), 0);
+                    const sectionEnd = sectionStart + section.text.length;
+                    const visibleText = displayedText.slice(sectionStart, sectionEnd);
+                    
+                    return (
+                      <motion.div
+                        key={index}
+                        className="leading-tight"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ 
+                          opacity: visibleText.length > 0 ? 1 : 0,
+                          y: visibleText.length > 0 ? 0 : 20
+                        }}
+                        transition={{ duration: 0.5, type: "spring", bounce: 0.3 }}
+                      >
+                        <span className={section.className}>
+                          {visibleText.split('').map((char, charIndex) => (
+                            <motion.span
+                              key={charIndex}
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              transition={{ 
+                                duration: 0.05,
+                                delay: charIndex * 0.02
+                              }}
+                            >
+                              {char}
+                            </motion.span>
+                          ))}
+                          {currentSection === index && showCursor && (
+                            <motion.span
+                              className="inline-block w-1 h-12 md:h-16 bg-accent ml-1"
+                              animate={{ opacity: [1, 0, 1], scaleY: [1, 1.1, 1] }}
+                              transition={{ duration: 0.8, repeat: Infinity }}
+                            />
+                          )}
+                        </span>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+                
+                {/* Description sections */}
+                <div className="pt-4">
+                  <motion.div
+                    className="leading-relaxed"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ 
+                      opacity: currentSection >= 2 ? 1 : 0,
+                      y: currentSection >= 2 ? 0 : 20
+                    }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    {textSections.slice(2).map((section, index) => {
+                      const actualIndex = index + 2;
+                      const sectionStart = textSections.slice(0, actualIndex).reduce((acc, s) => acc + s.text.length + (actualIndex > 1 ? 2 : actualIndex > 0 ? 1 : 0), 0);
+                      const sectionEnd = sectionStart + section.text.length;
+                      const visibleText = displayedText.slice(sectionStart, sectionEnd);
+                      
+                      return (
+                        <span
+                          key={actualIndex}
+                          className={section.className}
                         >
-                          {char}
-                        </motion.span>
-                      ))}
-                      {currentSection === index && showCursor && (
-                        <motion.span
-                          className="inline-block w-1 h-8 md:h-12 bg-accent ml-1"
-                          animate={{ opacity: [1, 0, 1], scaleY: [1, 1.1, 1] }}
-                          transition={{ duration: 0.8, repeat: Infinity }}
-                        />
-                      )}
-                    </motion.span>
-                  );
-                })}
+                          {visibleText.split('').map((char, charIndex) => (
+                            <motion.span
+                              key={charIndex}
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              transition={{ 
+                                duration: 0.05,
+                                delay: charIndex * 0.02
+                              }}
+                            >
+                              {char}
+                            </motion.span>
+                          ))}
+                          {currentSection === actualIndex && showCursor && (
+                            <motion.span
+                              className="inline-block w-0.5 h-6 md:h-8 bg-accent ml-1"
+                              animate={{ opacity: [1, 0, 1] }}
+                              transition={{ duration: 0.8, repeat: Infinity }}
+                            />
+                          )}
+                        </span>
+                      );
+                    })}
+                  </motion.div>
+                </div>
               </div>
             </motion.div>
           </div>
