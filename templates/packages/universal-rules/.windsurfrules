@@ -1,0 +1,266 @@
+# Windsurf Rules and Workflow Guide
+
+## Core Configuration
+- **Version**: v5
+- **Project Type**: web_application
+- **Code Style**: clean_and_maintainable
+- **Environment Support**: dev, test, prod
+
+## Test-Driven Development (TDD) Rules
+1. Write tests **first** before any production code
+2. Run tests before implementing new functionality
+3. Write the **minimal code** required to pass tests
+4. Refactor only after all tests pass
+5. Place all tests in a dedicated `/tests` directory
+
+## Code Quality Standards
+- Maximum file length: **300 lines** (split into modules if needed)
+- Follow existing patterns and project structure
+- Write modular, reusable, and maintainable code
+- Implement proper error handling mechanisms
+- Use type hints and annotations where applicable
+
+## Workflow Best Practices
+- Use Markdown files (PLANNING.md, TASK.md) for project management
+- Organize code into clearly separated modules
+- Create unit tests for all new features
+- Update documentation with every change
+
+## Python Backend Development Rules
+
+### Django Best Practices
+```python
+# Model Design
+class ExampleModel(models.Model):
+    """Clear docstring describing the model's purpose."""
+    
+    # Use descriptive field names
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        verbose_name = "Example Model"
+        verbose_name_plural = "Example Models"
+        ordering = ['-created_at']
+    
+    def __str__(self):
+        return f"Example {self.id}"
+```
+
+### API Development Patterns
+- Use Django REST Framework for API endpoints
+- Implement proper serializers with validation
+- Add pagination for list endpoints
+- Include proper HTTP status codes
+- Write comprehensive API documentation
+
+### Database Optimization
+- Use select_related() for ForeignKey relationships
+- Use prefetch_related() for ManyToMany relationships
+- Add appropriate database indexes
+- Monitor query performance with Django Debug Toolbar
+
+## Next.js Frontend Development Rules
+
+### Component Structure
+```typescript
+interface ComponentProps {
+  // Define all props with types
+  title: string;
+  description?: string;
+  onAction: () => void;
+}
+
+export const ExampleComponent: React.FC<ComponentProps> = ({
+  title,
+  description,
+  onAction
+}) => {
+  // Component implementation
+  return (
+    <div>
+      <h2>{title}</h2>
+      {description && <p>{description}</p>}
+      <button onClick={onAction}>Action</button>
+    </div>
+  );
+};
+```
+
+### State Management
+- Use React 18+ features (Suspense, Concurrent Mode)
+- Implement Context API for global state when needed
+- Use reducer pattern for complex state logic
+- Optimize with useMemo and useCallback
+
+### Performance Optimization
+- Implement code splitting with dynamic imports
+- Use React.memo for expensive components
+- Optimize images with Next.js Image component
+- Implement proper SEO with Next.js Head
+
+## Security Implementation
+
+### Backend Security
+- Always validate input data
+- Use Django's built-in security features
+- Implement proper authentication and authorization
+- Use HTTPS in production
+- Keep dependencies updated
+
+### Frontend Security
+- Sanitize user inputs
+- Use environment variables for sensitive data
+- Implement proper CORS configuration
+- Use secure HTTP headers
+- Validate all API responses
+
+## Testing Strategy
+
+### Backend Testing
+```python
+from django.test import TestCase
+from django.contrib.auth.models import User
+
+class ExampleTestCase(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(
+            username='testuser',
+            email='test@example.com',
+            password='testpass123'
+        )
+    
+    def test_example_functionality(self):
+        # Test implementation
+        self.assertTrue(True)
+```
+
+### Frontend Testing
+```typescript
+import { render, screen, fireEvent } from '@testing-library/react';
+import { ExampleComponent } from './ExampleComponent';
+
+describe('ExampleComponent', () => {
+  it('renders correctly', () => {
+    const mockAction = jest.fn();
+    render(
+      <ExampleComponent 
+        title="Test Title" 
+        onAction={mockAction} 
+      />
+    );
+    
+    expect(screen.getByText('Test Title')).toBeInTheDocument();
+  });
+});
+```
+
+## Development Workflow
+
+### File Organization
+```
+project/
+├── backend/
+│   ├── apps/
+│   ├── config/
+│   ├── tests/
+│   └── requirements/
+├── frontend/
+│   ├── components/
+│   ├── pages/
+│   ├── hooks/
+│   ├── utils/
+│   └── __tests__/
+├── docs/
+├── scripts/
+└── docker/
+```
+
+### Git Workflow
+- Feature branches for all new development
+- Descriptive commit messages
+- Pull request reviews required
+- Automated testing before merge
+
+### Documentation Requirements
+- README.md with setup instructions
+- API documentation with examples
+- Code comments for complex logic
+- Architecture decision records (ADRs)
+
+## Performance Monitoring
+
+### Backend Metrics
+- Database query performance
+- API response times
+- Memory usage
+- Error rates
+
+### Frontend Metrics
+- Page load times
+- Bundle sizes
+- Core Web Vitals
+- User interaction metrics
+
+## Deployment Configuration
+
+### Environment Setup
+- Use Docker for containerization
+- Environment-specific configuration files
+- Automated CI/CD pipelines
+- Health checks and monitoring
+
+### Production Checklist
+- [ ] All tests passing
+- [ ] Security scan completed
+- [ ] Performance benchmarks met
+- [ ] Documentation updated
+- [ ] Monitoring configured
+
+## Error Handling and Logging
+
+### Backend Logging
+```python
+import logging
+
+logger = logging.getLogger(__name__)
+
+def example_function():
+    try:
+        # Implementation
+        logger.info("Function executed successfully")
+    except Exception as e:
+        logger.error(f"Error in example_function: {str(e)}")
+        raise
+```
+
+### Frontend Error Handling
+```typescript
+import { ErrorBoundary } from 'react-error-boundary';
+
+function ErrorFallback({error, resetErrorBoundary}) {
+  return (
+    <div role="alert">
+      <h2>Something went wrong:</h2>
+      <pre>{error.message}</pre>
+      <button onClick={resetErrorBoundary}>Try again</button>
+    </div>
+  );
+}
+
+// Usage
+<ErrorBoundary FallbackComponent={ErrorFallback}>
+  <App />
+</ErrorBoundary>
+```
+
+## Code Review Guidelines
+- Focus on logic correctness and security
+- Check for performance implications
+- Ensure proper testing coverage
+- Verify documentation completeness
+- Confirm adherence to style guidelines
+
+---
+
+These rules ensure consistent, high-quality full-stack development with Python/Django backend and Next.js frontend.

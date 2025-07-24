@@ -1,0 +1,273 @@
+# Enterprise AI Code Review Rules
+
+## Security-First Development
+"All code must meet enterprise security standards:
+
+1. **Input Validation**:
+   - Validate all user inputs at application boundary
+   - Use parameterized queries exclusively
+   - Implement proper data sanitization
+   - Add input length and type restrictions
+
+2. **Authentication & Authorization**:
+   - Implement multi-factor authentication
+   - Use role-based access control (RBAC)
+   - Follow principle of least privilege
+   - Log all authentication attempts
+
+3. **Data Protection**:
+   - Encrypt sensitive data at rest and in transit
+   - Implement proper key management
+   - Follow data retention policies
+   - Ensure GDPR/CCPA compliance
+
+## Code Quality Standards
+"Enterprise code must be:
+- Self-documenting with comprehensive comments
+- Covered by unit tests (minimum 80% coverage)
+- Optimized for performance and scalability
+- Following consistent architectural patterns
+- Compliant with industry security standards
+
+## Review Readiness Checklist
+Before submitting code, ensure:
+✓ All security vulnerabilities addressed
+✓ Performance optimized and tested
+✓ Documentation complete and accurate
+✓ Tests written and passing
+✓ Code follows established patterns
+✓ Error handling implemented properly
+✓ Logging and monitoring added
+
+## OWASP Compliance
+"Follow OWASP Top 10 security practices:
+
+1. **Injection Prevention**:
+   ```python
+   # GOOD: Parameterized query
+   cursor.execute("SELECT * FROM users WHERE id = %s", (user_id,))
+   
+   # BAD: String concatenation
+   cursor.execute(f"SELECT * FROM users WHERE id = {user_id}")
+   ```
+
+2. **Broken Authentication Prevention**:
+   - Implement session management properly
+   - Use secure password storage (bcrypt/Argon2)
+   - Implement account lockout mechanisms
+   - Use secure session tokens
+
+3. **Sensitive Data Exposure Prevention**:
+   - Encrypt all sensitive data
+   - Use HTTPS for all communications
+   - Implement proper key management
+   - Follow data classification guidelines
+
+## Enterprise Architecture Patterns
+"Implement enterprise-grade architecture:
+
+1. **Microservices Design**:
+   - Use domain-driven design principles
+   - Implement proper service boundaries
+   - Use API gateways for service mesh
+   - Implement circuit breaker patterns
+
+2. **Database Design**:
+   - Follow normalization principles
+   - Implement proper indexing strategies
+   - Use read replicas for scaling
+   - Implement database sharding if needed
+
+3. **Caching Strategy**:
+   - Implement multi-level caching
+   - Use Redis for session management
+   - Implement cache invalidation strategies
+   - Monitor cache hit rates
+
+## Compliance Standards
+"Ensure compliance with enterprise standards:
+
+1. **SOC 2 Type II**:
+   - Implement security controls
+   - Document all procedures
+   - Monitor access controls
+   - Maintain audit trails
+
+2. **GDPR/CCPA Compliance**:
+   - Implement data subject rights
+   - Document data processing activities
+   - Implement privacy by design
+   - Maintain consent records
+
+3. **HIPAA Compliance** (if applicable):
+   - Implement proper access controls
+   - Encrypt all PHI data
+   - Maintain audit logs
+   - Implement business associate agreements
+
+## Performance Standards
+"Meet enterprise performance requirements:
+
+1. **Response Time Targets**:
+   - API responses: <200ms (p95)
+   - Page load times: <2 seconds
+   - Database queries: <100ms
+   - File uploads: <5 seconds per MB
+
+2. **Scalability Requirements**:
+   - Support 10x current user load
+   - Implement horizontal scaling
+   - Use load balancing strategies
+   - Monitor resource utilization
+
+3. **Availability Targets**:
+   - 99.9% uptime SLA
+   - Implement redundancy
+   - Use health checks
+   - Plan for disaster recovery
+
+## Code Documentation Standards
+"Comprehensive documentation required:
+
+1. **API Documentation**:
+   ```python
+   def process_payment(amount: float, currency: str, payment_method: dict) -> dict:
+       \"\"\"
+       Process a payment transaction.
+       
+       Args:
+           amount: Payment amount in specified currency
+           currency: ISO 4217 currency code (e.g., 'USD', 'EUR')
+           payment_method: Dictionary containing payment method details
+           
+       Returns:
+           Dictionary containing transaction result with keys:
+           - transaction_id: Unique transaction identifier
+           - status: 'success', 'failed', or 'pending'
+           - message: Human-readable status message
+           
+       Raises:
+           ValidationError: If input parameters are invalid
+           PaymentError: If payment processing fails
+           
+       Example:
+           >>> result = process_payment(99.99, 'USD', {'type': 'card', 'token': 'xyz'})
+           >>> print(result['status'])
+           'success'
+       \"\"\"
+   ```
+
+2. **Architecture Documentation**:
+   - System architecture diagrams
+   - Database schema documentation
+   - API endpoint documentation
+   - Security control documentation
+
+## Testing Requirements
+"Comprehensive testing strategy:
+
+1. **Unit Testing** (80%+ coverage):
+   ```python
+   import pytest
+   from unittest.mock import Mock, patch
+   
+   class TestPaymentProcessor:
+       def test_successful_payment(self):
+           processor = PaymentProcessor()
+           result = processor.process_payment(99.99, 'USD', mock_payment_method)
+           assert result['status'] == 'success'
+           assert 'transaction_id' in result
+       
+       def test_invalid_amount_raises_error(self):
+           processor = PaymentProcessor()
+           with pytest.raises(ValidationError):
+               processor.process_payment(-10, 'USD', mock_payment_method)
+   ```
+
+2. **Integration Testing**:
+   - Test API endpoints end-to-end
+   - Test database operations
+   - Test external service integrations
+   - Test authentication flows
+
+3. **Security Testing**:
+   - SQL injection testing
+   - XSS vulnerability testing
+   - Authentication bypass testing
+   - Authorization testing
+
+## Monitoring and Observability
+"Implement comprehensive monitoring:
+
+1. **Application Monitoring**:
+   - Log all user actions
+   - Monitor application performance
+   - Track error rates and types
+   - Monitor business metrics
+
+2. **Security Monitoring**:
+   - Log all authentication events
+   - Monitor for suspicious activity
+   - Implement intrusion detection
+   - Track data access patterns
+
+3. **Infrastructure Monitoring**:
+   - Monitor server resources
+   - Track network performance
+   - Monitor database performance
+   - Implement alerting systems
+
+## Deployment Standards
+"Follow enterprise deployment practices:
+
+1. **CI/CD Pipeline**:
+   - Automated testing required
+   - Security scanning integrated
+   - Code quality gates enforced
+   - Deployment approvals required
+
+2. **Environment Management**:
+   - Separate dev/staging/production
+   - Infrastructure as code
+   - Configuration management
+   - Secret management
+
+3. **Rollback Procedures**:
+   - Automated rollback capability
+   - Database migration rollbacks
+   - Traffic switching strategies
+   - Incident response procedures
+
+## Change Management
+"Enterprise change control process:
+
+1. **Change Approval**:
+   - Architecture review for major changes
+   - Security review for all changes
+   - Performance impact assessment
+   - Business stakeholder approval
+
+2. **Risk Assessment**:
+   - Identify potential impacts
+   - Plan mitigation strategies
+   - Document rollback procedures
+   - Communicate to stakeholders
+
+## Data Governance
+"Enterprise data governance standards:
+
+1. **Data Classification**:
+   - Public, Internal, Confidential, Restricted
+   - Appropriate handling for each classification
+   - Access controls based on classification
+   - Retention policies by classification
+
+2. **Data Quality**:
+   - Implement data validation rules
+   - Monitor data quality metrics
+   - Implement data cleansing procedures
+   - Maintain data lineage documentation
+
+---
+
+These enterprise rules ensure code meets the highest standards for security, compliance, performance, and maintainability in large organizations."

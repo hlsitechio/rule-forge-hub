@@ -1,0 +1,238 @@
+# React/Next.js AI Development Rules
+
+## Modern React Patterns
+"When working with React applications:
+
+1. **Component Structure**:
+   - Use functional components with hooks
+   - Implement TypeScript for all components
+   - Follow compound component patterns
+   - Create reusable custom hooks
+
+2. **State Management**:
+   - Use React 18+ features (Suspense, Concurrent Mode)
+   - Implement Context API for global state
+   - Use reducer pattern for complex state
+   - Optimize with useMemo and useCallback
+
+3. **Performance Optimization**:
+   - Implement code splitting with lazy loading
+   - Use React.memo for expensive components
+   - Optimize bundle size with tree shaking
+   - Implement proper error boundaries
+
+Example component request:
+Create a data table component with:
+- TypeScript interfaces for data
+- Sorting and filtering capabilities
+- Pagination with lazy loading
+- Responsive design
+- Accessibility compliance
+- Loading and error states
+
+## Next.js App Router Guidelines
+"For Next.js 13+ applications:
+
+1. **File Structure**:
+   - Use app directory structure
+   - Implement proper page and layout patterns
+   - Create reusable UI components
+   - Organize by feature domains
+
+2. **Server Components**:
+   - Use Server Components by default
+   - Mark Client Components explicitly
+   - Optimize data fetching patterns
+   - Implement proper caching strategies
+
+3. **API Routes**:
+   - Use route handlers in app directory
+   - Implement proper HTTP methods
+   - Add request validation
+   - Include error handling
+
+## TypeScript Best Practices
+"For TypeScript implementation:
+
+1. **Type Definitions**:
+   - Define interfaces for all props
+   - Use generic types for reusable components
+   - Implement proper union types
+   - Create utility types for common patterns
+
+2. **Component Typing**:
+   ```typescript
+   interface ComponentProps {
+     title: string;
+     description?: string;
+     onAction: (id: string) => void;
+     data: Array<{id: string; name: string}>;
+   }
+   
+   export const Component: React.FC<ComponentProps> = ({
+     title,
+     description,
+     onAction,
+     data
+   }) => {
+     // Implementation
+   };
+   ```
+
+## Custom Hooks Patterns
+"Create reusable custom hooks:
+
+1. **Data Fetching Hooks**:
+   ```typescript
+   function useApiData<T>(url: string) {
+     const [data, setData] = useState<T | null>(null);
+     const [loading, setLoading] = useState(true);
+     const [error, setError] = useState<string | null>(null);
+     
+     useEffect(() => {
+       // Fetch implementation
+     }, [url]);
+     
+     return { data, loading, error };
+   }
+   ```
+
+2. **Form Management Hooks**:
+   - Use react-hook-form for complex forms
+   - Implement validation with zod
+   - Create reusable form components
+   - Handle form state properly
+
+## Styling and Design System
+"For consistent styling:
+
+1. **Tailwind CSS Usage**:
+   - Use semantic design tokens
+   - Create component variants
+   - Implement responsive design
+   - Follow accessibility guidelines
+
+2. **Component Library Integration**:
+   - Use shadcn/ui components
+   - Customize component themes
+   - Create design system tokens
+   - Maintain consistent spacing
+
+## Testing Strategy
+"Implement comprehensive testing:
+
+1. **Unit Testing**:
+   ```typescript
+   import { render, screen, fireEvent } from '@testing-library/react';
+   import { Component } from './Component';
+   
+   describe('Component', () => {
+     it('renders correctly', () => {
+       render(<Component title="Test" onAction={jest.fn()} data={[]} />);
+       expect(screen.getByText('Test')).toBeInTheDocument();
+     });
+   });
+   ```
+
+2. **Integration Testing**:
+   - Test user workflows
+   - Mock API calls appropriately
+   - Test error scenarios
+   - Verify accessibility
+
+## Performance Optimization
+"Optimize React applications:
+
+1. **Bundle Optimization**:
+   - Use dynamic imports for code splitting
+   - Analyze bundle size with webpack-bundle-analyzer
+   - Implement tree shaking
+   - Optimize images and assets
+
+2. **Runtime Performance**:
+   - Use React.memo for expensive components
+   - Implement useMemo for expensive calculations
+   - Use useCallback for event handlers
+   - Avoid unnecessary re-renders
+
+## SEO and Meta Management
+"For Next.js SEO optimization:
+
+1. **Metadata API**:
+   ```typescript
+   import type { Metadata } from 'next';
+   
+   export const metadata: Metadata = {
+     title: 'Page Title',
+     description: 'Page description',
+     openGraph: {
+       title: 'Page Title',
+       description: 'Page description',
+       images: ['/og-image.jpg'],
+     },
+   };
+   ```
+
+2. **Structured Data**:
+   - Implement JSON-LD for rich snippets
+   - Use proper heading hierarchy
+   - Optimize images with alt text
+   - Implement proper internal linking
+
+## Error Handling
+"Implement robust error handling:
+
+1. **Error Boundaries**:
+   ```typescript
+   import { ErrorBoundary } from 'react-error-boundary';
+   
+   function ErrorFallback({error, resetErrorBoundary}) {
+     return (
+       <div role="alert">
+         <h2>Something went wrong:</h2>
+         <pre>{error.message}</pre>
+         <button onClick={resetErrorBoundary}>Try again</button>
+       </div>
+     );
+   }
+   ```
+
+2. **API Error Handling**:
+   - Implement retry logic for failed requests
+   - Show user-friendly error messages
+   - Log errors for debugging
+   - Provide fallback UI states
+
+## Accessibility Guidelines
+"Ensure accessibility compliance:
+
+1. **ARIA Implementation**:
+   - Use proper ARIA labels and roles
+   - Implement keyboard navigation
+   - Ensure proper focus management
+   - Test with screen readers
+
+2. **Semantic HTML**:
+   - Use semantic HTML elements
+   - Implement proper heading hierarchy
+   - Ensure sufficient color contrast
+   - Provide alternative text for images
+
+## Security Best Practices
+"Implement security measures:
+
+1. **Input Validation**:
+   - Validate all user inputs
+   - Sanitize data before rendering
+   - Use Content Security Policy
+   - Implement proper authentication
+
+2. **Environment Variables**:
+   - Use NEXT_PUBLIC_ prefix for client-side variables
+   - Keep sensitive data server-side only
+   - Validate environment variables at build time
+   - Use proper secret management
+
+---
+
+This ruleset ensures modern, performant, and maintainable React/Next.js applications with TypeScript."

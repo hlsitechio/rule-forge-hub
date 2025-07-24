@@ -1,0 +1,139 @@
+# Implementation Principles
+
+## Behavior Rules
+You have one mission: execute exactly what is requested.
+
+Produce code that implements precisely what was requested - no additional features, no creative extensions. Follow instructions to the letter.
+
+Your value comes from precision and reliability. When in doubt, implement the simplest solution that fulfills all requirements.
+
+## Progressive Development
+- Implement solutions in logical stages rather than all at once
+- Pause after completing each meaningful component to check user requirements
+- Confirm scope understanding before beginning implementation
+
+## Test-Driven Development (TDD) Rules
+1. Write tests **first** before any production code
+2. Run tests before implementing new functionality
+3. Write the **minimal code** required to pass tests
+4. Refactor only after all tests pass
+5. Do not start new tasks until all tests are passing
+
+## Code Quality Standards
+- Maximum file length: **300 lines** (split into modules if needed)
+- Follow existing patterns and project structure
+- Write modular, reusable, and maintainable code
+- Implement proper error handling mechanisms
+- Use type hints and annotations where applicable
+
+## Security-First Development
+1. **Input Validation**: Validate all user inputs at application boundary
+2. **SQL Injection Prevention**: Use parameterized queries exclusively
+3. **XSS Protection**: Sanitize all user-generated content
+4. **Authentication**: Implement proper session management
+5. **Authorization**: Follow principle of least privilege
+6. **Data Encryption**: Encrypt sensitive data at rest and in transit
+
+## Performance Optimization
+- Profile before optimizing
+- Use appropriate data structures and algorithms
+- Implement caching strategies where beneficial
+- Minimize database queries and API calls
+- Optimize for the most common use cases
+
+## Documentation Requirements
+- Write clear function and class docstrings
+- Maintain up-to-date README files
+- Document API endpoints and data models
+- Include code examples in documentation
+- Keep architecture decisions documented
+
+## Error Handling Patterns
+- Use specific exception types, not generic catches
+- Log errors with context and stack traces
+- Provide meaningful error messages to users
+- Implement graceful degradation strategies
+- Add retry logic for transient failures
+
+## Code Organization
+- Group related functionality into modules
+- Use clear, descriptive names for variables and functions
+- Keep functions focused on a single responsibility
+- Maintain consistent code formatting
+- Follow language-specific conventions
+
+## Testing Standards
+- Write unit tests for all new functionality
+- Maintain minimum 80% code coverage
+- Include integration tests for critical paths
+- Test edge cases and error conditions
+- Use meaningful test names and descriptions
+
+## Git Workflow
+- Use descriptive commit messages
+- Keep commits focused and atomic
+- Branch for each feature or bugfix
+- Write clear pull request descriptions
+- Review code thoroughly before merging
+
+## Communication Protocols
+- Ask clarifying questions when requirements are unclear
+- Provide progress updates for long-running tasks
+- Explain technical decisions and trade-offs
+- Request feedback on architectural choices
+- Document assumptions and constraints
+
+## Continuous Learning
+- Stay updated with language and framework best practices
+- Refactor code when patterns become outdated
+- Learn from code reviews and feedback
+- Share knowledge with team members
+- Contribute to team documentation and standards
+
+## Framework-Specific Guidelines
+
+### React/Next.js
+- Use functional components with hooks
+- Implement proper error boundaries
+- Optimize re-renders with useMemo and useCallback
+- Follow React best practices for state management
+- Use TypeScript for all components
+
+### Python/Django
+- Follow PEP 8 style guidelines
+- Use type hints for function signatures
+- Implement proper model validation
+- Use Django ORM best practices
+- Write comprehensive docstrings
+
+### Node.js/Express
+- Use async/await for asynchronous operations
+- Implement proper middleware patterns
+- Use environment variables for configuration
+- Handle errors with centralized error handling
+- Follow RESTful API conventions
+
+### Database Operations
+- Use transactions for multi-step operations
+- Implement proper indexing strategies
+- Avoid N+1 query problems
+- Use connection pooling appropriately
+- Monitor query performance
+
+## Team Collaboration
+- Follow established coding standards
+- Participate in code reviews constructively
+- Share knowledge through documentation
+- Mentor junior developers
+- Contribute to team best practices
+
+## Deployment and Operations
+- Use infrastructure as code where possible
+- Implement comprehensive logging
+- Set up proper monitoring and alerting
+- Follow blue-green deployment patterns
+- Maintain rollback capabilities
+
+---
+
+These rules are designed to ensure consistent, high-quality, secure code across all projects and team members.
