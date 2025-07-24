@@ -251,7 +251,7 @@ const Purchases = () => {
                   <p className="text-muted-foreground mb-4">
                     Browse our marketplace to find AI rules packages for your projects
                   </p>
-                  <Button onClick={() => navigate('/')}>
+                  <Button onClick={() => navigate('/categories')}>
                     Browse Products
                   </Button>
                 </div>
