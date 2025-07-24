@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, Code2, Zap, Users, Star, Sparkles, Target } from 'lucide-react';
 import { motion } from 'framer-motion';
 import heroDeveloperImage from '@/assets/hero-developer-hooded.jpg';
+import { CodingAnimation } from './CodingAnimation';
 
 export const AnimatedHero = () => {
   const scrollToSection = (id: string) => {
@@ -60,6 +61,9 @@ export const AnimatedHero = () => {
           }}
         />
       ))}
+
+      {/* Coding Animation Overlay */}
+      <CodingAnimation />
 
       <div className="container mx-auto px-4 text-center relative z-10">
         <div className="max-w-5xl mx-auto">
