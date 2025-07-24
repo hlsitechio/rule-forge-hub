@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Code2, Zap, Users, Star, Sparkles, Target } from 'lucide-react';
 import { motion } from 'framer-motion';
+import heroDeveloperImage from '@/assets/hero-developer.jpg';
 
 export const AnimatedHero = () => {
   const scrollToSection = (id: string) => {
@@ -9,7 +10,18 @@ export const AnimatedHero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-background to-accent/5">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Developer background image with fade effect */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
+        style={{
+          backgroundImage: `url(${heroDeveloperImage})`,
+        }}
+      />
+      
+      {/* Gradient overlay to create fade effect */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background/80 via-background/70 to-background/90" />
+      
       {/* Animated background elements */}
       <motion.div 
         className="absolute inset-0 opacity-30"
