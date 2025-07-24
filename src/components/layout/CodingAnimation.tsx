@@ -129,64 +129,43 @@ export const CodingAnimation = () => {
     <>
       {/* Left monitor - React/TypeScript code */}
       <motion.div 
-        className="absolute left-[8%] top-[25%] w-[25%] h-[40%] bg-gray-900/20 backdrop-blur-sm rounded-lg p-3 border border-accent/10"
+        className="absolute left-[15%] top-[30%] w-[20%] h-[35%] bg-gray-900/80 backdrop-blur-sm rounded-lg p-3 border border-accent/20"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2, duration: 1 }}
       >
-        <div className="flex items-center space-x-2 mb-2 pb-2 border-b border-accent/20">
+        <div className="flex items-center space-x-2 mb-2 pb-2 border-b border-accent/30">
           <div className="w-3 h-3 bg-red-500 rounded-full"></div>
           <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
           <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-          <span className="text-accent/60 text-xs ml-2">AIRules.tsx</span>
+          <span className="text-accent/70 text-xs ml-2">AIRules.tsx</span>
         </div>
         <TypingText 
           lines={codeSnippets} 
-          className="text-accent/80 text-[10px]" 
+          className="text-accent/90 text-[9px]" 
           delay={3000}
           speed={80}
         />
       </motion.div>
 
-      {/* Center monitor - Configuration */}
+      {/* Right monitor - Configuration */}
       <motion.div 
-        className="absolute left-[37%] top-[20%] w-[26%] h-[45%] bg-gray-900/20 backdrop-blur-sm rounded-lg p-3 border border-accent/10"
+        className="absolute right-[15%] top-[30%] w-[20%] h-[35%] bg-gray-900/80 backdrop-blur-sm rounded-lg p-3 border border-accent/20"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 3, duration: 1 }}
       >
-        <div className="flex items-center space-x-2 mb-2 pb-2 border-b border-accent/20">
+        <div className="flex items-center space-x-2 mb-2 pb-2 border-b border-accent/30">
           <div className="w-3 h-3 bg-red-500 rounded-full"></div>
           <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
           <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-          <span className="text-accent/60 text-xs ml-2">.cursorrules</span>
+          <span className="text-accent/70 text-xs ml-2">.cursorrules</span>
         </div>
         <TypingText 
           lines={codeSnippets2} 
-          className="text-green-400/80 text-[10px]" 
+          className="text-green-400/90 text-[9px]" 
           delay={4000}
           speed={60}
-        />
-      </motion.div>
-
-      {/* Right monitor - Database queries */}
-      <motion.div 
-        className="absolute right-[8%] top-[25%] w-[25%] h-[40%] bg-gray-900/20 backdrop-blur-sm rounded-lg p-3 border border-accent/10"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 4, duration: 1 }}
-      >
-        <div className="flex items-center space-x-2 mb-2 pb-2 border-b border-accent/20">
-          <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-          <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-          <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-          <span className="text-accent/60 text-xs ml-2">queries.sql</span>
-        </div>
-        <TypingText 
-          lines={codeSnippets3} 
-          className="text-blue-400/80 text-[10px]" 
-          delay={5000}
-          speed={70}
         />
       </motion.div>
     </>

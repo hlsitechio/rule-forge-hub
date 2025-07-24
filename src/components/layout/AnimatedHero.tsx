@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Code2, Zap, Users, Star, Sparkles, Target } from 'lucide-react';
 import { motion } from 'framer-motion';
-import heroDeveloperImage from '@/assets/hero-developer-hooded.jpg';
+import heroDeveloperImage from '@/assets/hero-developer-black-monitors.jpg';
 import { CodingAnimation } from './CodingAnimation';
 
 export const AnimatedHero = () => {
