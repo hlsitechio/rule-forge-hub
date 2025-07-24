@@ -41,7 +41,7 @@ export const ProductGallery = ({
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [viewMode, setViewMode] = useState<'grid' | 'carousel'>('carousel');
 
-  const categories = ['all', 'cursor', 'windsurf', 'lovable', 'bolt'];
+  const categories = ['all', 'Cursor AI', 'Windsurf AI', 'lovable', 'Bolt.new', 'Universal', 'Enterprise', 'V0 Vercel', 'Claude AI'];
 
   const filteredProducts = allProducts?.filter(product => 
     selectedCategory === 'all' || product.category === selectedCategory
@@ -192,7 +192,7 @@ export const ProductGallery = ({
                     "border-border/50 hover:bg-accent/10 hover:border-accent/30"
                   }
                 >
-                  {category.charAt(0).toUpperCase() + category.slice(1)}
+                  {category === 'all' ? 'All' : category}
                 </Button>
               </motion.div>
             ))}
