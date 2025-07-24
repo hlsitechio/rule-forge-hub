@@ -69,6 +69,8 @@ export const AnimatedHero = () => {
           playsInline
           onError={() => setVideoError(true)}
         >
+          <source src="https://i.imgur.com/okkcUbY.gifv" type="video/mp4" />
+          <source src="https://imgur.com/okkcUbY.mp4" type="video/mp4" />
           <source src="https://i.imgur.com/okkcUbY.mp4" type="video/mp4" />
         </video>
       ) : (
