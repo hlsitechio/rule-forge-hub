@@ -1,0 +1,2 @@
+-- Add Resend API key as a secret
+-- This will be handled by the secrets management system

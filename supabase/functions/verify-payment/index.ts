@@ -58,6 +58,27 @@ serve(async (req) => {
         });
       }
 
+      // Send purchase confirmation email
+      try {
+        const { data: purchase } = await supabaseService
+          .from("purchases")
+          .select("id")
+          .eq("stripe_session_id", sessionId)
+          .single();
+
+        if (purchase) {
+          await supabaseService.functions.invoke('send-email', {
+            body: {
+              type: 'purchase_confirmation',
+              purchaseId: purchase.id
+            }
+          });
+        }
+      } catch (emailError) {
+        console.error("Failed to send purchase confirmation email:", emailError);
+        // Don't fail the payment verification if email fails
+      }
+
       return new Response(
         JSON.stringify({ 
           success: true, 
