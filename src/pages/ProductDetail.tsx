@@ -215,7 +215,7 @@ const ProductDetailContent = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
           {/* Breadcrumb */}
-          <div className="mb-6">
+          <div className="mb-6 animate-fade-in">
             <Button 
               variant="ghost" 
               onClick={() => navigate('/')}
@@ -230,7 +230,8 @@ const ProductDetailContent = () => {
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-8">
               {/* Hero Product Header */}
-              <Card className="bg-gradient-to-br from-card via-card to-secondary/20 border-border overflow-hidden relative">
+              <Card className="bg-gradient-to-br from-card via-card to-secondary/20 border-border overflow-hidden relative animate-scale-in"
+                    style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
                 {/* Banner Image */}
                 <div className="relative aspect-[3/1] overflow-hidden">
                   <img 
@@ -244,23 +245,26 @@ const ProductDetailContent = () => {
                 <CardHeader className="relative z-10">
                   <div className="space-y-6">
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-4">
-                        <div className="w-16 h-16 bg-gradient-accent rounded-xl flex items-center justify-center text-3xl shadow-glow-accent">
+                      <div className="flex items-center space-x-4 animate-fade-in" style={{ animationDelay: '0.3s', animationFillMode: 'both' }}>
+                        <div className="w-16 h-16 bg-gradient-accent rounded-xl flex items-center justify-center text-3xl shadow-glow-accent animate-scale-in hover-scale"
+                             style={{ animationDelay: '0.4s', animationFillMode: 'both' }}>
                           {getCategoryIcon(product.category)}
                         </div>
-                        <div className="space-y-2">
-                          <Badge variant="secondary" className="capitalize font-semibold">
+                        <div className="space-y-2 animate-fade-in" style={{ animationDelay: '0.5s', animationFillMode: 'both' }}>
+                          <Badge variant="secondary" className="capitalize font-semibold animate-scale-in"
+                                 style={{ animationDelay: '0.6s', animationFillMode: 'both' }}>
                             {product.category} AI Rules
                           </Badge>
                           {product.is_featured && (
-                            <Badge className="bg-gradient-accent text-accent-foreground shadow-glow-accent">
+                            <Badge className="bg-gradient-accent text-accent-foreground shadow-glow-accent animate-scale-in"
+                                   style={{ animationDelay: '0.7s', animationFillMode: 'both' }}>
                               <Award className="w-3 h-3 mr-1" />
                               Premium
                             </Badge>
                           )}
                         </div>
                       </div>
-                      <div className="text-right">
+                      <div className="text-right animate-fade-in" style={{ animationDelay: '0.8s', animationFillMode: 'both' }}>
                         <div className="text-4xl font-black bg-gradient-silver bg-clip-text text-transparent">
                           ${(product.price / 100).toFixed(2)}
                         </div>
@@ -270,30 +274,34 @@ const ProductDetailContent = () => {
                       </div>
                     </div>
                     
-                    <div>
+                    <div className="animate-fade-in" style={{ animationDelay: '0.9s', animationFillMode: 'both' }}>
                       <h1 className="text-4xl font-black mb-3 bg-gradient-to-r from-foreground to-accent bg-clip-text text-transparent">
                         {product.title}
                       </h1>
-                      <p className="text-xl text-muted-foreground leading-relaxed">{product.short_description}</p>
+                      <p className="text-xl text-muted-foreground leading-relaxed animate-fade-in" 
+                         style={{ animationDelay: '1.0s', animationFillMode: 'both' }}>
+                        {product.short_description}
+                      </p>
                     </div>
 
                     {/* Key Stats */}
-                    <div className="grid grid-cols-3 gap-6 pt-4 border-t border-border/50">
-                      <div className="text-center">
+                    <div className="grid grid-cols-3 gap-6 pt-4 border-t border-border/50 animate-fade-in"
+                         style={{ animationDelay: '1.1s', animationFillMode: 'both' }}>
+                      <div className="text-center animate-scale-in hover-scale" style={{ animationDelay: '1.2s', animationFillMode: 'both' }}>
                         <div className="flex items-center justify-center mb-2">
                           <Users className="w-5 h-5 text-accent" />
                         </div>
                         <div className="font-bold text-lg">{product.downloads_count.toLocaleString()}+</div>
                         <div className="text-sm text-muted-foreground">Developers</div>
                       </div>
-                      <div className="text-center">
+                      <div className="text-center animate-scale-in hover-scale" style={{ animationDelay: '1.3s', animationFillMode: 'both' }}>
                         <div className="flex items-center justify-center mb-2">
                           <Zap className="w-5 h-5 text-accent" />
                         </div>
                         <div className="font-bold text-lg">Instant</div>
                         <div className="text-sm text-muted-foreground">Setup</div>
                       </div>
-                      <div className="text-center">
+                      <div className="text-center animate-scale-in hover-scale" style={{ animationDelay: '1.4s', animationFillMode: 'both' }}>
                         <div className="flex items-center justify-center mb-2">
                           <Shield className="w-5 h-5 text-accent" />
                         </div>
@@ -306,31 +314,31 @@ const ProductDetailContent = () => {
               </Card>
 
               {/* Value Proposition */}
-              <Card className="bg-card border-border">
+              <Card className="bg-card border-border animate-fade-in" style={{ animationDelay: '1.5s', animationFillMode: 'both' }}>
                 <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
+                  <CardTitle className="flex items-center space-x-2 animate-scale-in" style={{ animationDelay: '1.6s', animationFillMode: 'both' }}>
                     <Rocket className="w-5 h-5 text-accent" />
                     <span>What You Get</span>
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-4">
-                      <div className="flex items-start space-x-3">
+                    <div className="space-y-4 animate-fade-in" style={{ animationDelay: '1.7s', animationFillMode: 'both' }}>
+                      <div className="flex items-start space-x-3 animate-scale-in hover-scale" style={{ animationDelay: '1.8s', animationFillMode: 'both' }}>
                         <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
                         <div>
                           <h4 className="font-semibold">Production-Ready Configuration</h4>
                           <p className="text-sm text-muted-foreground">Enterprise-grade setup that eliminates guesswork</p>
                         </div>
                       </div>
-                      <div className="flex items-start space-x-3">
+                      <div className="flex items-start space-x-3 animate-scale-in hover-scale" style={{ animationDelay: '1.9s', animationFillMode: 'both' }}>
                         <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
                         <div>
                           <h4 className="font-semibold">Advanced Workflow Management</h4>
                           <p className="text-sm text-muted-foreground">Streamlined development process from start to finish</p>
                         </div>
                       </div>
-                      <div className="flex items-start space-x-3">
+                      <div className="flex items-start space-x-3 animate-scale-in hover-scale" style={{ animationDelay: '2.0s', animationFillMode: 'both' }}>
                         <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
                         <div>
                           <h4 className="font-semibold">Code Quality Enforcement</h4>
@@ -338,22 +346,22 @@ const ProductDetailContent = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="space-y-4">
-                      <div className="flex items-start space-x-3">
+                    <div className="space-y-4 animate-fade-in" style={{ animationDelay: '2.1s', animationFillMode: 'both' }}>
+                      <div className="flex items-start space-x-3 animate-scale-in hover-scale" style={{ animationDelay: '2.2s', animationFillMode: 'both' }}>
                         <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
                         <div>
                           <h4 className="font-semibold">Project-Specific Optimizations</h4>
                           <p className="text-sm text-muted-foreground">Tailored for your development stack</p>
                         </div>
                       </div>
-                      <div className="flex items-start space-x-3">
+                      <div className="flex items-start space-x-3 animate-scale-in hover-scale" style={{ animationDelay: '2.3s', animationFillMode: 'both' }}>
                         <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
                         <div>
                           <h4 className="font-semibold">Instant Team Synchronization</h4>
                           <p className="text-sm text-muted-foreground">Keep your entire team aligned and productive</p>
                         </div>
                       </div>
-                      <div className="flex items-start space-x-3">
+                      <div className="flex items-start space-x-3 animate-scale-in hover-scale" style={{ animationDelay: '2.4s', animationFillMode: 'both' }}>
                         <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
                         <div>
                           <h4 className="font-semibold">Lifetime Updates</h4>
@@ -448,7 +456,8 @@ const ProductDetailContent = () => {
             {/* Sidebar */}
             <div className="space-y-6">
               {/* Premium Purchase Card */}
-              <Card className="bg-gradient-to-br from-card via-card to-accent/5 border-accent/20 sticky top-8 shadow-glow-accent/20">
+              <Card className="bg-gradient-to-br from-card via-card to-accent/5 border-accent/20 sticky top-8 shadow-glow-accent/20 animate-scale-in"
+                    style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
                 <CardHeader className="text-center pb-4">
                   <div className="space-y-2">
                     <Badge className="bg-gradient-accent text-accent-foreground px-4 py-1">
@@ -514,7 +523,7 @@ const ProductDetailContent = () => {
                       <Button
                         onClick={handlePurchase}
                         disabled={purchaseLoading}
-                        className="w-full bg-gradient-accent text-accent-foreground hover:shadow-glow-accent transition-all duration-300 h-14 text-lg font-bold"
+                        className="w-full bg-gradient-accent text-accent-foreground hover:shadow-glow-accent transition-all duration-300 h-14 text-lg font-bold animate-pulse hover:animate-none shadow-lg shadow-accent/20 hover:shadow-accent/40 hover:scale-105"
                       >
                         {purchaseLoading ? (
                           <>
