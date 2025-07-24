@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Code2, Zap, Users, Star, Sparkles, Target } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 
 // Typewriter animation component for hero text
 export const AnimatedHero = () => {
@@ -9,9 +9,13 @@ export const AnimatedHero = () => {
   const [currentSection, setCurrentSection] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showCursor, setShowCursor] = useState(true);
+  // Enhanced video state management
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const [videoError, setVideoError] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoLoading, setVideoLoading] = useState(true);
-  const [videoAttempts, setVideoAttempts] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const loadTimeoutRef = useRef<NodeJS.Timeout>();
   
   const textSections = [
     { text: "AI Rules", className: "text-7xl md:text-9xl font-black bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent" },
@@ -54,30 +58,72 @@ export const AnimatedHero = () => {
     }
   }, [currentSection, currentIndex]);
 
-  // Video sources with reliable CDN videos
+  // Reliable video sources with multiple fallbacks
   const videoSources = [
+    { src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4', type: 'video/mp4' },
     { src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', type: 'video/mp4' },
-    { src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4', type: 'video/mp4' },
-    { src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4', type: 'video/mp4' }
+    { src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4', type: 'video/mp4' }
   ];
 
-  // Enhanced video error handling
-  const handleVideoError = (source: string) => {
-    console.log(`Video source failed: ${source}`);
-    setVideoAttempts(prev => prev + 1);
+  // Enhanced video error handling with timeout
+  const handleVideoError = useCallback(() => {
+    console.log(`Video failed to load: ${videoSources[currentVideoIndex]?.src}`);
     
-    if (videoAttempts >= videoSources.length - 1) {
-      console.log('All video sources failed, falling back to gradient');
+    // Clear any existing timeout
+    if (loadTimeoutRef.current) {
+      clearTimeout(loadTimeoutRef.current);
+    }
+    
+    if (currentVideoIndex < videoSources.length - 1) {
+      setCurrentVideoIndex(prev => prev + 1);
+      setVideoLoaded(false);
+      setVideoLoading(true);
+    } else {
+      console.log('All video sources failed, using fallback');
       setVideoError(true);
       setVideoLoading(false);
     }
-  };
+  }, [currentVideoIndex, videoSources]);
 
-  const handleVideoLoad = () => {
+  const handleVideoLoad = useCallback(() => {
     console.log('Video loaded successfully');
-    setVideoLoading(false);
+    setVideoLoaded(true);
     setVideoError(false);
-  };
+    setVideoLoading(false);
+    
+    // Clear timeout on successful load
+    if (loadTimeoutRef.current) {
+      clearTimeout(loadTimeoutRef.current);
+    }
+  }, []);
+
+  const handleVideoLoadStart = useCallback(() => {
+    setVideoLoading(true);
+    
+    // Set timeout for video loading (10 seconds)
+    loadTimeoutRef.current = setTimeout(() => {
+      console.log('Video load timeout, trying next source');
+      handleVideoError();
+    }, 10000);
+  }, [handleVideoError]);
+
+  // Reset video state when video source changes
+  useEffect(() => {
+    if (videoRef.current) {
+      setVideoLoaded(false);
+      setVideoLoading(true);
+      videoRef.current.load();
+    }
+  }, [currentVideoIndex]);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (loadTimeoutRef.current) {
+        clearTimeout(loadTimeoutRef.current);
+      }
+    };
+  }, []);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -99,9 +145,10 @@ export const AnimatedHero = () => {
         </div>
       )}
       
-      {!videoError && !videoLoading && (
+      {!videoError && videoLoaded && (
         <video
-          key={videoAttempts} // Force re-render on retry
+          ref={videoRef}
+          key={currentVideoIndex} // Force re-render on retry
           className="absolute inset-0 w-full h-full object-cover opacity-40 transition-opacity duration-500"
           autoPlay
           muted
@@ -109,17 +156,11 @@ export const AnimatedHero = () => {
           playsInline
           preload="metadata"
           onLoadedData={handleVideoLoad}
-          onError={(e) => {
-            const video = e.target as HTMLVideoElement;
-            const failedSource = video.currentSrc || videoSources[videoAttempts]?.src || 'unknown';
-            handleVideoError(failedSource);
-          }}
-          onLoadStart={() => console.log('Video loading started')}
+          onError={handleVideoError}
+          onLoadStart={handleVideoLoadStart}
           onCanPlay={() => console.log('Video can start playing')}
         >
-          {videoSources.map((source, index) => (
-            <source key={index} src={source.src} type={source.type} />
-          ))}
+          <source src={videoSources[currentVideoIndex]?.src} type={videoSources[currentVideoIndex]?.type} />
         </video>
       )}
       
