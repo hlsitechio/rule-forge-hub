@@ -21,7 +21,10 @@ import {
   TrendingUp,
   Star,
   Download,
-  Code2
+  Code2,
+  Clock,
+  ShoppingCart,
+  Zap
 } from 'lucide-react';
 
 interface Product {
@@ -50,21 +53,29 @@ const Marketplace = () => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [sortBy, setSortBy] = useState<string>('newest');
+  const [sortBy, setSortBy] = useState<string>('featured');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   
+  // Updated categories to match the reference design
   const categories = [
-    'all',
-    'Cursor AI',
-    'Windsurf AI',
-    'lovable',
-    'Bolt.new',
-    'Universal',
-    'Enterprise',
-    'V0 Vercel',
-    'Claude AI',
-    'Debugging',
-    'Framework Specific'
+    { key: 'all', name: 'All Platforms', count: 0 },
+    { key: 'Cursor AI', name: 'Cursor Rules', count: 0 },
+    { key: 'Windsurf AI', name: 'Cascade Rules', count: 0 },
+    { key: 'lovable', name: 'Agent Instructions', count: 0 },
+    { key: 'Universal', name: 'System Prompts', count: 0 },
+    { key: 'Enterprise', name: 'Enterprise Kits', count: 0 },
+    { key: 'V0 Vercel', name: 'V0 Templates', count: 0 },
+    { key: 'Claude AI', name: 'Claude Instructions', count: 0 },
+    { key: 'Debugging', name: 'Debug Recipes', count: 0 },
+    { key: 'Framework Specific', name: 'Framework Blueprints', count: 0 }
+  ];
+
+  // Platform categories for the top section
+  const platformCategories = [
+    { key: 'Cursor AI', name: 'Cursor AI', subtitle: 'Cursor Rules', icon: '⚡' },
+    { key: 'Windsurf AI', name: 'Windsurf AI', subtitle: 'Cascade Rules', icon: '🌊' },
+    { key: 'lovable', name: 'Lovable.dev', subtitle: 'Agent Instructions', icon: '💖' },
+    { key: 'Universal', name: 'Universal', subtitle: 'System Prompts', icon: '🌐' }
   ];
 
   useEffect(() => {
@@ -73,6 +84,7 @@ const Marketplace = () => {
 
   useEffect(() => {
     filterAndSortProducts();
+    updateCategoryCounts();
   }, [products, searchTerm, selectedCategory, sortBy]);
 
   const fetchProducts = async () => {
@@ -95,6 +107,16 @@ const Marketplace = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const updateCategoryCounts = () => {
+    const updatedCategories = categories.map(cat => ({
+      ...cat,
+      count: cat.key === 'all' 
+        ? products.length 
+        : products.filter(p => p.category === cat.key).length
+    }));
+    // Update the categories state if needed
   };
 
   const filterAndSortProducts = () => {
@@ -157,6 +179,15 @@ const Marketplace = () => {
     return iconMap[category] || '🤖';
   };
 
+  const getBundleType = (product: Product) => {
+    if (product.tags?.includes('bundle')) return 'BUNDLE';
+    return product.category.toUpperCase().replace(' ', ' ');
+  };
+
+  const isPremium = (product: Product) => {
+    return product.is_featured || product.price >= 2999;
+  };
+
   const getTotalProducts = () => products.length;
   const getFeaturedProducts = () => products.filter(p => p.is_featured).length;
   const getTotalDownloads = () => products.reduce((sum, p) => sum + p.downloads_count, 0);
@@ -167,37 +198,29 @@ const Marketplace = () => {
       <Header />
       
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-background via-secondary/30 to-accent/10 border-b">
-        <div className="container mx-auto px-4 py-12">
+      <div className="bg-gradient-to-br from-background via-background to-card border-b">
+        <div className="container mx-auto px-4 py-16">
           <div className="text-center space-y-6">
-            <div className="flex items-center justify-center space-x-3">
-              <Store className="h-12 w-12 text-accent" />
-              <h1 className="text-4xl font-black bg-gradient-to-r from-foreground to-accent bg-clip-text text-transparent">
-                AI Rules Marketplace
-              </h1>
-            </div>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Professional AI configuration packages to supercharge your development workflow
+            <h1 className="text-5xl font-black">
+              Complete AI <span className="text-accent">Marketplace</span>
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+              Professional System Prompts, Cursor Rules, Agent Instructions, and AI Blueprints. Industry-standard formats for Cursor AI, Windsurf, Lovable, Bolt.new, and more.
             </p>
             
-            {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto mt-8">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-accent">{getTotalProducts()}</div>
-                <div className="text-sm text-muted-foreground">Products</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-accent">{getUniqueCategories()}</div>
-                <div className="text-sm text-muted-foreground">Categories</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-accent">{getFeaturedProducts()}</div>
-                <div className="text-sm text-muted-foreground">Featured</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-accent">{getTotalDownloads().toLocaleString()}+</div>
-                <div className="text-sm text-muted-foreground">Downloads</div>
-              </div>
+            {/* Platform Categories */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mt-12">
+              {platformCategories.map((platform) => (
+                <div 
+                  key={platform.key}
+                  className="text-center space-y-2 cursor-pointer group"
+                  onClick={() => setSelectedCategory(platform.key)}
+                >
+                  <div className="text-3xl mb-2">{platform.icon}</div>
+                  <h3 className="font-bold text-lg group-hover:text-accent transition-colors">{platform.name}</h3>
+                  <p className="text-sm text-muted-foreground">{platform.subtitle}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -206,17 +229,30 @@ const Marketplace = () => {
       <div className="container mx-auto px-4 py-8">
         {/* Filters & Search */}
         <Card className="mb-8">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <Filter className="h-5 w-5" />
-              <span>Browse & Filter</span>
-            </CardTitle>
-            <CardDescription>
-              Find the perfect AI rules package for your project
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+          <CardContent className="pt-6">
+            {/* Filter Buttons */}
+            <div className="flex items-center space-x-2 mb-6">
+              <Filter className="h-4 w-4 text-muted-foreground" />
+              <span className="text-sm font-medium">Filter by:</span>
+              <div className="flex flex-wrap gap-2">
+                {categories.map((category) => (
+                  <Button
+                    key={category.key}
+                    variant={selectedCategory === category.key ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setSelectedCategory(category.key)}
+                    className="text-xs"
+                  >
+                    {category.name}
+                    <Badge variant="secondary" className="ml-2 text-xs">
+                      {category.count}
+                    </Badge>
+                  </Button>
+                ))}
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               {/* Search */}
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
@@ -228,32 +264,18 @@ const Marketplace = () => {
                 />
               </div>
               
-              {/* Category Filter */}
-              <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                <SelectTrigger>
-                  <SelectValue placeholder="All Categories" />
-                </SelectTrigger>
-                <SelectContent>
-                  {categories.map((category) => (
-                    <SelectItem key={category} value={category}>
-                      {category === 'all' ? 'All Categories' : `${getCategoryIcon(category)} ${category}`}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              
               {/* Sort */}
               <Select value={sortBy} onValueChange={setSortBy}>
                 <SelectTrigger>
                   <SelectValue placeholder="Sort by" />
                 </SelectTrigger>
                 <SelectContent>
+                  <SelectItem value="featured">Featured First</SelectItem>
                   <SelectItem value="newest">Newest First</SelectItem>
                   <SelectItem value="oldest">Oldest First</SelectItem>
                   <SelectItem value="price-low">Price: Low to High</SelectItem>
                   <SelectItem value="price-high">Price: High to Low</SelectItem>
                   <SelectItem value="popular">Most Downloaded</SelectItem>
-                  <SelectItem value="featured">Featured First</SelectItem>
                 </SelectContent>
               </Select>
               
@@ -276,12 +298,11 @@ const Marketplace = () => {
                   <List className="h-4 w-4" />
                 </Button>
               </div>
-            </div>
-            
-            {/* Results count */}
-            <div className="text-sm text-muted-foreground">
-              Showing {filteredProducts.length} of {products.length} products
-              {searchTerm && ` for "${searchTerm}"`}
+              
+              {/* Results count */}
+              <div className="text-sm text-muted-foreground flex items-center">
+                Showing {filteredProducts.length} of {products.length}
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -314,47 +335,103 @@ const Marketplace = () => {
           }>
             {filteredProducts.map((product) => (
               viewMode === 'grid' ? (
-                <Card key={product.id} className="group hover:shadow-xl transition-all duration-300 cursor-pointer border-border/50 hover:border-accent/20"
+                <Card key={product.id} className="group hover:shadow-2xl transition-all duration-300 cursor-pointer border-border bg-gradient-to-br from-card to-card/50 relative overflow-hidden"
                       onClick={() => navigate(`/product/${product.id}`)}>
-                  <CardContent className="pt-6">
-                    <div className="space-y-4">
-                      <div className="flex items-start justify-between">
-                        <div className="w-12 h-12 bg-gradient-accent rounded-lg flex items-center justify-center text-xl">
-                          {getCategoryIcon(product.category)}
+                  
+                  {/* Premium Badge */}
+                  {isPremium(product) && (
+                    <div className="absolute top-4 right-4 z-10">
+                      <Badge className="bg-gradient-accent text-accent-foreground">
+                        <Star className="h-3 w-3 mr-1" />
+                        Premium
+                      </Badge>
+                    </div>
+                  )}
+                  
+                  {/* Bundle/Category Badge */}
+                  <div className="absolute top-4 left-4 z-10">
+                    <Badge variant="outline" className="bg-background/80 backdrop-blur">
+                      {getBundleType(product)}
+                    </Badge>
+                  </div>
+                  
+                  {/* Banner Background */}
+                  <div className="h-32 bg-gradient-to-br from-accent/20 to-primary/20 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-r from-background/40 to-transparent"></div>
+                    <div className="absolute bottom-4 left-4">
+                      <div className="w-12 h-12 bg-gradient-accent rounded-lg flex items-center justify-center text-2xl">
+                        {getCategoryIcon(product.category)}
+                      </div>
+                    </div>
+                    <div className="absolute bottom-4 right-4 text-white/80 text-sm flex items-center">
+                      <Clock className="h-3 w-3 mr-1" />
+                      5 min setup
+                    </div>
+                  </div>
+                  
+                  <CardContent className="pt-6 space-y-4">
+                    <div>
+                      <h3 className="font-bold text-xl mb-2 group-hover:text-accent transition-colors line-clamp-2">
+                        {product.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
+                        {product.short_description}
+                      </p>
+                    </div>
+                    
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-1 mb-4">
+                      {product.tags?.slice(0, 3).map((tag) => (
+                        <Badge key={tag} variant="outline" className="text-xs px-2 py-1">
+                          {tag}
+                        </Badge>
+                      ))}
+                      {product.tags && product.tags.length > 3 && (
+                        <Badge variant="outline" className="text-xs px-2 py-1">
+                          +{product.tags.length - 3} more
+                        </Badge>
+                      )}
+                    </div>
+                    
+                    {/* Features */}
+                    <div className="space-y-2 text-sm">
+                      <div className="flex items-center text-accent">
+                        <Zap className="h-3 w-3 mr-2" />
+                        Instant productivity boost
+                      </div>
+                      <div className="flex items-center text-accent">
+                        <Code2 className="h-3 w-3 mr-2" />
+                        Professional-grade rules
+                      </div>
+                    </div>
+                    
+                    {/* Price and CTA */}
+                    <div className="pt-4 border-t border-border/50">
+                      <div className="flex items-center justify-between mb-3">
+                        <div>
+                          <div className="text-2xl font-bold text-accent">
+                            ${(product.price / 100).toFixed(2)}
+                          </div>
+                          <div className="text-xs text-muted-foreground">One-time purchase</div>
                         </div>
-                        <div className="text-right">
-                          <div className="text-lg font-bold">${(product.price / 100).toFixed(2)}</div>
-                          <div className="flex items-center text-xs text-muted-foreground">
-                            <Code2 className="h-3 w-3 mr-1" />
-                            {product.product_code}
+                        <div className="text-right text-xs text-muted-foreground">
+                          <div className="flex items-center">
+                            <Download className="h-3 w-3 mr-1" />
+                            {product.downloads_count}
                           </div>
                         </div>
                       </div>
                       
-                      <div>
-                        <h3 className="font-semibold text-lg mb-2 group-hover:text-accent transition-colors">{product.title}</h3>
-                        <p className="text-sm text-muted-foreground line-clamp-2">{product.short_description}</p>
-                      </div>
-                      
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center text-sm text-muted-foreground">
-                          <Download className="h-4 w-4 mr-1" />
-                          {product.downloads_count.toLocaleString()}
-                        </div>
-                        {product.is_featured && (
-                          <Badge className="bg-gradient-accent">
-                            <Star className="h-3 w-3 mr-1" />
-                            Featured
-                          </Badge>
-                        )}
-                      </div>
-                      
-                      <div className="flex flex-wrap gap-1">
-                        <Badge variant="outline" className="text-xs">{product.category}</Badge>
-                        {product.tags?.slice(0, 2).map((tag) => (
-                          <Badge key={tag} variant="outline" className="text-xs">{tag}</Badge>
-                        ))}
-                      </div>
+                      <Button 
+                        className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigate(`/product/${product.id}`);
+                        }}
+                      >
+                        <ShoppingCart className="h-4 w-4 mr-2" />
+                        Get Now
+                      </Button>
                     </div>
                   </CardContent>
                 </Card>
