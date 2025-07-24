@@ -523,7 +523,7 @@ const ProductDetailContent = () => {
                       <Button
                         onClick={handlePurchase}
                         disabled={purchaseLoading}
-                        className="w-full bg-gradient-accent text-accent-foreground hover:shadow-glow-accent transition-all duration-300 h-14 text-lg font-bold animate-pulse hover:animate-none shadow-lg shadow-accent/20 hover:shadow-accent/40 hover:scale-105"
+                        className="w-full bg-gradient-accent text-accent-foreground transition-all duration-300 h-14 text-lg font-bold shadow-lg shadow-accent/30 hover:shadow-xl hover:shadow-accent/50 hover:scale-105 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/10 before:to-transparent before:translate-x-[-100%] before:animate-[shimmer_2s_infinite] before:skew-x-12"
                       >
                         {purchaseLoading ? (
                           <>
