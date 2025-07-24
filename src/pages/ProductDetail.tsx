@@ -18,6 +18,12 @@ import cursorBanner from '@/assets/cursor-small-banner.jpg';
 import boltBanner from '@/assets/bolt-small-banner.jpg';
 import windsurfBanner from '@/assets/windsurf-small-banner.jpg';
 import lovableBanner from '@/assets/lovable-small-banner.jpg';
+import universalBanner from '@/assets/universal-banner.jpg';
+import enterpriseBanner from '@/assets/enterprise-banner.jpg';
+import v0Banner from '@/assets/v0-banner.jpg';
+import claudeBanner from '@/assets/claude-banner.jpg';
+import debuggingBanner from '@/assets/debugging-banner.jpg';
+import frameworkBanner from '@/assets/framework-banner.jpg';
 
 const ProductDetailContent = () => {
   const { id } = useParams();
@@ -123,20 +129,40 @@ const ProductDetailContent = () => {
 
   const getCategoryIcon = (category: string) => {
     const iconMap: Record<string, string> = {
-      cursor: '⚡',
-      windsurf: '🌊',
-      lovable: '💖',
-      bolt: '⚡',
+      'Cursor AI': '⚡',
+      'Windsurf AI': '🌊',
+      'lovable': '💖',
+      'Bolt.new': '⚡',
+      'Universal': '🌐',
+      'Enterprise': '🏢',
+      'V0 Vercel': '▲',
+      'Claude AI': '🧠',
+      'Debugging': '🐛',
+      'Framework Specific': '⚛️',
+      // Fallback for lowercase versions
+      'cursor': '⚡',
+      'windsurf': '🌊',
+      'bolt': '⚡',
     };
     return iconMap[category] || '🤖';
   };
 
   const getCategoryBanner = (category: string) => {
     const bannerMap: Record<string, string> = {
-      cursor: cursorBanner,
-      windsurf: windsurfBanner,
-      lovable: lovableBanner,
-      bolt: boltBanner,
+      'Cursor AI': cursorBanner,
+      'Windsurf AI': windsurfBanner,
+      'lovable': lovableBanner,
+      'Bolt.new': boltBanner,
+      'Universal': universalBanner,
+      'Enterprise': enterpriseBanner,
+      'V0 Vercel': v0Banner,
+      'Claude AI': claudeBanner,
+      'Debugging': debuggingBanner,
+      'Framework Specific': frameworkBanner,
+      // Fallback for lowercase versions
+      'cursor': cursorBanner,
+      'windsurf': windsurfBanner,
+      'bolt': boltBanner,
     };
     return bannerMap[category] || cursorBanner;
   };
