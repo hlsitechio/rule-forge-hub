@@ -113,10 +113,11 @@ export const AnimatedHero = () => {
             y: 0
           }} transition={{
             duration: 0.8
-          }} className="inline-flex items-center space-x-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-2 mb-8">
-              <Sparkles className="w-4 h-4 text-accent" />
-              <span className="text-sm font-medium text-accent">Premium AI Rules & Templates</span>
+          }} className="inline-flex items-center space-x-2 bg-gradient-to-r from-green-500/10 to-accent/10 border border-green-500/30 rounded-full px-6 py-3 mb-8">
+              <Sparkles className="w-4 h-4 text-green-500" />
+              <span className="text-sm font-bold text-green-600">52% Off Bundle Deal</span>
               <Star className="w-4 h-4 text-accent fill-current" />
+              <span className="text-sm font-medium text-accent">• Premium AI Rules & Templates</span>
             </motion.div>
 
             {/* Simple Hero Text */}
@@ -171,10 +172,23 @@ export const AnimatedHero = () => {
                 delay: 0.7
               }}>
                   <span className="text-muted-foreground">
-                    Transform your development workflow with professional-grade AI rules for{' '}
+                    Professional-grade AI rules that outperform{' '}
                   </span>
-                  <span className="text-accent font-semibold">
-                    Cursor, Windsurf, Lovable, and Bolt.new.
+                  <span className="text-red-400 font-semibold line-through">
+                    PromptBase
+                  </span>
+                  <span className="text-muted-foreground">
+                    {' '}and{' '}
+                  </span>
+                  <span className="text-red-400 font-semibold line-through">
+                    free GitHub
+                  </span>
+                  <span className="text-muted-foreground">
+                    {' '}alternatives.
+                  </span>
+                  <br />
+                  <span className="text-accent font-bold">
+                    Enterprise-tested for Cursor, Windsurf & more.
                   </span>
                 </motion.p>
               </motion.div>
@@ -221,8 +235,8 @@ export const AnimatedHero = () => {
               </motion.div>
             </motion.div>
 
-            {/* Animated Stats */}
-            <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto" initial={{
+            {/* Competitive Stats */}
+            <motion.div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-4xl mx-auto" initial={{
             opacity: 0,
             y: 30
           }} animate={{
@@ -234,19 +248,28 @@ export const AnimatedHero = () => {
           }}>
               {[{
               icon: Code2,
-              number: '500+',
-              label: 'AI Rules',
-              color: 'accent'
+              number: '15+',
+              label: 'Pro Rule Sets',
+              color: 'accent',
+              highlight: 'vs 0 specialized'
             }, {
               icon: Zap,
-              number: '10k+',
-              label: 'Downloads',
-              color: 'primary'
+              number: '52%',
+              label: 'Bundle Savings',
+              color: 'primary',
+              highlight: 'vs individual'
             }, {
               icon: Users,
               number: '2k+',
-              label: 'Developers',
-              color: 'secondary'
+              label: 'Happy Devs',
+              color: 'secondary',
+              highlight: 'Fortune 500'
+            }, {
+              icon: Star,
+              number: '4.9',
+              label: 'Rating',
+              color: 'accent',
+              highlight: '500+ reviews'
             }].map((stat, index) => <motion.div key={stat.label} className="text-center group" initial={{
               opacity: 0,
               y: 20
@@ -255,11 +278,11 @@ export const AnimatedHero = () => {
               y: 0
             }} transition={{
               duration: 0.6,
-              delay: 1.3 + index * 0.2
+              delay: 1.3 + index * 0.1
             }} whileHover={{
               y: -5
             }}>
-                  <motion.div className="text-3xl font-black text-foreground mb-4" initial={{
+                  <motion.div className="text-3xl font-black text-foreground mb-2" initial={{
                 scale: 0
               }} animate={{
                 scale: 1
@@ -270,13 +293,14 @@ export const AnimatedHero = () => {
               }}>
                     {stat.number}
                   </motion.div>
-                  <motion.div className={`flex items-center justify-center w-16 h-16 bg-gradient-${stat.color} rounded-2xl mx-auto mb-4 shadow-glow-${stat.color}/20 group-hover:shadow-glow-${stat.color}/40 transition-all duration-300`} whileHover={{
+                  <motion.div className={`flex items-center justify-center w-12 h-12 bg-gradient-${stat.color} rounded-xl mx-auto mb-3 shadow-glow-${stat.color}/20 group-hover:shadow-glow-${stat.color}/40 transition-all duration-300`} whileHover={{
                 rotate: 5,
                 scale: 1.1
               }}>
-                    <stat.icon className="w-8 h-8 text-accent-foreground" />
+                    <stat.icon className="w-6 h-6 text-accent-foreground" />
                   </motion.div>
-                  <div className="text-sm text-muted-foreground font-medium">{stat.label}</div>
+                  <div className="text-sm text-muted-foreground font-medium mb-1">{stat.label}</div>
+                  <div className="text-xs text-accent font-medium">{stat.highlight}</div>
                 </motion.div>)}
             </motion.div>
 

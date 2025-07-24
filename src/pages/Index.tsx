@@ -3,6 +3,9 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { AnimatedHero } from '@/components/layout/AnimatedHero';
 import { FeaturesSection } from '@/components/sections/FeaturesSection';
+import { CompetitiveAdvantagesSection } from '@/components/sections/CompetitiveAdvantagesSection';
+import { PricingComparisonSection } from '@/components/sections/PricingComparisonSection';
+import { SocialProofSection } from '@/components/sections/SocialProofSection';
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
 import { CTASection } from '@/components/sections/CTASection';
 import { ProductGallery } from '@/components/product/ProductGallery';
@@ -81,8 +84,11 @@ const Index = () => {
       <div className="min-h-screen bg-background">
         <Header />
         <AnimatedHero />
+        <SocialProofSection />
         <ProductsSection />
         <FeaturesSection />
+        <CompetitiveAdvantagesSection />
+        <PricingComparisonSection />
         <TestimonialsSection />
         <CTASection />
         <Footer />
