@@ -82,13 +82,13 @@ const Index = () => {
         <Header />
         <AnimatedHero />
         <ProductsSection />
-      <FeaturesSection />
-      <TestimonialsSection />
-      <CTASection />
-      <Footer />
-    </div>
-  </AuthProvider>
-);
+        <FeaturesSection />
+        <TestimonialsSection />
+        <CTASection />
+        <Footer />
+      </div>
+    </AuthProvider>
+  );
 };
 
 export default Index;
