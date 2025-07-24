@@ -3,61 +3,15 @@ import { ArrowRight, Code2, Zap, Users, Star, Sparkles, Target } from 'lucide-re
 import { motion } from 'framer-motion';
 import { useEffect, useState, useRef, useCallback } from 'react';
 
-// Clean minimal hero without backgrounds
+// Clean minimal hero without complex animations
 export const AnimatedHero = () => {
-  const [displayedText, setDisplayedText] = useState('');
-  const [currentSection, setCurrentSection] = useState(0);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [showCursor, setShowCursor] = useState(true);
-  
   // Video state management
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const [videoError, setVideoError] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoLoading, setVideoLoading] = useState(true);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const videoRef = useRef<HTMLVideoElement>();
   const loadTimeoutRef = useRef<NodeJS.Timeout>();
-  
-  const textSections = [
-    { text: "AI Rules", className: "text-7xl md:text-9xl font-black bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent" },
-    { text: "Marketplace", className: "text-7xl md:text-9xl font-black text-foreground" },
-    { text: "Transform your development workflow with professional-grade AI rules for ", className: "text-2xl md:text-3xl text-muted-foreground" },
-    { text: "Cursor, ", className: "text-2xl md:text-3xl text-accent font-semibold" },
-    { text: "Windsurf, ", className: "text-2xl md:text-3xl text-accent font-semibold" },
-    { text: "Lovable, ", className: "text-2xl md:text-3xl text-accent font-semibold" },
-    { text: "and Bolt.new.", className: "text-2xl md:text-3xl text-accent font-semibold" }
-  ];
-  
-  useEffect(() => {
-    if (currentSection < textSections.length) {
-      const currentText = textSections[currentSection].text;
-      if (currentIndex < currentText.length) {
-        const timer = setTimeout(() => {
-          setDisplayedText(prev => prev + currentText[currentIndex]);
-          setCurrentIndex(prev => prev + 1);
-        }, currentSection < 2 ? 80 : 30); // Faster typing for both titles and description
-        return () => clearTimeout(timer);
-      } else {
-        // Move to next section after a pause
-        setTimeout(() => {
-          setCurrentSection(prev => prev + 1);
-          setCurrentIndex(0);
-          if (currentSection === 0 || currentSection === 1) {
-            setDisplayedText(prev => prev + '\n');
-          }
-          if (currentSection === 1) {
-            setDisplayedText(prev => prev + '\n');
-          }
-        }, currentSection < 2 ? 600 : 150);
-      }
-    } else {
-      // Blink cursor after text is complete
-      const cursorTimer = setInterval(() => {
-        setShowCursor(prev => !prev);
-      }, 500);
-      return () => clearInterval(cursorTimer);
-    }
-  }, [currentSection, currentIndex]);
 
   // Imgur video source
   const videoSources = [
@@ -131,7 +85,7 @@ export const AnimatedHero = () => {
 
   return (
     <>
-      {/* TEMPORARY VIDEO TEST SECTION - Now becoming the main hero */}
+      {/* Main Hero Section */}
       <section className="relative min-h-screen bg-black flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <video
@@ -176,108 +130,48 @@ export const AnimatedHero = () => {
               <Star className="w-4 h-4 text-accent fill-current" />
             </motion.div>
 
-            {/* Enhanced Typewriter Hero Text */}
+            {/* Simple Hero Text */}
             <div className="text-center max-w-5xl mx-auto mb-12">
               <motion.div 
-                className="min-h-[500px] flex flex-col justify-center"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1 }}
+                className="space-y-6"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
               >
-                <div className="space-y-6">
-                  {/* Title sections */}
-                  <div className="space-y-4">
-                    {textSections.slice(0, 2).map((section, index) => {
-                      const sectionStart = textSections.slice(0, index).reduce((acc, s) => acc + s.text.length + (index > 0 ? 1 : 0), 0);
-                      const sectionEnd = sectionStart + section.text.length;
-                      const visibleText = displayedText.slice(sectionStart, sectionEnd);
-                      
-                      return (
-                        <motion.h1
-                          key={index}
-                          className="leading-tight"
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ 
-                            opacity: visibleText.length > 0 ? 1 : 0,
-                            y: visibleText.length > 0 ? 0 : 20
-                          }}
-                          transition={{ duration: 0.5, type: "spring", bounce: 0.3 }}
-                        >
-                          <span className={section.className}>
-                            {visibleText.split('').map((char, charIndex) => (
-                              <motion.span
-                                key={charIndex}
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ 
-                                  duration: 0.05,
-                                  delay: charIndex * 0.02
-                                }}
-                              >
-                                {char}
-                              </motion.span>
-                            ))}
-                            {currentSection === index && showCursor && (
-                              <motion.span
-                                className="inline-block w-1 h-12 md:h-16 bg-accent ml-1"
-                                animate={{ opacity: [1, 0, 1], scaleY: [1, 1.1, 1] }}
-                                transition={{ duration: 0.8, repeat: Infinity }}
-                              />
-                            )}
-                          </span>
-                        </motion.h1>
-                      );
-                    })}
-                  </div>
-                  
-                  {/* Description sections */}
-                  <div className="pt-4">
-                    <motion.p
-                      className="leading-relaxed"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ 
-                        opacity: currentSection >= 2 ? 1 : 0,
-                        y: currentSection >= 2 ? 0 : 20
-                      }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      {textSections.slice(2).map((section, index) => {
-                        const actualIndex = index + 2;
-                        const sectionStart = textSections.slice(0, actualIndex).reduce((acc, s) => acc + s.text.length + (actualIndex > 1 ? 2 : actualIndex > 0 ? 1 : 0), 0);
-                        const sectionEnd = sectionStart + section.text.length;
-                        const visibleText = displayedText.slice(sectionStart, sectionEnd);
-                        
-                        return (
-                          <span
-                            key={actualIndex}
-                            className={section.className}
-                          >
-                            {visibleText.split('').map((char, charIndex) => (
-                              <motion.span
-                                key={charIndex}
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ 
-                                  duration: 0.05,
-                                  delay: charIndex * 0.02
-                                }}
-                              >
-                                {char}
-                              </motion.span>
-                            ))}
-                            {currentSection === actualIndex && showCursor && (
-                              <motion.span
-                                className="inline-block w-0.5 h-6 md:h-8 bg-accent ml-1"
-                                animate={{ opacity: [1, 0, 1] }}
-                                transition={{ duration: 0.8, repeat: Infinity }}
-                              />
-                            )}
-                          </span>
-                        );
-                      })}
-                    </motion.p>
-                  </div>
+                {/* Title */}
+                <div className="space-y-4">
+                  <motion.h1
+                    className="leading-tight text-7xl md:text-9xl font-black bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.3 }}
+                  >
+                    AI Rules
+                  </motion.h1>
+                  <motion.h1
+                    className="leading-tight text-7xl md:text-9xl font-black text-foreground"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.5 }}
+                  >
+                    Marketplace
+                  </motion.h1>
                 </div>
+                
+                {/* Description */}
+                <motion.p
+                  className="leading-relaxed pt-4 text-2xl md:text-3xl"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.7 }}
+                >
+                  <span className="text-muted-foreground">
+                    Transform your development workflow with professional-grade AI rules for{' '}
+                  </span>
+                  <span className="text-accent font-semibold">
+                    Cursor, Windsurf, Lovable, and Bolt.new.
+                  </span>
+                </motion.p>
               </motion.div>
             </div>
 
@@ -286,7 +180,7 @@ export const AnimatedHero = () => {
               className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
+              transition={{ duration: 0.8, delay: 0.9 }}
             >
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Button 
@@ -323,7 +217,7 @@ export const AnimatedHero = () => {
               className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
+              transition={{ duration: 0.8, delay: 1.1 }}
             >
               {[
                 { icon: Code2, number: '500+', label: 'AI Rules', color: 'accent' },
@@ -335,14 +229,14 @@ export const AnimatedHero = () => {
                   className="text-center group"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 1 + index * 0.2 }}
+                  transition={{ duration: 0.6, delay: 1.3 + index * 0.2 }}
                   whileHover={{ y: -5 }}
                 >
                   <motion.div 
                     className="text-3xl font-black text-foreground mb-4"
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
-                    transition={{ duration: 0.5, delay: 1.2 + index * 0.1, type: "spring" }}
+                    transition={{ duration: 0.5, delay: 1.5 + index * 0.1, type: "spring" }}
                   >
                     {stat.number}
                   </motion.div>
