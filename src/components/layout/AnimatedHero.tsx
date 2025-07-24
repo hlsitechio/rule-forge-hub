@@ -1,7 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Code2, Zap, Users, Star, Sparkles, Target } from 'lucide-react';
 import { motion } from 'framer-motion';
-// Video will be loaded directly in component
 import { useEffect, useState } from 'react';
 
 // Typewriter animation component for hero text
@@ -10,6 +9,7 @@ export const AnimatedHero = () => {
   const [currentSection, setCurrentSection] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showCursor, setShowCursor] = useState(true);
+  const [videoError, setVideoError] = useState(false);
   
   const textSections = [
     { text: "AI Rules", className: "text-7xl md:text-9xl font-black bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent" },
@@ -60,17 +60,20 @@ export const AnimatedHero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background video with reduced fade effect */}
-      <video
-        className="absolute inset-0 w-full h-full object-cover opacity-40"
-        autoPlay
-        muted
-        loop
-        playsInline
-      >
-        <source src="https://i.imgur.com/okkcUbY.mp4" type="video/mp4" />
-        {/* Fallback for when video doesn't load */}
-        <div className="absolute inset-0 bg-gradient-to-br from-background/80 to-background/60" />
-      </video>
+      {!videoError ? (
+        <video
+          className="absolute inset-0 w-full h-full object-cover opacity-40"
+          autoPlay
+          muted
+          loop
+          playsInline
+          onError={() => setVideoError(true)}
+        >
+          <source src="https://i.imgur.com/okkcUbY.mp4" type="video/mp4" />
+        </video>
+      ) : (
+        <div className="absolute inset-0 bg-gradient-to-br from-background/40 via-primary/10 to-accent/10" />
+      )}
       
       {/* Lighter gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-background/60 via-background/50 to-background/70" />
