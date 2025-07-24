@@ -100,7 +100,7 @@ export const MobileNav = () => {
                   <Button
                     variant="ghost"
                     className="w-full justify-start text-left"
-                    onClick={() => handleNavigation('/dashboard')}
+                    onClick={() => handleNavigation('/purchases')}
                   >
                     <ShoppingBag className="mr-3 h-4 w-4" />
                     My Purchases

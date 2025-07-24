@@ -59,7 +59,7 @@ export const Footer = () => {
             <h4 className="font-semibold text-foreground">Account</h4>
             <nav className="space-y-2">
               <Link 
-                to="/dashboard" 
+                to="/purchases" 
                 className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 My Purchases
