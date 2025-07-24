@@ -140,7 +140,7 @@ export const AnimatedHero = () => {
                     const visibleText = displayedText.slice(sectionStart, sectionEnd);
                     
                     return (
-                      <motion.div
+                      <motion.h1
                         key={index}
                         className="leading-tight"
                         initial={{ opacity: 0, y: 20 }}
@@ -172,14 +172,14 @@ export const AnimatedHero = () => {
                             />
                           )}
                         </span>
-                      </motion.div>
+                      </motion.h1>
                     );
                   })}
                 </div>
                 
                 {/* Description sections */}
                 <div className="pt-4">
-                  <motion.div
+                  <motion.p
                     className="leading-relaxed"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ 
@@ -222,7 +222,7 @@ export const AnimatedHero = () => {
                         </span>
                       );
                     })}
-                  </motion.div>
+                  </motion.p>
                 </div>
               </div>
             </motion.div>
