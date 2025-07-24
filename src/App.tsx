@@ -8,6 +8,8 @@ import Dashboard from "./pages/Dashboard";
 import ProductDetail from "./pages/ProductDetail";
 import PurchaseSuccess from "./pages/PurchaseSuccess";
 import Profile from "./pages/Profile";
+import Categories from "./pages/Categories";
+import Support from "./pages/Support";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 import Cookies from "./pages/Cookies";
@@ -27,6 +29,8 @@ const App = () => (
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/purchase-success" element={<PurchaseSuccess />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/categories" element={<Categories />} />
+          <Route path="/support" element={<Support />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/cookies" element={<Cookies />} />
