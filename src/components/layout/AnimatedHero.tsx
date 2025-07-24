@@ -54,11 +54,11 @@ export const AnimatedHero = () => {
     }
   }, [currentSection, currentIndex]);
 
-  // Video sources with multiple formats for cross-browser compatibility
+  // Updated video sources with your Imgur video
   const videoSources = [
-    { src: 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', type: 'video/mp4' },
-    { src: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4', type: 'video/mp4' },
-    { src: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4', type: 'video/mp4' }
+    { src: 'https://i.imgur.com/818NnMp.mp4', type: 'video/mp4' },
+    { src: 'https://imgur.com/818NnMp.mp4', type: 'video/mp4' },
+    { src: 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', type: 'video/mp4' }
   ];
 
   // Enhanced video error handling
