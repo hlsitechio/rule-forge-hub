@@ -37,23 +37,42 @@ export const CompleteCollectionSection = ({
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [viewMode, setViewMode] = useState<'grid' | 'carousel'>('carousel');
 
+  // Platform-specific categories with proper terminology
   const categories = [
-    'all', 
-    'Cursor AI', 
-    'Windsurf AI', 
-    'lovable', 
-    'Bolt.new', 
-    'Universal', 
-    'Enterprise', 
-    'V0 Vercel', 
-    'Claude AI',
-    'Debugging',
-    'Framework Specific'
+    { key: 'all', label: 'All Platforms', description: 'Complete collection' },
+    { key: 'Cursor AI', label: 'Cursor Rules', description: 'Rules for .cursor/rules' },
+    { key: 'Windsurf AI', label: 'Cascade Rules', description: 'AI Flows & Instructions' },
+    { key: 'lovable', label: 'Agent Instructions', description: 'System instructions for Lovable' },
+    { key: 'Bolt.new', label: 'Prompt Instructions', description: 'Persistent prompts' },
+    { key: 'Universal', label: 'System Prompts', description: 'Cross-platform instructions' },
+    { key: 'Enterprise', label: 'Enterprise Kits', description: 'Professional setups' },
+    { key: 'V0 Vercel', label: 'V0 Templates', description: 'Vercel V0 presets' },
+    { key: 'Claude AI', label: 'Claude Instructions', description: 'Anthropic Claude prompts' },
+    { key: 'Debugging', label: 'Debug Recipes', description: 'Problem-solving scripts' },
+    { key: 'Framework Specific', label: 'Framework Blueprints', description: 'Tech-specific guides' }
   ];
+
+  // Helper function to get proper terminology for each platform
+  const getPlatformTerminology = (category: string) => {
+    const platformTerms: Record<string, string> = {
+      'Cursor AI': 'Cursor Rules',
+      'Windsurf AI': 'Cascade Rules & AI Flows',
+      'lovable': 'Agent Instructions',
+      'Bolt.new': 'Prompt Instructions',
+      'Claude AI': 'System Instructions',
+      'Universal': 'System Prompts',
+      'Enterprise': 'Enterprise AI Kits',
+      'Debugging': 'Debug Recipes',
+      'Framework Specific': 'Framework Blueprints'
+    };
+    return platformTerms[category] || 'AI Instructions';
+  };
 
   const filteredProducts = products?.filter(product => 
     selectedCategory === 'all' || product.category === selectedCategory
   ) || [];
+
+  const selectedCategoryInfo = categories.find(cat => cat.key === selectedCategory) || categories[0];
 
   if (!products || products.length === 0) return null;
 
@@ -66,18 +85,67 @@ export const CompleteCollectionSection = ({
       className="space-y-8"
     >
       {/* Section Header */}
-      <div className="text-center space-y-4">
-        <h2 className="text-4xl md:text-6xl font-black">
-          <span className="text-foreground">Complete</span>{' '}
-          <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">
-            Collection
-          </span>
-        </h2>
-        
-        <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-          Browse our complete collection of AI rules for every platform. 
-          Find the perfect setup for your development workflow.
-        </p>
+      <div className="text-center space-y-6">
+        <div className="space-y-4">
+          <h2 className="text-4xl md:text-6xl font-black">
+            <span className="text-foreground">Complete AI</span>{' '}
+            <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">
+              Marketplace
+            </span>
+          </h2>
+          
+          <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+            Professional System Prompts, Cursor Rules, Agent Instructions, and AI Blueprints. 
+            Industry-standard formats for Cursor AI, Windsurf, Lovable, Bolt.new, and more.
+          </p>
+        </div>
+
+        {/* Platform Terminology Guide */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="bg-card/30 border border-border/50 rounded-2xl p-6 max-w-5xl mx-auto"
+        >
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+            <div className="text-center space-y-1">
+              <div className="font-semibold text-foreground">Cursor AI</div>
+              <div className="text-muted-foreground">Cursor Rules</div>
+            </div>
+            <div className="text-center space-y-1">
+              <div className="font-semibold text-foreground">Windsurf AI</div>
+              <div className="text-muted-foreground">Cascade Rules</div>
+            </div>
+            <div className="text-center space-y-1">
+              <div className="font-semibold text-foreground">Lovable.dev</div>
+              <div className="text-muted-foreground">Agent Instructions</div>
+            </div>
+            <div className="text-center space-y-1">
+              <div className="font-semibold text-foreground">Universal</div>
+              <div className="text-muted-foreground">System Prompts</div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Active Filter Description */}
+        {selectedCategory !== 'all' && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
+            className="bg-accent/5 border border-accent/20 rounded-xl p-4 max-w-2xl mx-auto"
+          >
+            <div className="text-center">
+              <h3 className="font-semibold text-accent text-lg">
+                {selectedCategoryInfo.label}
+              </h3>
+              <p className="text-muted-foreground text-sm mt-1">
+                {selectedCategoryInfo.description} • {filteredProducts.length} available
+              </p>
+            </div>
+          </motion.div>
+        )}
       </div>
 
       {/* Filters and View Controls */}
@@ -94,29 +162,46 @@ export const CompleteCollectionSection = ({
             <Filter className="w-4 h-4" />
             <span>Filter by:</span>
           </div>
-          {categories.map((category, index) => (
-            <motion.div
-              key={category}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.05 }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Button
-                variant={selectedCategory === category ? "default" : "outline"}
-                size="sm"
-                onClick={() => setSelectedCategory(category)}
-                className={selectedCategory === category ? 
-                  "bg-gradient-accent text-accent-foreground shadow-glow-accent/30" : 
-                  "border-border/50 hover:bg-accent/10 hover:border-accent/30"
-                }
+          {categories.map((category, index) => {
+            const isActive = selectedCategory === category.key;
+            const productCount = category.key === 'all' 
+              ? products.length 
+              : products.filter(p => p.category === category.key).length;
+            
+            return (
+              <motion.div
+                key={category.key}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.05 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                {category === 'all' ? 'All' : category}
-              </Button>
-            </motion.div>
-          ))}
+                <Button
+                  variant={isActive ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setSelectedCategory(category.key)}
+                  className={`${
+                    isActive ? 
+                      "bg-gradient-accent text-accent-foreground shadow-glow-accent/30" : 
+                      "border-border/50 hover:bg-accent/10 hover:border-accent/30"
+                  } relative`}
+                >
+                  <span>{category.label}</span>
+                  {productCount > 0 && (
+                    <span className={`ml-2 text-xs px-1.5 py-0.5 rounded-full ${
+                      isActive 
+                        ? "bg-accent-foreground/20 text-accent-foreground" 
+                        : "bg-muted text-muted-foreground"
+                    }`}>
+                      {productCount}
+                    </span>
+                  )}
+                </Button>
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* View Mode Toggle */}

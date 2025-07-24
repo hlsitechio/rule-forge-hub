@@ -53,19 +53,19 @@ export const FeaturedProductsSection = ({
           className="inline-flex items-center space-x-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-2"
         >
           <Star className="w-4 h-4 text-accent fill-current" />
-          <span className="text-sm font-medium text-accent">Premium Collection</span>
+          <span className="text-sm font-medium text-accent">Premium AI Blueprints</span>
           <Sparkles className="w-4 h-4 text-accent" />
         </motion.div>
 
         <h2 className="text-4xl md:text-6xl font-black">
           <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">
-            Featured AI Rules
+            Featured AI Playbooks
           </span>
         </h2>
         
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-          Hand-picked premium configurations from top developers. 
-          Start with these battle-tested setups.
+          Hand-picked System Prompts, Cursor Rules, and Agent Instructions from top developers. 
+          Professional-grade blueprints for Cursor AI, Windsurf, Lovable, and more.
         </p>
       </div>
 
