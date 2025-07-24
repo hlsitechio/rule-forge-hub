@@ -130,6 +130,35 @@ export const AnimatedHero = () => {
   };
 
   return (
+    <>
+      {/* TEMPORARY VIDEO TEST SECTION */}
+      <section className="relative h-96 bg-black flex items-center justify-center overflow-hidden border-4 border-red-500">
+        <div className="absolute inset-0">
+          <video
+            className="w-full h-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+            onLoadStart={() => console.log('Test video: Load started')}
+            onLoadedData={() => console.log('Test video: Data loaded')}
+            onCanPlay={() => console.log('Test video: Can play')}
+            onError={(e) => {
+              console.error('Test video error:', e);
+              const video = e.target as HTMLVideoElement;
+              console.error('Failed src:', video.currentSrc);
+            }}
+          >
+            <source src="https://i.imgur.com/818NnMp.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div className="relative z-10 text-white text-center">
+          <h2 className="text-2xl font-bold">VIDEO TEST SECTION</h2>
+          <p>Check console for video loading logs</p>
+        </div>
+      </section>
+      {/* END TEMPORARY SECTION */}
+
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Loading State */}
       {videoLoading && (
@@ -434,6 +463,7 @@ export const AnimatedHero = () => {
           />
         </div>
       </motion.div>
-    </section>
+     </section>
+    </>
   );
 };
