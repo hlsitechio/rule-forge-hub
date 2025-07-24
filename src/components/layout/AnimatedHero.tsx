@@ -1,20 +1,14 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Code2, Zap, Users, Star, Sparkles, Target } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 
-// Typewriter animation component for hero text
+// Clean minimal hero without backgrounds
 export const AnimatedHero = () => {
   const [displayedText, setDisplayedText] = useState('');
   const [currentSection, setCurrentSection] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showCursor, setShowCursor] = useState(true);
-  
-  // Enhanced image state management
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [imageError, setImageError] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const [imageLoading, setImageLoading] = useState(true);
   
   const textSections = [
     { text: "AI Rules", className: "text-7xl md:text-9xl font-black bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent" },
@@ -57,136 +51,13 @@ export const AnimatedHero = () => {
     }
   }, [currentSection, currentIndex]);
 
-  // Developer-themed background images
-  const backgroundImages = [
-    '/src/assets/hero-developer-hooded.jpg',
-    '/src/assets/hero-developer-black-monitors.jpg',
-    '/src/assets/hero-developer.jpg'
-  ];
-
-  // Enhanced image error handling with automatic retry
-  const handleImageError = useCallback(() => {
-    console.log(`Image failed to load: ${backgroundImages[currentImageIndex]}`);
-    
-    if (currentImageIndex < backgroundImages.length - 1) {
-      setCurrentImageIndex(prev => prev + 1);
-      setImageLoaded(false);
-      setImageLoading(true);
-    } else {
-      console.log('All image sources failed, using fallback');
-      setImageError(true);
-      setImageLoading(false);
-    }
-  }, [currentImageIndex, backgroundImages]);
-
-  const handleImageLoad = useCallback(() => {
-    console.log('Image loaded successfully');
-    setImageLoaded(true);
-    setImageError(false);
-    setImageLoading(false);
-  }, []);
-
-  // Reset image state when image source changes
-  useEffect(() => {
-    setImageLoaded(false);
-    setImageLoading(true);
-  }, [currentImageIndex]);
-
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     element?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Loading State */}
-      {imageLoading && (
-        <div className="absolute inset-0 bg-gradient-to-br from-background/60 via-primary/20 to-accent/20">
-          <div className="absolute inset-0 flex items-center justify-center">
-            <motion.div
-              className="w-12 h-12 border-4 border-accent/30 border-t-accent rounded-full"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-            />
-          </div>
-        </div>
-      )}
-      
-      {/* Developer Background Image */}
-      {!imageError && imageLoaded && (
-        <motion.div
-          key={currentImageIndex}
-          className="absolute inset-0 w-full h-full"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.6 }}
-          transition={{ duration: 1 }}
-        >
-          <img
-            src={backgroundImages[currentImageIndex]}
-            alt="Developer workspace"
-            className="w-full h-full object-cover"
-            onLoad={handleImageLoad}
-            onError={handleImageError}
-          />
-        </motion.div>
-      )}
-      
-      {/* Fallback Background */}
-      {imageError && (
-        <div className="absolute inset-0 bg-gradient-to-br from-background/40 via-primary/10 to-accent/10">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="absolute inset-0 bg-gradient-to-br from-accent/5 via-primary/5 to-background/5"
-            style={{
-              backgroundImage: "radial-gradient(circle at 30% 70%, rgba(120, 113, 255, 0.08) 0%, transparent 60%), radial-gradient(circle at 70% 30%, rgba(175, 173, 255, 0.08) 0%, transparent 60%)",
-            }}
-          />
-        </div>
-      )}
-      
-      {/* Enhanced gradient overlay for better contrast */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background/70 via-background/50 to-background/80" />
-      
-      {/* Animated background elements */}
-      <motion.div 
-        className="absolute inset-0 opacity-30"
-        animate={{ 
-          backgroundPosition: ['0% 0%', '100% 100%'],
-        }}
-        transition={{ 
-          duration: 20, 
-          repeat: Infinity, 
-          repeatType: "reverse" 
-        }}
-        style={{
-          backgroundImage: "radial-gradient(circle at 20% 80%, rgba(120, 113, 255, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(175, 173, 255, 0.1) 0%, transparent 50%)",
-          backgroundSize: "200% 200%"
-        }}
-      />
-
-      {/* Floating particles */}
-      {[...Array(6)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-2 h-2 bg-accent/20 rounded-full"
-          animate={{
-            y: [-20, -100, -20],
-            x: [-10, 10, -10],
-            opacity: [0, 1, 0],
-          }}
-          transition={{
-            duration: 3 + i * 0.5,
-            repeat: Infinity,
-            delay: i * 0.7,
-          }}
-          style={{
-            left: `${20 + i * 15}%`,
-            top: `${30 + i * 10}%`,
-          }}
-        />
-      ))}
-
+    <section className="relative min-h-screen flex items-center justify-center">
       <div className="container mx-auto px-4 text-center relative z-10">
         <div className="max-w-5xl mx-auto">
           {/* Badge */}
@@ -335,7 +206,7 @@ export const AnimatedHero = () => {
                 variant="outline" 
                 size="lg" 
                 onClick={() => scrollToSection('features')}
-                className="border-accent/30 text-foreground hover:bg-accent/10 hover:border-accent/50 text-lg px-10 py-4 h-auto backdrop-blur-sm"
+                className="border-accent/30 text-foreground hover:bg-accent/10 hover:border-accent/50 text-lg px-10 py-4 h-auto"
               >
                 <Target className="w-5 h-5 mr-2" />
                 How It Works
