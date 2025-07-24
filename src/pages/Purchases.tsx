@@ -19,7 +19,8 @@ import {
   Eye,
   Clock,
   CheckCircle,
-  XCircle
+  XCircle,
+  Code2
 } from 'lucide-react';
 
 interface Purchase {
@@ -37,6 +38,7 @@ interface Purchase {
     file_url: string;
     tags: string[];
     price: number;
+    product_code: string;
   };
 }
 
@@ -66,7 +68,8 @@ const Purchases = () => {
             category,
             file_url,
             tags,
-            price
+            price,
+            product_code
           )
         `)
         .eq('user_id', user?.id)
@@ -274,9 +277,15 @@ const Purchases = () => {
                                   <h3 className="font-semibold text-lg leading-tight">
                                     {purchase.products.title}
                                   </h3>
-                                  <p className="text-sm text-muted-foreground mt-1">
-                                    {purchase.products.short_description}
-                                  </p>
+                                  <div className="flex items-center space-x-2 mt-1">
+                                    <p className="text-sm text-muted-foreground">
+                                      {purchase.products.short_description}
+                                    </p>
+                                    <Badge variant="outline" className="text-xs">
+                                      <Code2 className="h-3 w-3 mr-1" />
+                                      {purchase.products.product_code}
+                                    </Badge>
+                                  </div>
                                 </div>
                                 <div className="text-right">
                                   <p className="font-bold text-lg">

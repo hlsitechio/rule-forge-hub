@@ -28,6 +28,7 @@ export type Database = {
           is_featured: boolean | null
           preview_content: string | null
           price: number
+          product_code: string | null
           short_description: string | null
           tags: string[] | null
           title: string
@@ -46,6 +47,7 @@ export type Database = {
           is_featured?: boolean | null
           preview_content?: string | null
           price: number
+          product_code?: string | null
           short_description?: string | null
           tags?: string[] | null
           title: string
@@ -64,6 +66,7 @@ export type Database = {
           is_featured?: boolean | null
           preview_content?: string | null
           price?: number
+          product_code?: string | null
           short_description?: string | null
           tags?: string[] | null
           title?: string
