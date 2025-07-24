@@ -24,8 +24,21 @@ import {
   Code2,
   Clock,
   ShoppingCart,
-  Zap
+  Zap,
+  RotateCcw
 } from 'lucide-react';
+
+// Import banner images
+import cursorBanner from '@/assets/cursor-banner.jpg';
+import boltBanner from '@/assets/bolt-banner.jpg';
+import windsurfBanner from '@/assets/windsurf-banner.jpg';
+import lovableBanner from '@/assets/lovable-banner.jpg';
+import universalBanner from '@/assets/universal-banner.jpg';
+import enterpriseBanner from '@/assets/enterprise-banner.jpg';
+import v0Banner from '@/assets/v0-banner.jpg';
+import claudeBanner from '@/assets/claude-banner.jpg';
+import debuggingBanner from '@/assets/debugging-banner.jpg';
+import frameworkBanner from '@/assets/framework-banner.jpg';
 
 interface Product {
   id: string;
@@ -179,6 +192,22 @@ const Marketplace = () => {
     return iconMap[category] || '🤖';
   };
 
+  const getCategoryBanner = (category: string) => {
+    const bannerMap: Record<string, string> = {
+      'Cursor AI': cursorBanner,
+      'Windsurf AI': windsurfBanner,
+      'lovable': lovableBanner,
+      'Bolt.new': boltBanner,
+      'Universal': universalBanner,
+      'Enterprise': enterpriseBanner,
+      'V0 Vercel': v0Banner,
+      'Claude AI': claudeBanner,
+      'Debugging': debuggingBanner,
+      'Framework Specific': frameworkBanner,
+    };
+    return bannerMap[category] || universalBanner;
+  };
+
   const getBundleType = (product: Product) => {
     if (product.tags?.includes('bundle')) return 'BUNDLE';
     return product.category.toUpperCase().replace(' ', ' ');
@@ -186,6 +215,12 @@ const Marketplace = () => {
 
   const isPremium = (product: Product) => {
     return product.is_featured || product.price >= 2999;
+  };
+
+  const resetFilters = () => {
+    setSearchTerm('');
+    setSelectedCategory('all');
+    setSortBy('featured');
   };
 
   const getTotalProducts = () => products.length;
@@ -249,6 +284,19 @@ const Marketplace = () => {
                     </Badge>
                   </Button>
                 ))}
+              </div>
+              
+              {/* Reset Filters Button */}
+              <div className="flex items-center space-x-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={resetFilters}
+                  className="flex items-center space-x-2"
+                >
+                  <RotateCcw className="h-4 w-4" />
+                  <span>Reset Filters</span>
+                </Button>
               </div>
             </div>
             
@@ -319,12 +367,9 @@ const Marketplace = () => {
             <p className="text-muted-foreground mb-4">
               Try adjusting your search terms or filters
             </p>
-            <Button onClick={() => {
-              setSearchTerm('');
-              setSelectedCategory('all');
-              setSortBy('newest');
-            }}>
-              Clear Filters
+            <Button onClick={resetFilters} className="flex items-center space-x-2">
+              <RotateCcw className="h-4 w-4" />
+              <span>Clear Filters</span>
             </Button>
           </div>
         ) : (
@@ -356,14 +401,19 @@ const Marketplace = () => {
                   </div>
                   
                   {/* Banner Background */}
-                  <div className="h-32 bg-gradient-to-br from-accent/20 to-primary/20 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-r from-background/40 to-transparent"></div>
+                  <div className="h-32 relative overflow-hidden">
+                    <img 
+                      src={getCategoryBanner(product.category)} 
+                      alt={`${product.category} banner`}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-background/80 to-background/40"></div>
                     <div className="absolute bottom-4 left-4">
-                      <div className="w-12 h-12 bg-gradient-accent rounded-lg flex items-center justify-center text-2xl">
+                      <div className="w-12 h-12 bg-gradient-accent rounded-lg flex items-center justify-center text-2xl backdrop-blur-sm border border-white/20">
                         {getCategoryIcon(product.category)}
                       </div>
                     </div>
-                    <div className="absolute bottom-4 right-4 text-white/80 text-sm flex items-center">
+                    <div className="absolute bottom-4 right-4 text-white text-sm flex items-center bg-background/20 backdrop-blur-sm rounded-full px-2 py-1">
                       <Clock className="h-3 w-3 mr-1" />
                       5 min setup
                     </div>
