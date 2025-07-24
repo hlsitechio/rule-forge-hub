@@ -59,12 +59,15 @@ export const AnimatedHero = () => {
     }
   }, [currentSection, currentIndex]);
 
-  // Multiple reliable video sources
+  // Multiple reliable CDN video sources
   const videoSources = [
-    { src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4', type: 'video/mp4' },
-    { src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', type: 'video/mp4' },
-    { src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4', type: 'video/mp4' },
-    { src: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4', type: 'video/mp4' }
+    // Reliable CDN sources
+    { src: 'https://cdn.pixabay.com/video/2022/02/07/107018-677616205_large.mp4', type: 'video/mp4' },
+    { src: 'https://cdn.pixabay.com/video/2019/04/06/22292-332147817_large.mp4', type: 'video/mp4' },
+    { src: 'https://videos.pexels.com/video-files/3191836/3191836-uhd_2560_1440_25fps.mp4', type: 'video/mp4' },
+    { src: 'https://videos.pexels.com/video-files/4144096/4144096-uhd_2560_1440_25fps.mp4', type: 'video/mp4' },
+    // Backup sources
+    { src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4', type: 'video/mp4' }
   ];
 
   // Enhanced video error handling with timeout
