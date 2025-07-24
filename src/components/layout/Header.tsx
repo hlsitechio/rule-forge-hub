@@ -29,15 +29,20 @@ export const Header = () => {
         </div>
 
         <nav className="hidden md:flex items-center space-x-6">
-          <a href="#products" className="text-muted-foreground hover:text-foreground transition-colors">
-            Products
-          </a>
-          <a href="#categories" className="text-muted-foreground hover:text-foreground transition-colors">
-            Categories
-          </a>
-          <a href="#about" className="text-muted-foreground hover:text-foreground transition-colors">
-            About
-          </a>
+          <Button 
+            variant="ghost" 
+            onClick={() => navigate('/#products')}
+            className="text-muted-foreground hover:text-foreground transition-colors h-auto p-0"
+          >
+            Browse Rules
+          </Button>
+          <Button 
+            variant="ghost" 
+            onClick={() => navigate('/#featured')}
+            className="text-muted-foreground hover:text-foreground transition-colors h-auto p-0"
+          >
+            Featured
+          </Button>
         </nav>
 
         <div className="flex items-center space-x-4">
