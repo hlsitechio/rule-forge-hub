@@ -486,23 +486,49 @@ const Marketplace = () => {
                   </CardContent>
                 </Card>
               ) : (
-                <Card key={product.id} className="hover:shadow-lg transition-shadow cursor-pointer"
+                <Card key={product.id} className="hover:shadow-lg transition-shadow cursor-pointer relative overflow-hidden"
                       onClick={() => navigate(`/product/${product.id}`)}>
-                  <CardContent className="pt-6">
+                  
+                  {/* Background Banner Image */}
+                  <div className="absolute inset-0 opacity-10">
+                    <img 
+                      src={getCategoryBanner(product.category)} 
+                      alt={`${product.category} banner`}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  
+                  <CardContent className="pt-6 relative z-10">
                     <div className="flex items-start space-x-4">
-                      <div className="w-16 h-16 bg-gradient-accent rounded-xl flex items-center justify-center text-2xl">
-                        {getCategoryIcon(product.category)}
+                      <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 relative">
+                        <img 
+                          src={getCategoryBanner(product.category)} 
+                          alt={`${product.category} banner`}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-br from-background/20 to-background/60"></div>
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <span className="text-2xl">{getCategoryIcon(product.category)}</span>
+                        </div>
                       </div>
                       
                       <div className="flex-1 space-y-2">
                         <div className="flex items-start justify-between">
-                          <div>
-                            <h3 className="font-semibold text-lg">{product.title}</h3>
-                            <p className="text-sm text-muted-foreground">{product.short_description}</p>
+                          <div className="flex-1">
+                            <div className="flex items-center space-x-2 mb-1">
+                              <h3 className="font-semibold text-lg">{product.title}</h3>
+                              {isPremium(product) && (
+                                <Badge className="bg-gradient-accent text-accent-foreground">
+                                  <Star className="h-3 w-3 mr-1" />
+                                  Featured
+                                </Badge>
+                              )}
+                            </div>
+                            <p className="text-sm text-muted-foreground mb-2">{product.short_description}</p>
                           </div>
-                          <div className="text-right">
-                            <div className="text-xl font-bold">${(product.price / 100).toFixed(2)}</div>
-                            <div className="flex items-center text-sm text-muted-foreground">
+                          <div className="text-right ml-4">
+                            <div className="text-2xl font-bold">${(product.price / 100).toFixed(2)}</div>
+                            <div className="flex items-center text-xs text-muted-foreground mt-1">
                               <Code2 className="h-3 w-3 mr-1" />
                               {product.product_code}
                             </div>
@@ -516,12 +542,10 @@ const Marketplace = () => {
                               {product.downloads_count.toLocaleString()}
                             </div>
                             <Badge variant="outline">{product.category}</Badge>
-                            {product.is_featured && (
-                              <Badge className="bg-gradient-accent">
-                                <Star className="h-3 w-3 mr-1" />
-                                Featured
-                              </Badge>
-                            )}
+                            <div className="flex items-center">
+                              <Clock className="h-3 w-3 mr-1" />
+                              5 min setup
+                            </div>
                           </div>
                           
                           <Button size="sm" onClick={(e) => {
