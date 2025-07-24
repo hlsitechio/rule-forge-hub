@@ -10,6 +10,8 @@ export const AnimatedHero = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showCursor, setShowCursor] = useState(true);
   const [videoError, setVideoError] = useState(false);
+  const [videoLoading, setVideoLoading] = useState(true);
+  const [videoAttempts, setVideoAttempts] = useState(0);
   
   const textSections = [
     { text: "AI Rules", className: "text-7xl md:text-9xl font-black bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent" },
@@ -52,6 +54,31 @@ export const AnimatedHero = () => {
     }
   }, [currentSection, currentIndex]);
 
+  // Video sources with multiple formats for cross-browser compatibility
+  const videoSources = [
+    { src: 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', type: 'video/mp4' },
+    { src: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4', type: 'video/mp4' },
+    { src: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4', type: 'video/mp4' }
+  ];
+
+  // Enhanced video error handling
+  const handleVideoError = (source: string) => {
+    console.log(`Video source failed: ${source}`);
+    setVideoAttempts(prev => prev + 1);
+    
+    if (videoAttempts >= videoSources.length - 1) {
+      console.log('All video sources failed, falling back to gradient');
+      setVideoError(true);
+      setVideoLoading(false);
+    }
+  };
+
+  const handleVideoLoad = () => {
+    console.log('Video loaded successfully');
+    setVideoLoading(false);
+    setVideoError(false);
+  };
+
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     element?.scrollIntoView({ behavior: 'smooth' });
@@ -59,22 +86,54 @@ export const AnimatedHero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background video with reduced fade effect */}
-      {!videoError ? (
+      {/* Enhanced Background Video with Loading State */}
+      {videoLoading && (
+        <div className="absolute inset-0 bg-gradient-to-br from-background/60 via-primary/20 to-accent/20">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <motion.div
+              className="w-12 h-12 border-4 border-accent/30 border-t-accent rounded-full"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+            />
+          </div>
+        </div>
+      )}
+      
+      {!videoError && !videoLoading && (
         <video
-          className="absolute inset-0 w-full h-full object-cover opacity-40"
+          key={videoAttempts} // Force re-render on retry
+          className="absolute inset-0 w-full h-full object-cover opacity-40 transition-opacity duration-500"
           autoPlay
           muted
           loop
           playsInline
-          onError={() => setVideoError(true)}
+          preload="metadata"
+          onLoadedData={handleVideoLoad}
+          onError={(e) => {
+            const video = e.target as HTMLVideoElement;
+            const failedSource = video.currentSrc || videoSources[videoAttempts]?.src || 'unknown';
+            handleVideoError(failedSource);
+          }}
+          onLoadStart={() => console.log('Video loading started')}
+          onCanPlay={() => console.log('Video can start playing')}
         >
-          <source src="https://i.imgur.com/okkcUbY.gifv" type="video/mp4" />
-          <source src="https://imgur.com/okkcUbY.mp4" type="video/mp4" />
-          <source src="https://i.imgur.com/okkcUbY.mp4" type="video/mp4" />
+          {videoSources.map((source, index) => (
+            <source key={index} src={source.src} type={source.type} />
+          ))}
         </video>
-      ) : (
-        <div className="absolute inset-0 bg-gradient-to-br from-background/40 via-primary/10 to-accent/10" />
+      )}
+      
+      {videoError && (
+        <div className="absolute inset-0 bg-gradient-to-br from-background/40 via-primary/10 to-accent/10">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="absolute inset-0 bg-gradient-to-br from-accent/5 via-primary/5 to-background/5"
+            style={{
+              backgroundImage: "radial-gradient(circle at 30% 70%, rgba(120, 113, 255, 0.08) 0%, transparent 60%), radial-gradient(circle at 70% 30%, rgba(175, 173, 255, 0.08) 0%, transparent 60%)",
+            }}
+          />
+        </div>
       )}
       
       {/* Lighter gradient overlay */}
