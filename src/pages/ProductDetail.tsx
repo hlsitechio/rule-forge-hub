@@ -13,6 +13,12 @@ import { useToast } from '@/hooks/use-toast';
 import { usePurchase } from '@/hooks/usePurchase';
 import { Product } from '@/hooks/useProducts';
 
+// Import banner images
+import cursorBanner from '@/assets/cursor-small-banner.jpg';
+import boltBanner from '@/assets/bolt-small-banner.jpg';
+import windsurfBanner from '@/assets/windsurf-small-banner.jpg';
+import lovableBanner from '@/assets/lovable-small-banner.jpg';
+
 const ProductDetailContent = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -125,6 +131,16 @@ const ProductDetailContent = () => {
     return iconMap[category] || '🤖';
   };
 
+  const getCategoryBanner = (category: string) => {
+    const bannerMap: Record<string, string> = {
+      cursor: cursorBanner,
+      windsurf: windsurfBanner,
+      lovable: lovableBanner,
+      bolt: boltBanner,
+    };
+    return bannerMap[category] || cursorBanner;
+  };
+
   const formatImplementationGuide = (guide: string) => {
     // Split by numbers and clean up the text
     const steps = guide.split(/\d+\./).filter(step => step.trim().length > 0);
@@ -189,6 +205,15 @@ const ProductDetailContent = () => {
             <div className="lg:col-span-2 space-y-8">
               {/* Hero Product Header */}
               <Card className="bg-gradient-to-br from-card via-card to-secondary/20 border-border overflow-hidden relative">
+                {/* Banner Image */}
+                <div className="relative h-32 md:h-40 overflow-hidden">
+                  <img 
+                    src={getCategoryBanner(product.category)} 
+                    alt={`${product.category} banner`}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-background/60 to-background/20"></div>
+                </div>
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5"></div>
                 <CardHeader className="relative z-10">
                   <div className="space-y-6">
