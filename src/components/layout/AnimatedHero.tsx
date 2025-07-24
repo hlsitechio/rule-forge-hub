@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Code2, Zap, Users, Star, Sparkles, Target } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useEffect, useState, useRef, useCallback } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 // Typewriter animation component for hero text
 export const AnimatedHero = () => {
@@ -9,13 +9,12 @@ export const AnimatedHero = () => {
   const [currentSection, setCurrentSection] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showCursor, setShowCursor] = useState(true);
-  // Enhanced video state management
-  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
-  const [videoError, setVideoError] = useState(false);
-  const [videoLoaded, setVideoLoaded] = useState(false);
-  const [videoLoading, setVideoLoading] = useState(true);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const loadTimeoutRef = useRef<NodeJS.Timeout>();
+  
+  // Enhanced image state management
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [imageError, setImageError] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageLoading, setImageLoading] = useState(true);
   
   const textSections = [
     { text: "AI Rules", className: "text-7xl md:text-9xl font-black bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent" },
@@ -58,72 +57,40 @@ export const AnimatedHero = () => {
     }
   }, [currentSection, currentIndex]);
 
-  // Reliable video sources with multiple fallbacks
-  const videoSources = [
-    { src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4', type: 'video/mp4' },
-    { src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', type: 'video/mp4' },
-    { src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4', type: 'video/mp4' }
+  // Developer-themed background images
+  const backgroundImages = [
+    '/src/assets/hero-developer-hooded.jpg',
+    '/src/assets/hero-developer-black-monitors.jpg',
+    '/src/assets/hero-developer.jpg'
   ];
 
-  // Enhanced video error handling with timeout
-  const handleVideoError = useCallback(() => {
-    console.log(`Video failed to load: ${videoSources[currentVideoIndex]?.src}`);
+  // Enhanced image error handling with automatic retry
+  const handleImageError = useCallback(() => {
+    console.log(`Image failed to load: ${backgroundImages[currentImageIndex]}`);
     
-    // Clear any existing timeout
-    if (loadTimeoutRef.current) {
-      clearTimeout(loadTimeoutRef.current);
-    }
-    
-    if (currentVideoIndex < videoSources.length - 1) {
-      setCurrentVideoIndex(prev => prev + 1);
-      setVideoLoaded(false);
-      setVideoLoading(true);
+    if (currentImageIndex < backgroundImages.length - 1) {
+      setCurrentImageIndex(prev => prev + 1);
+      setImageLoaded(false);
+      setImageLoading(true);
     } else {
-      console.log('All video sources failed, using fallback');
-      setVideoError(true);
-      setVideoLoading(false);
+      console.log('All image sources failed, using fallback');
+      setImageError(true);
+      setImageLoading(false);
     }
-  }, [currentVideoIndex, videoSources]);
+  }, [currentImageIndex, backgroundImages]);
 
-  const handleVideoLoad = useCallback(() => {
-    console.log('Video loaded successfully');
-    setVideoLoaded(true);
-    setVideoError(false);
-    setVideoLoading(false);
-    
-    // Clear timeout on successful load
-    if (loadTimeoutRef.current) {
-      clearTimeout(loadTimeoutRef.current);
-    }
+  const handleImageLoad = useCallback(() => {
+    console.log('Image loaded successfully');
+    setImageLoaded(true);
+    setImageError(false);
+    setImageLoading(false);
   }, []);
 
-  const handleVideoLoadStart = useCallback(() => {
-    setVideoLoading(true);
-    
-    // Set timeout for video loading (10 seconds)
-    loadTimeoutRef.current = setTimeout(() => {
-      console.log('Video load timeout, trying next source');
-      handleVideoError();
-    }, 10000);
-  }, [handleVideoError]);
-
-  // Reset video state when video source changes
+  // Reset image state when image source changes
   useEffect(() => {
-    if (videoRef.current) {
-      setVideoLoaded(false);
-      setVideoLoading(true);
-      videoRef.current.load();
-    }
-  }, [currentVideoIndex]);
-
-  // Cleanup timeout on unmount
-  useEffect(() => {
-    return () => {
-      if (loadTimeoutRef.current) {
-        clearTimeout(loadTimeoutRef.current);
-      }
-    };
-  }, []);
+    setImageLoaded(false);
+    setImageLoading(true);
+  }, [currentImageIndex]);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -132,8 +99,8 @@ export const AnimatedHero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Enhanced Background Video with Loading State */}
-      {videoLoading && (
+      {/* Loading State */}
+      {imageLoading && (
         <div className="absolute inset-0 bg-gradient-to-br from-background/60 via-primary/20 to-accent/20">
           <div className="absolute inset-0 flex items-center justify-center">
             <motion.div
@@ -145,26 +112,27 @@ export const AnimatedHero = () => {
         </div>
       )}
       
-      {!videoError && videoLoaded && (
-        <video
-          ref={videoRef}
-          key={currentVideoIndex} // Force re-render on retry
-          className="absolute inset-0 w-full h-full object-cover opacity-40 transition-opacity duration-500"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          onLoadedData={handleVideoLoad}
-          onError={handleVideoError}
-          onLoadStart={handleVideoLoadStart}
-          onCanPlay={() => console.log('Video can start playing')}
+      {/* Developer Background Image */}
+      {!imageError && imageLoaded && (
+        <motion.div
+          key={currentImageIndex}
+          className="absolute inset-0 w-full h-full"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.6 }}
+          transition={{ duration: 1 }}
         >
-          <source src={videoSources[currentVideoIndex]?.src} type={videoSources[currentVideoIndex]?.type} />
-        </video>
+          <img
+            src={backgroundImages[currentImageIndex]}
+            alt="Developer workspace"
+            className="w-full h-full object-cover"
+            onLoad={handleImageLoad}
+            onError={handleImageError}
+          />
+        </motion.div>
       )}
       
-      {videoError && (
+      {/* Fallback Background */}
+      {imageError && (
         <div className="absolute inset-0 bg-gradient-to-br from-background/40 via-primary/10 to-accent/10">
           <motion.div
             initial={{ opacity: 0 }}
@@ -177,8 +145,8 @@ export const AnimatedHero = () => {
         </div>
       )}
       
-      {/* Lighter gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background/60 via-background/50 to-background/70" />
+      {/* Enhanced gradient overlay for better contrast */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background/70 via-background/50 to-background/80" />
       
       {/* Animated background elements */}
       <motion.div 
