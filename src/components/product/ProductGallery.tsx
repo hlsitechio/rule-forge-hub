@@ -1,4 +1,3 @@
-import { FeaturedProductsSection } from '@/components/sections/FeaturedProductsSection';
 import { CompleteCollectionSection } from '@/components/sections/CompleteCollectionSection';
 
 interface Product {
@@ -32,18 +31,14 @@ export const ProductGallery = ({
   };
 
   return (
-    <div className="space-y-16">
-      <FeaturedProductsSection 
-        products={featuredProducts} 
-        onPurchase={handlePurchase}
-        onProductClick={onProductClick}
-      />
-      
-      <CompleteCollectionSection 
-        products={allProducts} 
-        onPurchase={handlePurchase}
-        onProductClick={onProductClick}
-      />
+    <div className="flex items-center justify-center">
+      <div className="w-full max-w-7xl">
+        <CompleteCollectionSection 
+          products={allProducts} 
+          onPurchase={handlePurchase}
+          onProductClick={onProductClick}
+        />
+      </div>
     </div>
   );
 };

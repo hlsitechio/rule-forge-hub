@@ -58,7 +58,7 @@ const ProductsSection = () => {
 
   return (
     <>
-      <div className="py-16">
+      <div className="py-24">
         <div className="container mx-auto px-4">
           <ProductGallery
             featuredProducts={featuredProducts || []}
