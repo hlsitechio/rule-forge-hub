@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -81,6 +81,9 @@ export const AuthDialog = ({ open, onOpenChange }: AuthDialogProps) => {
           <DialogTitle className="text-center bg-gradient-silver bg-clip-text text-transparent">
             Join the AI Rules Marketplace
           </DialogTitle>
+          <DialogDescription className="text-center text-muted-foreground">
+            Sign in or create an account to purchase premium AI rules and templates
+          </DialogDescription>
         </DialogHeader>
         
         <Tabs defaultValue="signin" className="w-full">
