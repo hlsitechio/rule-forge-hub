@@ -131,7 +131,7 @@ export const AnimatedHero = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 1 }}
             >
-              <div className="text-left leading-tight whitespace-pre-wrap font-sans">
+              <div className="text-center leading-tight whitespace-pre-wrap font-sans">
                 {textSections.map((section, index) => {
                   const sectionStart = textSections.slice(0, index).reduce((acc, s) => acc + s.text.length + (index > 0 && index < 3 ? 1 : 0), 0);
                   const sectionEnd = sectionStart + section.text.length;
