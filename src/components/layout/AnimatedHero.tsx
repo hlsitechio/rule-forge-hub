@@ -7,18 +7,42 @@ import { useEffect, useState } from 'react';
 // Typewriter animation component for hero text
 export const AnimatedHero = () => {
   const [displayedText, setDisplayedText] = useState('');
+  const [currentSection, setCurrentSection] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showCursor, setShowCursor] = useState(true);
   
-  const fullText = "AI Rules\nMarketplace\n\nTransform your development workflow with professional-grade AI rules for Cursor, Windsurf, Lovable, and Bolt.new.";
+  const textSections = [
+    { text: "AI Rules", className: "text-6xl md:text-8xl font-black bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent" },
+    { text: "Marketplace", className: "text-6xl md:text-8xl font-black text-foreground" },
+    { text: "Transform your development workflow with professional-grade AI rules for ", className: "text-xl md:text-2xl text-muted-foreground" },
+    { text: "Cursor, ", className: "text-xl md:text-2xl text-accent font-semibold" },
+    { text: "Windsurf, ", className: "text-xl md:text-2xl text-accent font-semibold" },
+    { text: "Lovable, ", className: "text-xl md:text-2xl text-accent font-semibold" },
+    { text: "and Bolt.new.", className: "text-xl md:text-2xl text-accent font-semibold" }
+  ];
   
   useEffect(() => {
-    if (currentIndex < fullText.length) {
-      const timer = setTimeout(() => {
-        setDisplayedText(prev => prev + fullText[currentIndex]);
-        setCurrentIndex(prev => prev + 1);
-      }, 50);
-      return () => clearTimeout(timer);
+    if (currentSection < textSections.length) {
+      const currentText = textSections[currentSection].text;
+      if (currentIndex < currentText.length) {
+        const timer = setTimeout(() => {
+          setDisplayedText(prev => prev + currentText[currentIndex]);
+          setCurrentIndex(prev => prev + 1);
+        }, currentSection < 2 ? 120 : 40); // Slower for titles, faster for description
+        return () => clearTimeout(timer);
+      } else {
+        // Move to next section after a pause
+        setTimeout(() => {
+          setCurrentSection(prev => prev + 1);
+          setCurrentIndex(0);
+          if (currentSection === 0 || currentSection === 1) {
+            setDisplayedText(prev => prev + '\n');
+          }
+          if (currentSection === 1) {
+            setDisplayedText(prev => prev + '\n');
+          }
+        }, currentSection < 2 ? 800 : 200);
+      }
     } else {
       // Blink cursor after text is complete
       const cursorTimer = setInterval(() => {
@@ -26,7 +50,7 @@ export const AnimatedHero = () => {
       }, 500);
       return () => clearInterval(cursorTimer);
     }
-  }, [currentIndex, fullText]);
+  }, [currentSection, currentIndex]);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -99,18 +123,45 @@ export const AnimatedHero = () => {
             <Star className="w-4 h-4 text-accent fill-current" />
           </motion.div>
 
-          {/* Typewriter Text Animation */}
-          <div className="font-mono text-left max-w-4xl mx-auto mb-12 bg-gray-900/80 backdrop-blur-sm rounded-lg p-8 border border-accent/20">
-            <div className="flex items-center space-x-2 mb-4 pb-2 border-b border-accent/30">
-              <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-              <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-              <span className="text-accent/70 text-sm ml-2">hero-text.js</span>
-            </div>
-            <pre className="text-accent text-2xl md:text-3xl leading-relaxed whitespace-pre-wrap">
-              {displayedText}
-              {showCursor && <span className="bg-accent text-background">█</span>}
-            </pre>
+          {/* Enhanced Typewriter Hero Text */}
+          <div className="text-center max-w-4xl mx-auto mb-12">
+            <motion.div 
+              className="min-h-[400px] flex flex-col justify-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1 }}
+            >
+              <div className="text-left leading-tight whitespace-pre-wrap font-sans">
+                {textSections.map((section, index) => {
+                  const sectionStart = textSections.slice(0, index).reduce((acc, s) => acc + s.text.length + (index > 0 && index < 3 ? 1 : 0), 0);
+                  const sectionEnd = sectionStart + section.text.length;
+                  const visibleText = displayedText.slice(sectionStart, sectionEnd);
+                  
+                  return (
+                    <motion.span
+                      key={index}
+                      className={section.className}
+                      style={{ 
+                        display: index < 2 ? 'block' : 'inline',
+                        marginBottom: index === 1 ? '2rem' : '0'
+                      }}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: visibleText.length > 0 ? 1 : 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {visibleText}
+                      {currentSection === index && showCursor && (
+                        <motion.span
+                          className="inline-block w-0.5 h-6 md:h-8 bg-accent ml-1"
+                          animate={{ opacity: [1, 0, 1] }}
+                          transition={{ duration: 0.8, repeat: Infinity }}
+                        />
+                      )}
+                    </motion.span>
+                  );
+                })}
+              </div>
+            </motion.div>
           </div>
 
           {/* CTA Buttons */}
