@@ -14,7 +14,7 @@ export const AnimatedHero = () => {
   const textSections = [
     { text: "AI Rules", className: "text-6xl md:text-8xl font-black bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent" },
     { text: "Marketplace", className: "text-6xl md:text-8xl font-black text-foreground" },
-    { text: "Transform your development workflow with professional-grade AI rules for ", className: "text-xl md:text-2xl text-muted-foreground" }, // Fixed text
+    { text: "Transform your development workflow with professional-grade AI rules for ", className: "text-xl md:text-2xl text-muted-foreground" },
     { text: "Cursor, ", className: "text-xl md:text-2xl text-accent font-semibold" },
     { text: "Windsurf, ", className: "text-xl md:text-2xl text-accent font-semibold" },
     { text: "Lovable, ", className: "text-xl md:text-2xl text-accent font-semibold" },
