@@ -2,9 +2,31 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, Code2, Zap, Users, Star, Sparkles, Target } from 'lucide-react';
 import { motion } from 'framer-motion';
 import heroDeveloperImage from '@/assets/hero-developer-hooded.jpg';
-import { CodingAnimation } from './CodingAnimation';
+import { useEffect, useState } from 'react';
 
 export const AnimatedHero = () => {
+  const [displayedText, setDisplayedText] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [showCursor, setShowCursor] = useState(true);
+  
+  const fullText = "AI Rules\nMarketplace\n\nTransform your development workflow with professional-grade AI rules for Cursor, Windsurf, Lovable, and Bolt.new.";
+  
+  useEffect(() => {
+    if (currentIndex < fullText.length) {
+      const timer = setTimeout(() => {
+        setDisplayedText(prev => prev + fullText[currentIndex]);
+        setCurrentIndex(prev => prev + 1);
+      }, 50);
+      return () => clearTimeout(timer);
+    } else {
+      // Blink cursor after text is complete
+      const cursorTimer = setInterval(() => {
+        setShowCursor(prev => !prev);
+      }, 500);
+      return () => clearInterval(cursorTimer);
+    }
+  }, [currentIndex, fullText]);
+
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     element?.scrollIntoView({ behavior: 'smooth' });
@@ -62,9 +84,6 @@ export const AnimatedHero = () => {
         />
       ))}
 
-      {/* Coding Animation Overlay */}
-      <CodingAnimation />
-
       <div className="container mx-auto px-4 text-center relative z-10">
         <div className="max-w-5xl mx-auto">
           {/* Badge */}
@@ -79,50 +98,19 @@ export const AnimatedHero = () => {
             <Star className="w-4 h-4 text-accent fill-current" />
           </motion.div>
 
-          {/* Main heading */}
-          <motion.h1 
-            className="text-6xl md:text-8xl font-black mb-8 leading-tight"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.2 }}
-          >
-            <motion.span 
-              className="block bg-gradient-to-r from-accent via-accent to-primary bg-clip-text text-transparent"
-              animate={{ 
-                backgroundPosition: ['0%', '100%', '0%'] 
-              }}
-              transition={{ 
-                duration: 5, 
-                repeat: Infinity,
-                ease: "linear"
-              }}
-              style={{ backgroundSize: '200%' }}
-            >
-              AI Rules
-            </motion.span>
-            <motion.span 
-              className="block text-foreground"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-            >
-              Marketplace
-            </motion.span>
-          </motion.h1>
-          
-          {/* Subtitle */}
-          <motion.p 
-            className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            Transform your development workflow with professional-grade AI rules for{' '}
-            <span className="text-accent font-semibold">Cursor</span>,{' '}
-            <span className="text-accent font-semibold">Windsurf</span>,{' '}
-            <span className="text-accent font-semibold">Lovable</span>, and{' '}
-            <span className="text-accent font-semibold">Bolt.new</span>.
-          </motion.p>
+          {/* Typewriter Text Animation */}
+          <div className="font-mono text-left max-w-4xl mx-auto mb-12 bg-gray-900/80 backdrop-blur-sm rounded-lg p-8 border border-accent/20">
+            <div className="flex items-center space-x-2 mb-4 pb-2 border-b border-accent/30">
+              <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+              <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+              <span className="text-accent/70 text-sm ml-2">hero-text.js</span>
+            </div>
+            <pre className="text-accent text-2xl md:text-3xl leading-relaxed whitespace-pre-wrap">
+              {displayedText}
+              {showCursor && <span className="bg-accent text-background">█</span>}
+            </pre>
+          </div>
 
           {/* CTA Buttons */}
           <motion.div 
