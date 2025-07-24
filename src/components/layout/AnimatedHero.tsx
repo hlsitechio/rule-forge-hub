@@ -143,6 +143,12 @@ export const AnimatedHero = () => {
             onLoadStart={() => console.log('Test video: Load started')}
             onLoadedData={() => console.log('Test video: Data loaded')}
             onCanPlay={() => console.log('Test video: Can play')}
+            onEnded={(e) => {
+              // Immediately restart for seamless loop
+              const video = e.target as HTMLVideoElement;
+              video.currentTime = 0;
+              video.play();
+            }}
             onError={(e) => {
               console.error('Test video error:', e);
               const video = e.target as HTMLVideoElement;
