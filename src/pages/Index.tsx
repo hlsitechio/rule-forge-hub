@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Header } from '@/components/layout/Header';
+import { Footer } from '@/components/layout/Footer';
 import { AnimatedHero } from '@/components/layout/AnimatedHero';
 import { FeaturesSection } from '@/components/sections/FeaturesSection';
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
@@ -81,12 +82,13 @@ const Index = () => {
         <Header />
         <AnimatedHero />
         <ProductsSection />
-        <FeaturesSection />
-        <TestimonialsSection />
-        <CTASection />
-      </div>
-    </AuthProvider>
-  );
+      <FeaturesSection />
+      <TestimonialsSection />
+      <CTASection />
+      <Footer />
+    </div>
+  </AuthProvider>
+);
 };
 
 export default Index;
