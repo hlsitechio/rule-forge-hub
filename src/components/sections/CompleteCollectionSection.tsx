@@ -240,13 +240,13 @@ export const CompleteCollectionSection = ({
         transition={{ duration: 0.6, delay: 0.4 }}
       >
         {viewMode === 'carousel' ? (
-          <div className="px-12">
+          <div className="relative">
             <Carousel
               opts={{
                 align: "start",
                 loop: false,
               }}
-              className="w-full"
+              className="w-full px-12"
             >
               <CarouselContent className="-ml-2 md:-ml-4">
                 {filteredProducts.map((product, index) => (
@@ -275,8 +275,8 @@ export const CompleteCollectionSection = ({
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              <CarouselPrevious className="left-0 bg-card/80 backdrop-blur-sm border-border/50 hover:bg-accent/10 hover:border-accent/30" />
-              <CarouselNext className="right-0 bg-card/80 backdrop-blur-sm border-border/50 hover:bg-accent/10 hover:border-accent/30" />
+              <CarouselPrevious className="-left-12 bg-card/80 backdrop-blur-sm border-border/50 hover:bg-accent/10 hover:border-accent/30" />
+              <CarouselNext className="-right-12 bg-card/80 backdrop-blur-sm border-border/50 hover:bg-accent/10 hover:border-accent/30" />
             </Carousel>
           </div>
         ) : (
