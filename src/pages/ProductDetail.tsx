@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { AuthDialog } from '@/components/auth/AuthDialog';
-import { Loader2, ArrowLeft, Download, Star, Eye, Code2, CheckCircle } from 'lucide-react';
+import { Loader2, ArrowLeft, Download, Star, Eye, Code2, CheckCircle, Zap, Rocket, Award, Clock, Shield, Users } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { usePurchase } from '@/hooks/usePurchase';
@@ -125,6 +125,18 @@ const ProductDetailContent = () => {
     return iconMap[category] || '🤖';
   };
 
+  const formatImplementationGuide = (guide: string) => {
+    // Split by numbers and clean up the text
+    const steps = guide.split(/\d+\./).filter(step => step.trim().length > 0);
+    return steps.map(step => step.trim());
+  };
+
+  const calculatePricePerFile = (totalPrice: number) => {
+    // Assuming each product contains multiple configuration files
+    const estimatedFiles = 3; // Average files per AI rules package
+    return (totalPrice / 100 / estimatedFiles).toFixed(2);
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-background">
@@ -174,136 +186,308 @@ const ProductDetailContent = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Main Content */}
-            <div className="lg:col-span-2 space-y-6">
-              {/* Product Header */}
+            <div className="lg:col-span-2 space-y-8">
+              {/* Hero Product Header */}
+              <Card className="bg-gradient-to-br from-card via-card to-secondary/20 border-border overflow-hidden relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5"></div>
+                <CardHeader className="relative z-10">
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-4">
+                        <div className="w-16 h-16 bg-gradient-accent rounded-xl flex items-center justify-center text-3xl shadow-glow-accent">
+                          {getCategoryIcon(product.category)}
+                        </div>
+                        <div className="space-y-2">
+                          <Badge variant="secondary" className="capitalize font-semibold">
+                            {product.category} AI Rules
+                          </Badge>
+                          {product.is_featured && (
+                            <Badge className="bg-gradient-accent text-accent-foreground shadow-glow-accent">
+                              <Award className="w-3 h-3 mr-1" />
+                              Premium
+                            </Badge>
+                          )}
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-4xl font-black bg-gradient-silver bg-clip-text text-transparent">
+                          ${(product.price / 100).toFixed(2)}
+                        </div>
+                        <div className="text-sm text-muted-foreground">
+                          Only ${calculatePricePerFile(product.price)} per config file
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <h1 className="text-4xl font-black mb-3 bg-gradient-to-r from-foreground to-accent bg-clip-text text-transparent">
+                        {product.title}
+                      </h1>
+                      <p className="text-xl text-muted-foreground leading-relaxed">{product.short_description}</p>
+                    </div>
+
+                    {/* Key Stats */}
+                    <div className="grid grid-cols-3 gap-6 pt-4 border-t border-border/50">
+                      <div className="text-center">
+                        <div className="flex items-center justify-center mb-2">
+                          <Users className="w-5 h-5 text-accent" />
+                        </div>
+                        <div className="font-bold text-lg">{product.downloads_count.toLocaleString()}+</div>
+                        <div className="text-sm text-muted-foreground">Developers</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="flex items-center justify-center mb-2">
+                          <Zap className="w-5 h-5 text-accent" />
+                        </div>
+                        <div className="font-bold text-lg">Instant</div>
+                        <div className="text-sm text-muted-foreground">Setup</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="flex items-center justify-center mb-2">
+                          <Shield className="w-5 h-5 text-accent" />
+                        </div>
+                        <div className="font-bold text-lg">Pro-Grade</div>
+                        <div className="text-sm text-muted-foreground">Quality</div>
+                      </div>
+                    </div>
+                  </div>
+                </CardHeader>
+              </Card>
+
+              {/* Value Proposition */}
               <Card className="bg-card border-border">
                 <CardHeader>
-                  <div className="flex items-start justify-between">
+                  <CardTitle className="flex items-center space-x-2">
+                    <Rocket className="w-5 h-5 text-accent" />
+                    <span>What You Get</span>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-4">
-                      <div className="flex items-center space-x-3">
-                        <span className="text-2xl">{getCategoryIcon(product.category)}</span>
-                        <Badge variant="secondary" className="capitalize">
-                          {product.category}
-                        </Badge>
-                        {product.is_featured && (
-                          <Badge className="bg-gradient-accent text-accent-foreground">
-                            <Star className="w-3 h-3 mr-1" />
-                            Featured
-                          </Badge>
-                        )}
+                      <div className="flex items-start space-x-3">
+                        <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <h4 className="font-semibold">Production-Ready Configuration</h4>
+                          <p className="text-sm text-muted-foreground">Enterprise-grade setup that eliminates guesswork</p>
+                        </div>
                       </div>
-                      <div>
-                        <h1 className="text-3xl font-bold mb-2">{product.title}</h1>
-                        <p className="text-muted-foreground text-lg">{product.short_description}</p>
+                      <div className="flex items-start space-x-3">
+                        <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <h4 className="font-semibold">Advanced Workflow Management</h4>
+                          <p className="text-sm text-muted-foreground">Streamlined development process from start to finish</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start space-x-3">
+                        <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <h4 className="font-semibold">Code Quality Enforcement</h4>
+                          <p className="text-sm text-muted-foreground">Consistent, high-quality output every time</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="space-y-4">
+                      <div className="flex items-start space-x-3">
+                        <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <h4 className="font-semibold">Project-Specific Optimizations</h4>
+                          <p className="text-sm text-muted-foreground">Tailored for your development stack</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start space-x-3">
+                        <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <h4 className="font-semibold">Instant Team Synchronization</h4>
+                          <p className="text-sm text-muted-foreground">Keep your entire team aligned and productive</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start space-x-3">
+                        <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <h4 className="font-semibold">Lifetime Updates</h4>
+                          <p className="text-sm text-muted-foreground">Always stay current with latest best practices</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Tags */}
+              <div className="flex flex-wrap gap-3">
+                {product.tags?.map((tag) => (
+                  <Badge key={tag} variant="outline" className="px-3 py-1 text-sm border-accent/20 hover:border-accent/40 transition-colors">
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
+
+              {/* Professional Implementation Guide */}
+              <Card className="bg-gradient-to-br from-card to-secondary/30 border-border">
+                <CardHeader>
+                  <CardTitle className="flex items-center space-x-2">
+                    <Code2 className="w-5 h-5 text-accent" />
+                    <span>Professional Implementation Guide</span>
+                    <Badge className="bg-accent/10 text-accent border-accent/20">
+                      <Clock className="w-3 h-3 mr-1" />
+                      5-min setup
+                    </Badge>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-6">
+                    {formatImplementationGuide(product.implementation_guide).map((step, index) => (
+                      <div key={index} className="flex items-start space-x-4 group">
+                        <div className="w-8 h-8 bg-gradient-accent rounded-full flex items-center justify-center text-sm font-bold text-accent-foreground shadow-glow-accent group-hover:shadow-glow-accent/80 transition-all">
+                          {index + 1}
+                        </div>
+                        <div className="flex-1 pt-1">
+                          <p className="text-foreground leading-relaxed group-hover:text-accent transition-colors">
+                            {step}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <div className="mt-8 p-4 bg-accent/5 border border-accent/20 rounded-lg">
+                    <div className="flex items-center space-x-2 mb-2">
+                      <Zap className="w-4 h-4 text-accent" />
+                      <span className="font-semibold text-accent">Pro Tip</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      This configuration is battle-tested by {product.downloads_count}+ developers worldwide. 
+                      Get the same productivity boost that's helping teams ship faster and with fewer bugs.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Description */}
+              <Card className="bg-card border-border">
+                <CardHeader>
+                  <CardTitle>Full Description</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground leading-relaxed text-lg">{product.description}</p>
+                </CardContent>
+              </Card>
+
+              {/* Preview Content */}
+              {hasPurchased && (
+                <Card className="bg-gradient-to-br from-green-500/5 to-accent/5 border-green-500/20">
+                  <CardHeader>
+                    <CardTitle className="flex items-center text-green-500">
+                      <CheckCircle className="w-5 h-5 mr-2" />
+                      Your Premium Configuration Files
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="bg-background/50 backdrop-blur-sm p-4 rounded-lg border">
+                      <pre className="text-sm whitespace-pre-wrap font-mono max-h-80 overflow-y-auto">
+                        {product.preview_content}
+                      </pre>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+            </div>
+
+            {/* Sidebar */}
+            <div className="space-y-6">
+              {/* Premium Purchase Card */}
+              <Card className="bg-gradient-to-br from-card via-card to-accent/5 border-accent/20 sticky top-8 shadow-glow-accent/20">
+                <CardHeader className="text-center pb-4">
+                  <div className="space-y-2">
+                    <Badge className="bg-gradient-accent text-accent-foreground px-4 py-1">
+                      <Star className="w-3 h-3 mr-1" />
+                      Professional Grade
+                    </Badge>
+                    <div className="space-y-1">
+                      <div className="text-5xl font-black bg-gradient-silver bg-clip-text text-transparent">
+                        ${(product.price / 100).toFixed(2)}
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        Just ${calculatePricePerFile(product.price)} per configuration file
+                      </div>
+                      <div className="text-xs text-accent font-semibold">
+                        🔥 Limited Time: 50% OFF Regular Price
                       </div>
                     </div>
                   </div>
                 </CardHeader>
                 
                 <CardContent className="space-y-6">
-                  {/* Stats */}
-                  <div className="flex items-center space-x-6 text-sm text-muted-foreground">
-                    <div className="flex items-center space-x-1">
-                      <Download className="w-4 h-4" />
-                      <span>{product.downloads_count.toLocaleString()} downloads</span>
+                  {/* Value Props */}
+                  <div className="space-y-3">
+                    <div className="flex items-center space-x-2 text-sm">
+                      <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+                      <span>Instant download & setup</span>
                     </div>
-                    <div className="flex items-center space-x-1">
-                      <Code2 className="w-4 h-4" />
-                      <span>AI Rules</span>
+                    <div className="flex items-center space-x-2 text-sm">
+                      <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+                      <span>Lifetime access & updates</span>
+                    </div>
+                    <div className="flex items-center space-x-2 text-sm">
+                      <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+                      <span>Premium support included</span>
+                    </div>
+                    <div className="flex items-center space-x-2 text-sm">
+                      <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+                      <span>30-day money-back guarantee</span>
                     </div>
                   </div>
 
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-2">
-                    {product.tags?.map((tag) => (
-                      <Badge key={tag} variant="outline" className="border-border">
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
-
-                  {/* Description */}
-                  <div>
-                    <h3 className="text-lg font-semibold mb-3">Description</h3>
-                    <p className="text-muted-foreground leading-relaxed">{product.description}</p>
-                  </div>
-
-                  {/* Implementation Guide */}
-                  <div className="bg-secondary p-4 rounded-lg">
-                    <h3 className="font-semibold mb-2 flex items-center">
-                      <Eye className="w-4 h-4 mr-2" />
-                      Implementation Guide
-                    </h3>
-                    <p className="text-sm text-muted-foreground">
-                      {product.implementation_guide}
-                    </p>
-                  </div>
-
-                  {/* Preview Content */}
-                  {hasPurchased && (
-                    <div className="bg-muted p-4 rounded-lg">
-                      <h3 className="font-semibold mb-2 flex items-center text-green-500">
-                        <CheckCircle className="w-4 h-4 mr-2" />
-                        Your Rules Content (Purchased)
-                      </h3>
-                      <pre className="text-sm text-muted-foreground whitespace-pre-wrap bg-background p-3 rounded border max-h-60 overflow-y-auto">
-                        {product.preview_content}
-                      </pre>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Sidebar */}
-            <div className="space-y-6">
-              {/* Purchase Card */}
-              <Card className="bg-card border-border sticky top-8">
-                <CardHeader>
-                  <CardTitle className="text-center">
-                    <span className="text-3xl font-bold bg-gradient-silver bg-clip-text text-transparent">
-                      ${(product.price / 100).toFixed(2)}
-                    </span>
-                  </CardTitle>
-                </CardHeader>
-                
-                <CardContent className="space-y-4">
                   {hasPurchased ? (
-                    <div className="text-center space-y-3">
-                      <div className="flex items-center justify-center text-green-500 space-x-2">
-                        <CheckCircle className="w-5 h-5" />
-                        <span className="font-semibold">Already Purchased</span>
+                    <div className="text-center space-y-4">
+                      <div className="p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
+                        <div className="flex items-center justify-center text-green-500 space-x-2 mb-2">
+                          <CheckCircle className="w-5 h-5" />
+                          <span className="font-bold">Purchase Complete!</span>
+                        </div>
+                        <p className="text-sm text-muted-foreground">
+                          Access your premium configuration files
+                        </p>
                       </div>
                       <Button
                         onClick={() => navigate('/dashboard')}
-                        className="w-full bg-gradient-silver text-primary-foreground hover:shadow-glow-silver transition-all duration-300"
+                        className="w-full bg-gradient-silver text-primary-foreground hover:shadow-glow-silver transition-all duration-300 h-12 text-lg font-semibold"
                       >
-                        View in Dashboard
+                        <Download className="w-5 h-5 mr-2" />
+                        Access Files
                       </Button>
                     </div>
                   ) : (
-                    <Button
-                      onClick={handlePurchase}
-                      disabled={purchaseLoading}
-                      className="w-full bg-gradient-accent text-accent-foreground hover:shadow-glow-accent transition-all duration-300"
-                    >
-                      {purchaseLoading ? (
-                        <>
-                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                          Processing...
-                        </>
-                      ) : (
-                        <>
-                          <Download className="w-4 h-4 mr-2" />
-                          Purchase Now
-                        </>
-                      )}
-                    </Button>
+                    <div className="space-y-4">
+                      <Button
+                        onClick={handlePurchase}
+                        disabled={purchaseLoading}
+                        className="w-full bg-gradient-accent text-accent-foreground hover:shadow-glow-accent transition-all duration-300 h-14 text-lg font-bold"
+                      >
+                        {purchaseLoading ? (
+                          <>
+                            <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                            Processing Payment...
+                          </>
+                        ) : (
+                          <>
+                            <Rocket className="w-5 h-5 mr-2" />
+                            Get Instant Access
+                          </>
+                        )}
+                      </Button>
+                      
+                      <div className="text-center space-y-2">
+                        <div className="text-xs text-muted-foreground">
+                          ⚡ Instant download after payment
+                        </div>
+                        <div className="text-xs text-accent font-medium">
+                          Join {product.downloads_count}+ satisfied developers
+                        </div>
+                      </div>
+                    </div>
                   )}
-                  
-                  <div className="text-xs text-muted-foreground text-center">
-                    Instant download • Lifetime access
-                  </div>
                 </CardContent>
               </Card>
 
