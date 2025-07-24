@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import heroDeveloperImage from '@/assets/hero-developer-hooded.jpg';
 import { useEffect, useState } from 'react';
 
+// Typewriter animation component for hero text
 export const AnimatedHero = () => {
   const [displayedText, setDisplayedText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
