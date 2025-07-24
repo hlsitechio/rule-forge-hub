@@ -5,7 +5,7 @@ import { useAuth } from '@/components/auth/AuthProvider';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { MobileNav } from '@/components/layout/MobileNav';
-import { User, LogOut, ShoppingBag } from 'lucide-react';
+import { User, LogOut, ShoppingBag, Store } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 export const Header = () => {
@@ -79,6 +79,13 @@ export const Header = () => {
                 >
                   <User className="mr-2 h-4 w-4" />
                   <span>Profile</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem 
+                  className="cursor-pointer"
+                  onClick={() => navigate('/marketplace')}
+                >
+                  <Store className="mr-2 h-4 w-4" />
+                  <span>Marketplace</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem 
                   className="cursor-pointer"

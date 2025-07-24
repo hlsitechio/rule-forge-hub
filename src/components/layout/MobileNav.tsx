@@ -4,7 +4,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { AuthDialog } from '@/components/auth/AuthDialog';
 import { useAuth } from '@/components/auth/AuthProvider';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Menu, User, LogOut, ShoppingBag, Home, Package } from 'lucide-react';
+import { Menu, User, LogOut, ShoppingBag, Home, Package, Store } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 export const MobileNav = () => {
@@ -97,6 +97,15 @@ export const MobileNav = () => {
 
               {user && (
                 <>
+                  <Button
+                    variant="ghost"
+                    className="w-full justify-start text-left"
+                    onClick={() => handleNavigation('/marketplace')}
+                  >
+                    <Store className="mr-3 h-4 w-4" />
+                    Marketplace
+                  </Button>
+                  
                   <Button
                     variant="ghost"
                     className="w-full justify-start text-left"
