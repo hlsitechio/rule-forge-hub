@@ -9,6 +9,12 @@ import cursorBanner from '@/assets/cursor-banner.jpg';
 import windsurfBanner from '@/assets/windsurf-banner.jpg';
 import lovableBanner from '@/assets/lovable-banner.jpg';
 import boltBanner from '@/assets/bolt-banner.jpg';
+import universalBanner from '@/assets/universal-banner.jpg';
+import enterpriseBanner from '@/assets/enterprise-banner.jpg';
+import v0Banner from '@/assets/v0-banner.jpg';
+import claudeBanner from '@/assets/claude-banner.jpg';
+import debuggingBanner from '@/assets/debugging-banner.jpg';
+import frameworkBanner from '@/assets/framework-banner.jpg';
 
 interface ProductCardProps {
   id: string;
@@ -41,30 +47,59 @@ export const EnhancedProductCard = ({
 
   const getCategoryIcon = (category: string) => {
     const iconMap: Record<string, string> = {
-      cursor: '⚡',
-      windsurf: '🌊',
-      lovable: '💖',
-      bolt: '⚡',
+      'Cursor AI': '⚡',
+      'Windsurf AI': '🌊',
+      'lovable': '💖',
+      'Bolt.new': '⚡',
+      'Universal': '🌐',
+      'Enterprise': '🏢',
+      'V0 Vercel': '▲',
+      'Claude AI': '🧠',
+      'Debugging': '🐛',
+      'Framework Specific': '⚛️',
+      'cursor': '⚡',
+      'windsurf': '🌊',
+      'bolt': '⚡',
     };
     return iconMap[category] || '🤖';
   };
 
   const getBannerImage = (category: string) => {
     const bannerMap: Record<string, string> = {
-      cursor: cursorBanner,
-      windsurf: windsurfBanner,
-      lovable: lovableBanner,
-      bolt: boltBanner,
+      'Cursor AI': cursorBanner,
+      'Windsurf AI': windsurfBanner,
+      'lovable': lovableBanner,
+      'Bolt.new': boltBanner,
+      'Universal': universalBanner,
+      'Enterprise': enterpriseBanner,
+      'V0 Vercel': v0Banner,
+      'Claude AI': claudeBanner,
+      'Debugging': debuggingBanner,
+      'Framework Specific': frameworkBanner,
+      // Fallback for lowercase versions
+      'cursor': cursorBanner,
+      'windsurf': windsurfBanner,
+      'bolt': boltBanner,
     };
     return bannerMap[category] || cursorBanner;
   };
 
   const getCategoryGradient = (category: string) => {
     const gradientMap: Record<string, string> = {
-      cursor: 'from-purple-500/20 to-blue-500/20',
-      windsurf: 'from-cyan-500/20 to-teal-500/20',
-      lovable: 'from-pink-500/20 to-purple-500/20',
-      bolt: 'from-yellow-500/20 to-orange-500/20',
+      'Cursor AI': 'from-purple-500/20 to-blue-500/20',
+      'Windsurf AI': 'from-cyan-500/20 to-teal-500/20',
+      'lovable': 'from-pink-500/20 to-purple-500/20',
+      'Bolt.new': 'from-yellow-500/20 to-orange-500/20',
+      'Universal': 'from-indigo-500/20 to-purple-500/20',
+      'Enterprise': 'from-blue-500/20 to-teal-500/20',
+      'V0 Vercel': 'from-black/20 to-purple-500/20',
+      'Claude AI': 'from-orange-500/20 to-purple-500/20',
+      'Debugging': 'from-red-500/20 to-orange-500/20',
+      'Framework Specific': 'from-cyan-500/20 to-blue-500/20',
+      // Fallback for lowercase versions
+      'cursor': 'from-purple-500/20 to-blue-500/20',
+      'windsurf': 'from-cyan-500/20 to-teal-500/20',
+      'bolt': 'from-yellow-500/20 to-orange-500/20',
     };
     return gradientMap[category] || 'from-gray-500/20 to-gray-600/20';
   };
