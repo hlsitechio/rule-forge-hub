@@ -12,13 +12,13 @@ export const AnimatedHero = () => {
   const [showCursor, setShowCursor] = useState(true);
   
   const textSections = [
-    { text: "AI Rules", className: "text-6xl md:text-8xl font-black bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent" },
-    { text: "Marketplace", className: "text-6xl md:text-8xl font-black text-foreground" },
-    { text: "Transform your development workflow with professional-grade AI rules for ", className: "text-xl md:text-2xl text-muted-foreground" },
-    { text: "Cursor, ", className: "text-xl md:text-2xl text-accent font-semibold" },
-    { text: "Windsurf, ", className: "text-xl md:text-2xl text-accent font-semibold" },
-    { text: "Lovable, ", className: "text-xl md:text-2xl text-accent font-semibold" },
-    { text: "and Bolt.new.", className: "text-xl md:text-2xl text-accent font-semibold" }
+    { text: "AI Rules", className: "text-7xl md:text-9xl font-black bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent" },
+    { text: "Marketplace", className: "text-7xl md:text-9xl font-black text-foreground" },
+    { text: "Transform your development workflow with professional-grade AI rules for ", className: "text-2xl md:text-3xl text-muted-foreground" },
+    { text: "Cursor, ", className: "text-2xl md:text-3xl text-accent font-semibold" },
+    { text: "Windsurf, ", className: "text-2xl md:text-3xl text-accent font-semibold" },
+    { text: "Lovable, ", className: "text-2xl md:text-3xl text-accent font-semibold" },
+    { text: "and Bolt.new.", className: "text-2xl md:text-3xl text-accent font-semibold" }
   ];
   
   useEffect(() => {
@@ -28,7 +28,7 @@ export const AnimatedHero = () => {
         const timer = setTimeout(() => {
           setDisplayedText(prev => prev + currentText[currentIndex]);
           setCurrentIndex(prev => prev + 1);
-        }, currentSection < 2 ? 120 : 40); // Slower for titles, faster for description
+        }, currentSection < 2 ? 80 : 30); // Faster typing for both titles and description
         return () => clearTimeout(timer);
       } else {
         // Move to next section after a pause
@@ -41,7 +41,7 @@ export const AnimatedHero = () => {
           if (currentSection === 1) {
             setDisplayedText(prev => prev + '\n');
           }
-        }, currentSection < 2 ? 800 : 200);
+        }, currentSection < 2 ? 600 : 150);
       }
     } else {
       // Blink cursor after text is complete
@@ -124,9 +124,9 @@ export const AnimatedHero = () => {
           </motion.div>
 
           {/* Enhanced Typewriter Hero Text */}
-          <div className="text-center max-w-4xl mx-auto mb-12">
+          <div className="text-center max-w-5xl mx-auto mb-12">
             <motion.div 
-              className="min-h-[400px] flex flex-col justify-center"
+              className="min-h-[450px] flex flex-col justify-center"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1 }}
@@ -145,15 +145,30 @@ export const AnimatedHero = () => {
                         display: index < 2 ? 'block' : 'inline',
                         marginBottom: index === 1 ? '2rem' : '0'
                       }}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: visibleText.length > 0 ? 1 : 0 }}
-                      transition={{ duration: 0.3 }}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ 
+                        opacity: visibleText.length > 0 ? 1 : 0,
+                        y: visibleText.length > 0 ? 0 : 20
+                      }}
+                      transition={{ duration: 0.5, type: "spring", bounce: 0.3 }}
                     >
-                      {visibleText}
+                      {visibleText.split('').map((char, charIndex) => (
+                        <motion.span
+                          key={charIndex}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ 
+                            duration: 0.05,
+                            delay: charIndex * 0.02
+                          }}
+                        >
+                          {char}
+                        </motion.span>
+                      ))}
                       {currentSection === index && showCursor && (
                         <motion.span
-                          className="inline-block w-0.5 h-6 md:h-8 bg-accent ml-1"
-                          animate={{ opacity: [1, 0, 1] }}
+                          className="inline-block w-1 h-8 md:h-12 bg-accent ml-1"
+                          animate={{ opacity: [1, 0, 1], scaleY: [1, 1.1, 1] }}
                           transition={{ duration: 0.8, repeat: Infinity }}
                         />
                       )}
