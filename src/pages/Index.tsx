@@ -1,3 +1,4 @@
+import { EmailTestComponent } from '@/components/EmailTestComponent';
 import { useState } from 'react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
@@ -82,6 +83,7 @@ const Index = () => {
   return (
     <AuthProvider>
       <div className="min-h-screen bg-background">
+        <EmailTestComponent />
         <Header />
         <AnimatedHero />
         <SocialProofSection />
