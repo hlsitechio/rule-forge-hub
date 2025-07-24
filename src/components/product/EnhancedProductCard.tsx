@@ -114,11 +114,11 @@ export const EnhancedProductCard = ({
         isFeatured ? 'ring-2 ring-accent/30 shadow-glow-accent/20' : ''
       }`}>
         {/* Banner Image */}
-        <div className="relative h-48 overflow-hidden">
+        <div className="relative aspect-[2/1] overflow-hidden">
           <motion.img
             src={getBannerImage(category)}
             alt={`${category} AI banner`}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
             initial={{ scale: 1 }}
             whileHover={{ scale: 1.1 }}
           />

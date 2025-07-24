@@ -14,10 +14,10 @@ import { usePurchase } from '@/hooks/usePurchase';
 import { Product } from '@/hooks/useProducts';
 
 // Import banner images
-import cursorBanner from '@/assets/cursor-small-banner.jpg';
-import boltBanner from '@/assets/bolt-small-banner.jpg';
-import windsurfBanner from '@/assets/windsurf-small-banner.jpg';
-import lovableBanner from '@/assets/lovable-small-banner.jpg';
+import cursorBanner from '@/assets/cursor-banner.jpg';
+import boltBanner from '@/assets/bolt-banner.jpg';
+import windsurfBanner from '@/assets/windsurf-banner.jpg';
+import lovableBanner from '@/assets/lovable-banner.jpg';
 import universalBanner from '@/assets/universal-banner.jpg';
 import enterpriseBanner from '@/assets/enterprise-banner.jpg';
 import v0Banner from '@/assets/v0-banner.jpg';
@@ -232,11 +232,11 @@ const ProductDetailContent = () => {
               {/* Hero Product Header */}
               <Card className="bg-gradient-to-br from-card via-card to-secondary/20 border-border overflow-hidden relative">
                 {/* Banner Image */}
-                <div className="relative h-32 md:h-40 overflow-hidden">
+                <div className="relative aspect-[3/1] overflow-hidden">
                   <img 
                     src={getCategoryBanner(product.category)} 
                     alt={`${product.category} banner`}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover object-center"
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-background/60 to-background/20"></div>
                 </div>
