@@ -339,18 +339,18 @@ export const AnimatedHero = () => {
                   whileHover={{ y: -5 }}
                 >
                   <motion.div 
-                    className={`flex items-center justify-center w-16 h-16 bg-gradient-${stat.color} rounded-2xl mx-auto mb-4 shadow-glow-${stat.color}/20 group-hover:shadow-glow-${stat.color}/40 transition-all duration-300`}
-                    whileHover={{ rotate: 5, scale: 1.1 }}
-                  >
-                    <stat.icon className="w-8 h-8 text-accent-foreground" />
-                  </motion.div>
-                  <motion.div 
-                    className="text-3xl font-black text-foreground mb-1"
+                    className="text-3xl font-black text-foreground mb-4"
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ duration: 0.5, delay: 1.2 + index * 0.1, type: "spring" }}
                   >
                     {stat.number}
+                  </motion.div>
+                  <motion.div 
+                    className={`flex items-center justify-center w-16 h-16 bg-gradient-${stat.color} rounded-2xl mx-auto mb-4 shadow-glow-${stat.color}/20 group-hover:shadow-glow-${stat.color}/40 transition-all duration-300`}
+                    whileHover={{ rotate: 5, scale: 1.1 }}
+                  >
+                    <stat.icon className="w-8 h-8 text-accent-foreground" />
                   </motion.div>
                   <div className="text-sm text-muted-foreground font-medium">{stat.label}</div>
                 </motion.div>
