@@ -24,7 +24,7 @@ export const Hero = () => {
           
           <div className="mb-6">
             <p className="text-sm md:text-base text-accent font-semibold tracking-wide uppercase mb-2">
-              Enterprise-tested for Cursor, Windsurf, Bolt.new, Lovable and more
+              Premium AI rules for Cursor, Windsurf, Bolt.new, Lovable and more
             </p>
           </div>
           
