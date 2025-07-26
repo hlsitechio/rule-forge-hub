@@ -69,26 +69,23 @@ const Marketplace = () => {
   const [sortBy, setSortBy] = useState<string>('featured');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   
-  // Updated categories to match the reference design
-  const categories = [
+  // Updated categories to match the actual database categories
+  const [categories, setCategories] = useState([
     { key: 'all', name: 'All Platforms', count: 0 },
-    { key: 'Cursor AI', name: 'Cursor Rules', count: 0 },
-    { key: 'Windsurf AI', name: 'Cascade Rules', count: 0 },
-    { key: 'lovable', name: 'Agent Instructions', count: 0 },
-    { key: 'Universal', name: 'System Prompts', count: 0 },
-    { key: 'Enterprise', name: 'Enterprise Kits', count: 0 },
-    { key: 'V0 Vercel', name: 'V0 Templates', count: 0 },
-    { key: 'Claude AI', name: 'Claude Instructions', count: 0 },
-    { key: 'Debugging', name: 'Debug Recipes', count: 0 },
-    { key: 'Framework Specific', name: 'Framework Blueprints', count: 0 }
-  ];
+    { key: 'Cursor Rules', name: 'Cursor Rules', count: 0 },
+    { key: 'System Prompts', name: 'System Prompts', count: 0 },
+    { key: 'Agent Instructions', name: 'Agent Instructions', count: 0 },
+    { key: 'Workflow Automation', name: 'Workflow Automation', count: 0 },
+    { key: 'Development Tools', name: 'Development Tools', count: 0 },
+    { key: 'Documentation', name: 'Documentation', count: 0 }
+  ]);
 
   // Platform categories for the top section
   const platformCategories = [
-    { key: 'Cursor AI', name: 'Cursor AI', subtitle: 'Cursor Rules', icon: '⚡' },
-    { key: 'Windsurf AI', name: 'Windsurf AI', subtitle: 'Cascade Rules', icon: '🌊' },
-    { key: 'lovable', name: 'Lovable.dev', subtitle: 'Agent Instructions', icon: '💖' },
-    { key: 'Universal', name: 'Universal', subtitle: 'System Prompts', icon: '🌐' }
+    { key: 'Cursor Rules', name: 'Cursor Rules', subtitle: 'AI-powered coding rules', icon: '⚡' },
+    { key: 'System Prompts', name: 'System Prompts', subtitle: 'Professional prompts', icon: '🧠' },
+    { key: 'Agent Instructions', name: 'Agent Instructions', subtitle: 'AI agent setups', icon: '🤖' },
+    { key: 'Development Tools', name: 'Development Tools', subtitle: 'Productivity tools', icon: '🛠️' }
   ];
 
   useEffect(() => {
@@ -129,7 +126,7 @@ const Marketplace = () => {
         ? products.length 
         : products.filter(p => p.category === cat.key).length
     }));
-    // Update the categories state if needed
+    setCategories(updatedCategories);
   };
 
   const filterAndSortProducts = () => {
@@ -178,32 +175,24 @@ const Marketplace = () => {
 
   const getCategoryIcon = (category: string) => {
     const iconMap: Record<string, string> = {
-      'Cursor AI': '⚡',
-      'Windsurf AI': '🌊',
-      'lovable': '💖',
-      'Bolt.new': '⚡',
-      'Universal': '🌐',
-      'Enterprise': '🏢',
-      'V0 Vercel': '▲',
-      'Claude AI': '🧠',
-      'Debugging': '🐛',
-      'Framework Specific': '⚛️',
+      'Cursor Rules': '⚡',
+      'System Prompts': '🧠',
+      'Agent Instructions': '🤖',
+      'Workflow Automation': '⚙️',
+      'Development Tools': '🛠️',
+      'Documentation': '📚',
     };
     return iconMap[category] || '🤖';
   };
 
   const getCategoryBanner = (category: string) => {
     const bannerMap: Record<string, string> = {
-      'Cursor AI': cursorBanner,
-      'Windsurf AI': windsurfBanner,
-      'lovable': lovableBanner,
-      'Bolt.new': boltBanner,
-      'Universal': universalBanner,
-      'Enterprise': enterpriseBanner,
-      'V0 Vercel': v0Banner,
-      'Claude AI': claudeBanner,
-      'Debugging': debuggingBanner,
-      'Framework Specific': frameworkBanner,
+      'Cursor Rules': cursorBanner,
+      'System Prompts': claudeBanner,
+      'Agent Instructions': lovableBanner,
+      'Workflow Automation': debuggingBanner,
+      'Development Tools': universalBanner,
+      'Documentation': frameworkBanner,
     };
     return bannerMap[category] || universalBanner;
   };
