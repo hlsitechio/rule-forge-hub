@@ -39,38 +39,38 @@ const advantages = [
   {
     icon: Target,
     title: 'AI-Specialized Focus',
-    description: 'Unlike generic prompt marketplaces, we specialize exclusively in AI coding assistants',
-    highlight: 'Cursor, Windsurf, Lovable optimized'
+    description: 'Focused exclusively on AI coding assistants and development tools',
+    highlight: 'Cursor, Windsurf, Lovable ready'
   },
   {
     icon: Shield,
-    title: 'Enterprise-Ready Quality',
-    description: 'Professional testing, validation, and documentation included with every rule set',
-    highlight: 'Fortune 500 trusted'
+    title: 'Quality Templates',
+    description: 'Carefully crafted rules and templates with clear documentation',
+    highlight: 'Well-documented'
   },
   {
     icon: TrendingUp,
-    title: 'Bundle Savings',
-    description: 'Save up to 52% with our Complete Developer Bundle vs buying individually',
-    highlight: '$99 vs $209 individual'
+    title: 'Bundle Options',
+    description: 'Save money with bundle packages vs buying templates individually',
+    highlight: 'Better value in bundles'
   },
   {
     icon: Users,
-    title: 'Team Licensing',
-    description: 'First marketplace to offer professional team licensing for development teams',
-    highlight: '5-developer licenses included'
+    title: 'Easy Setup',
+    description: 'Simple implementation with step-by-step guides for quick setup',
+    highlight: 'Quick to implement'
   },
   {
     icon: Clock,
-    title: 'Instant Updates',
-    description: 'Lifetime updates as AI tools evolve, keeping your rules current and effective',
-    highlight: 'Always up-to-date'
+    title: 'Regular Updates',
+    description: 'Templates updated as AI tools evolve and new features are released',
+    highlight: 'Staying current'
   },
   {
     icon: Award,
-    title: 'Video Tutorials',
-    description: 'Step-by-step implementation guides that competitors don\'t provide',
-    highlight: 'Premium support included'
+    title: 'Implementation Guides',
+    description: 'Clear instructions and examples to help you get started quickly',
+    highlight: 'Helpful documentation'
   }
 ];
 
@@ -106,8 +106,8 @@ export const CompetitiveAdvantagesSection = () => {
           </h2>
           
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            We've researched the market extensively. Here's why developers choose us over 
-            PromptBase, GitHub, and generic SaaS templates.
+            A fresh approach to AI development templates. Here's what makes our 
+            marketplace different from generic alternatives.
           </p>
         </motion.div>
 
@@ -238,8 +238,8 @@ export const CompetitiveAdvantagesSection = () => {
               </h3>
               
               <p className="text-lg text-muted-foreground mb-8 max-w-3xl mx-auto relative z-10">
-                Join 2,000+ developers who've already transformed their workflow. Don't settle for 
-                generic prompts when you can have professional, tested, AI-specialized rules.
+                Start your AI development journey with professional templates. Quality rules 
+                and documentation to help you build better with AI tools.
               </p>
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">

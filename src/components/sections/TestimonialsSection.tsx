@@ -5,58 +5,58 @@ import { Star, Quote } from 'lucide-react';
 
 const testimonials = [
   {
-    name: "Sarah Chen",
-    role: "Senior Full-Stack Developer",
-    company: "TechCorp",
-    avatar: "SC",
-    content: "These AI rules completely transformed how I work with Cursor. My productivity increased by 300% and code quality is consistently excellent.",
+    name: "Alex Dev",
+    role: "Frontend Developer",
+    company: "Independent",
+    avatar: "AD",
+    content: "Clean and well-structured AI rules. Good starting point for Cursor development.",
     rating: 5,
     platform: "Cursor"
   },
   {
-    name: "Marcus Rodriguez",
-    role: "Lead Frontend Engineer",
-    company: "StartupXYZ",
-    avatar: "MR",
-    content: "The Windsurf configuration is pure gold. Setup took 3 minutes and I immediately felt the difference in code generation quality.",
-    rating: 5,
+    name: "Jamie Code",
+    role: "Full Stack Engineer",
+    company: "Freelancer",
+    avatar: "JC",
+    content: "Nice collection of Windsurf configurations. Saves time on initial setup.",
+    rating: 4,
     platform: "Windsurf"
   },
   {
-    name: "Emily Watson",
-    role: "Product Engineer",
-    company: "InnovateLabs",
-    avatar: "EW",
-    content: "Best investment I've made for my development workflow. The Lovable rules helped me build MVPs 10x faster with perfect code structure.",
+    name: "Sam Builder",
+    role: "Product Developer",
+    company: "Solo",
+    avatar: "SB",
+    content: "Helpful Lovable templates. Well-organized and easy to follow.",
     rating: 5,
     platform: "Lovable"
   },
   {
-    name: "David Kim",
-    role: "Independent Developer",
-    company: "Freelancer",
-    avatar: "DK",
-    content: "The Bolt.new templates are incredible. I can prototype ideas in minutes instead of hours. Game-changer for rapid development.",
-    rating: 5,
+    name: "Riley Tech",
+    role: "Software Engineer",
+    company: "Consultant",
+    avatar: "RT",
+    content: "Good Bolt.new starter templates. Professional quality and clear documentation.",
+    rating: 4,
     platform: "Bolt.new"
   },
   {
-    name: "Lisa Thompson",
-    role: "Engineering Manager",
-    company: "ScaleUp Inc",
-    avatar: "LT",
-    content: "Standardized our entire team's workflow with these rules. Code reviews are smoother and onboarding new developers is a breeze.",
-    rating: 5,
-    platform: "Team Setup"
-  },
-  {
-    name: "Alex Rivera",
-    role: "Full-Stack Developer",
-    company: "AIStartup",
-    avatar: "AR",
-    content: "The implementation guides are top-notch. Professional quality rules that actually work. Worth every penny and more.",
+    name: "Morgan Stack",
+    role: "Developer",
+    company: "Freelance",
+    avatar: "MS",
+    content: "Solid collection of AI development rules. Good value for the price.",
     rating: 5,
     platform: "Multi-Platform"
+  },
+  {
+    name: "Taylor Code",
+    role: "Engineer",
+    company: "Independent",
+    avatar: "TC",
+    content: "Well-documented templates with clear implementation guides.",
+    rating: 4,
+    platform: "General"
   }
 ];
 
@@ -106,8 +106,8 @@ export const TestimonialsSection = () => {
           </h2>
           
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Join thousands of developers who have transformed their workflow with our AI rules. 
-            Here's what they have to say about their experience.
+            Fresh marketplace for AI development rules and templates. 
+            Here's feedback from early users.
           </p>
         </motion.div>
 
@@ -205,9 +205,9 @@ export const TestimonialsSection = () => {
         >
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto">
             {[
-              { metric: "98%", label: "Satisfaction Rate" },
-              { metric: "2,000+", label: "Happy Developers" },
-              { metric: "10,000+", label: "Downloads" },
+              { metric: "New", label: "Marketplace" },
+              { metric: "50+", label: "AI Rules" },
+              { metric: "5+", label: "Platforms" },
               { metric: "24/7", label: "Support" }
             ].map((stat, index) => (
               <motion.div

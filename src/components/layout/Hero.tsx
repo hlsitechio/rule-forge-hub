@@ -56,22 +56,22 @@ export const Hero = () => {
               <div className="flex items-center justify-center w-12 h-12 bg-gradient-accent rounded-lg mx-auto mb-3">
                 <Code2 className="w-6 h-6 text-accent-foreground" />
               </div>
-              <div className="text-2xl font-bold text-foreground">500+</div>
+              <div className="text-2xl font-bold text-foreground">50+</div>
               <div className="text-sm text-muted-foreground">AI Rules</div>
             </div>
             <div className="text-center">
               <div className="flex items-center justify-center w-12 h-12 bg-gradient-silver rounded-lg mx-auto mb-3">
                 <Zap className="w-6 h-6 text-primary-foreground" />
               </div>
-              <div className="text-2xl font-bold text-foreground">10k+</div>
-              <div className="text-sm text-muted-foreground">Downloads</div>
+              <div className="text-2xl font-bold text-foreground">5+</div>
+              <div className="text-sm text-muted-foreground">Platforms</div>
             </div>
             <div className="text-center">
               <div className="flex items-center justify-center w-12 h-12 bg-gradient-dark rounded-lg mx-auto mb-3 border border-border">
                 <Users className="w-6 h-6 text-foreground" />
               </div>
-              <div className="text-2xl font-bold text-foreground">2k+</div>
-              <div className="text-sm text-muted-foreground">Developers</div>
+              <div className="text-2xl font-bold text-foreground">New</div>
+              <div className="text-sm text-muted-foreground">Marketplace</div>
             </div>
           </div>
         </div>

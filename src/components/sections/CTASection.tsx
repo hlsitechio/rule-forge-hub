@@ -101,8 +101,8 @@ export const CTASection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            Join 2,000+ developers who've already supercharged their workflow. 
-            Start building better code in just 5 minutes.
+            Start your AI development journey with professional templates and rules. 
+            Get started in just 5 minutes.
           </motion.p>
 
           {/* Features grid */}
@@ -114,9 +114,9 @@ export const CTASection = () => {
             className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12"
           >
             {[
-              { icon: Zap, text: "5-minute setup" },
-              { icon: Clock, text: "Instant results" },
-              { icon: Shield, text: "30-day guarantee" }
+              { icon: Zap, text: "Quick setup" },
+              { icon: Clock, text: "Ready to use" },
+              { icon: Shield, text: "Quality templates" }
             ].map((feature, index) => (
               <motion.div
                 key={feature.text}
@@ -185,10 +185,10 @@ export const CTASection = () => {
             className="mt-12 text-center"
           >
             <p className="text-sm text-muted-foreground mb-4">
-              Trusted by developers at
+              Supporting popular AI platforms
             </p>
             <div className="flex items-center justify-center space-x-8 opacity-60">
-              {['Google', 'Microsoft', 'Meta', 'Stripe', 'Vercel'].map((company, index) => (
+              {['Cursor', 'Windsurf', 'Lovable', 'Bolt.new', 'v0'].map((company, index) => (
                 <motion.span
                   key={company}
                   initial={{ opacity: 0 }}

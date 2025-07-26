@@ -14,64 +14,64 @@ import {
 
 const stats = [
   {
-    number: '2,000+',
-    label: 'Active Developers',
+    number: '50+',
+    label: 'Premium Rules',
     icon: Users,
     color: 'text-blue-500'
   },
   {
-    number: '15,000+',
-    label: 'Downloads',
+    number: '5+',
+    label: 'AI Platforms',
     icon: TrendingUp,
     color: 'text-green-500'
   },
   {
-    number: '4.9/5',
-    label: 'Average Rating',
+    number: 'New',
+    label: 'Marketplace',
     icon: Star,
     color: 'text-yellow-500'
   },
   {
-    number: '500+',
-    label: 'Reviews',
+    number: '24/7',
+    label: 'Support',
     icon: CheckCircle,
     color: 'text-purple-500'
   }
 ];
 
 const companyLogos = [
-  { name: 'TechCorp', logo: '🏢', size: 'Fortune 500' },
-  { name: 'StartupLab', logo: '🚀', size: 'Y Combinator' },
-  { name: 'DevStudio', logo: '💻', size: 'Series A' },
-  { name: 'AIFlow', logo: '🤖', size: 'Enterprise' },
-  { name: 'CodeBase', logo: '⚡', size: 'Unicorn' },
-  { name: 'BuildFast', logo: '🔧', size: 'Scale-up' }
+  { name: 'Cursor', logo: '💻', size: 'AI Editor' },
+  { name: 'Windsurf', logo: '🌊', size: 'IDE' },
+  { name: 'Lovable', logo: '💜', size: 'AI Builder' },
+  { name: 'Bolt.new', logo: '⚡', size: 'Platform' },
+  { name: 'v0', logo: '🎯', size: 'Generator' },
+  { name: 'Claude', logo: '🤖', size: 'AI Assistant' }
 ];
 
 const quickTestimonials = [
   {
-    text: "Increased our team's productivity by 300%. Best investment we made this year.",
-    author: "Sarah Chen",
-    role: "Lead Developer",
-    company: "TechFlow Inc",
+    text: "Great collection of AI rules. Well-organized and easy to implement.",
+    author: "Developer",
+    role: "Frontend Engineer",
+    company: "Anonymous",
     rating: 5,
-    initials: "SC"
+    initials: "DE"
   },
   {
-    text: "Finally, AI rules that actually work. No more generic prompts that don't understand our codebase.",
-    author: "Mike Rodriguez",
-    role: "CTO",
-    company: "StartupForge",
+    text: "Clean, professional templates that save time on setup.",
+    author: "Builder",
+    role: "Full Stack Developer",
+    company: "Independent",
     rating: 5,
-    initials: "MR"
+    initials: "BU"
   },
   {
-    text: "The bundle saved us thousands in development time. ROI was immediate.",
-    author: "Alex Kim",
-    role: "Engineering Manager",
-    company: "DevScale",
+    text: "Helpful starting point for AI development workflows.",
+    author: "Coder",
+    role: "Software Engineer",
+    company: "Freelancer",
     rating: 5,
-    initials: "AK"
+    initials: "CO"
   }
 ];
 
@@ -135,7 +135,7 @@ export const SocialProofSection = () => {
           className="text-center mb-16"
         >
           <p className="text-sm text-muted-foreground mb-8 font-medium">
-            Trusted by teams at companies of all sizes
+            Supporting popular AI development platforms
           </p>
           
           <div className="grid grid-cols-3 md:grid-cols-6 gap-6 max-w-4xl mx-auto">
