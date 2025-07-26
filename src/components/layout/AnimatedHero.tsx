@@ -172,19 +172,7 @@ export const AnimatedHero = () => {
                 delay: 0.7
               }}>
                   <span className="text-muted-foreground">
-                    Professional-grade AI rules that outperform{' '}
-                  </span>
-                  <span className="text-red-400 font-semibold line-through">
-                    PromptBase
-                  </span>
-                  <span className="text-muted-foreground">
-                    {' '}and{' '}
-                  </span>
-                  <span className="text-red-400 font-semibold line-through">
-                    free GitHub
-                  </span>
-                  <span className="text-muted-foreground">
-                    {' '}alternatives.
+                    Curated AI rules and templates from experienced developers, tested in real projects.
                   </span>
                   <br />
                   <span className="text-accent font-bold">
