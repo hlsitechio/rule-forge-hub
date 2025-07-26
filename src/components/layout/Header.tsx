@@ -34,7 +34,7 @@ export const Header = () => {
             onClick={() => navigate('/marketplace')}
             className="text-muted-foreground hover:text-foreground transition-colors h-auto p-0 font-medium"
           >
-            Browse Rules
+            Marketplace
           </Button>
           <Button 
             variant="ghost" 

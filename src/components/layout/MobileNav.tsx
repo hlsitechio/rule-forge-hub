@@ -92,7 +92,7 @@ export const MobileNav = () => {
                 onClick={() => handleNavigation('/marketplace')}
               >
                 <Package className="mr-3 h-4 w-4" />
-                Browse Rules
+                Marketplace
               </Button>
 
               {user && (
