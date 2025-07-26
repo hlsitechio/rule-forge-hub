@@ -31,7 +31,7 @@ export const Header = () => {
         <nav className="hidden md:flex items-center space-x-8">
           <Button 
             variant="ghost" 
-            onClick={() => navigate('/#products')}
+            onClick={() => navigate('/categories')}
             className="text-muted-foreground hover:text-foreground transition-colors h-auto p-0 font-medium"
           >
             Browse Rules

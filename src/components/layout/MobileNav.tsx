@@ -89,10 +89,10 @@ export const MobileNav = () => {
               <Button
                 variant="ghost"
                 className="w-full justify-start text-left"
-                onClick={() => handleNavigation('/#products')}
+                onClick={() => handleNavigation('/categories')}
               >
                 <Package className="mr-3 h-4 w-4" />
-                Browse Products
+                Browse Rules
               </Button>
 
               {user && (
