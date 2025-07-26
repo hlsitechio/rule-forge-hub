@@ -45,13 +45,6 @@ export const Header = () => {
           </Button>
           <Button 
             variant="ghost" 
-            onClick={() => navigate('/categories')}
-            className="text-muted-foreground hover:text-foreground transition-colors h-auto p-0 font-medium"
-          >
-            Categories
-          </Button>
-          <Button 
-            variant="ghost" 
             onClick={() => navigate('/support')}
             className="text-muted-foreground hover:text-foreground transition-colors h-auto p-0 font-medium"
           >
