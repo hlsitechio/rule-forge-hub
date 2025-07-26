@@ -167,7 +167,11 @@ const ProductDetailContent = () => {
     return bannerMap[category] || cursorBanner;
   };
 
-  const formatImplementationGuide = (guide: string) => {
+  const formatImplementationGuide = (guide: string | null) => {
+    // Handle null or empty guide
+    if (!guide) {
+      return ['Download the product package', 'Follow the included setup instructions', 'Customize for your needs', 'Start using with enhanced AI assistance'];
+    }
     // Split by numbers and clean up the text
     const steps = guide.split(/\d+\./).filter(step => step.trim().length > 0);
     return steps.map(step => step.trim());
