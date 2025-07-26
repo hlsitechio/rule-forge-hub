@@ -89,7 +89,7 @@ export const MobileNav = () => {
               <Button
                 variant="ghost"
                 className="w-full justify-start text-left"
-                onClick={() => handleNavigation('/categories')}
+                onClick={() => handleNavigation('/marketplace')}
               >
                 <Package className="mr-3 h-4 w-4" />
                 Browse Rules
