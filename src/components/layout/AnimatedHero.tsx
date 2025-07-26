@@ -172,11 +172,11 @@ export const AnimatedHero = () => {
                 delay: 0.7
               }}>
                   <span className="text-muted-foreground">
-                    Curated AI rules and templates from experienced developers, tested in real projects.
+                    Curated AI rules and templates from experienced developers.
                   </span>
                   <br />
                   <span className="text-accent font-bold">
-                    Enterprise-tested for Cursor, Windsurf & more.
+                    For Cursor, Windsurf, Bolt.new & more.
                   </span>
                 </motion.p>
               </motion.div>
