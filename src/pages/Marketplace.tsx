@@ -181,6 +181,8 @@ const Marketplace = () => {
       'Workflow Automation': '⚙️',
       'Development Tools': '🛠️',
       'Documentation': '📚',
+      'MCP Server': '🖥️',
+      'Integration': '🔗',
     };
     return iconMap[category] || '🤖';
   };
@@ -193,6 +195,8 @@ const Marketplace = () => {
       'Workflow Automation': debuggingBanner,
       'Development Tools': universalBanner,
       'Documentation': frameworkBanner,
+      'MCP Server': enterpriseBanner,
+      'Integration': universalBanner,
     };
     return bannerMap[category] || universalBanner;
   };

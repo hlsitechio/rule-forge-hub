@@ -4,7 +4,7 @@ import { AuthProvider } from '@/components/auth/AuthProvider';
 import { motion } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Code, Brain, Zap, Settings, FileText, Bot } from 'lucide-react';
+import { Code, Brain, Zap, Settings, FileText, Bot, Server, Puzzle } from 'lucide-react';
 
 const categories = [
   {
@@ -54,6 +54,22 @@ const categories = [
     icon: FileText,
     count: 9,
     color: 'bg-indigo-500/10 text-indigo-500 border-indigo-500/20'
+  },
+  {
+    id: 'mcp-server',
+    name: 'MCP Server',
+    description: 'Model Context Protocol servers and configurations',
+    icon: Server,
+    count: 6,
+    color: 'bg-cyan-500/10 text-cyan-500 border-cyan-500/20'
+  },
+  {
+    id: 'integration',
+    name: 'Integration',
+    description: 'API integrations and connectivity solutions',
+    icon: Puzzle,
+    count: 8,
+    color: 'bg-orange-500/10 text-orange-500 border-orange-500/20'
   }
 ];
 
