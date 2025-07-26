@@ -147,7 +147,8 @@ const ProductDetailContent = () => {
     return iconMap[category] || '🤖';
   };
 
-  const getCategoryBanner = (category: string) => {
+  const getCategoryBanner = (category: string, product?: Product) => {
+    // First check the category
     const bannerMap: Record<string, string> = {
       'Cursor AI': cursorBanner,
       'Windsurf AI': windsurfBanner,
@@ -164,7 +165,31 @@ const ProductDetailContent = () => {
       'windsurf': windsurfBanner,
       'bolt': boltBanner,
     };
-    return bannerMap[category] || cursorBanner;
+
+    // If category has a direct match, use it
+    if (bannerMap[category]) {
+      return bannerMap[category];
+    }
+
+    // For generic categories like "Agent Instructions", "System Prompts", etc.
+    // Check the product title and tags to determine the appropriate banner
+    if (product) {
+      const searchText = (product.title + ' ' + (product.tags || []).join(' ')).toLowerCase();
+      
+      if (searchText.includes('claude')) return claudeBanner;
+      if (searchText.includes('cursor')) return cursorBanner;
+      if (searchText.includes('windsurf')) return windsurfBanner;
+      if (searchText.includes('bolt')) return boltBanner;
+      if (searchText.includes('lovable')) return lovableBanner;
+      if (searchText.includes('v0') || searchText.includes('vercel')) return v0Banner;
+      if (searchText.includes('github') || searchText.includes('copilot')) return cursorBanner;
+      if (searchText.includes('chatgpt') || searchText.includes('gpt')) return universalBanner;
+      if (searchText.includes('enterprise') || searchText.includes('security')) return enterpriseBanner;
+      if (searchText.includes('debug')) return debuggingBanner;
+      if (searchText.includes('react') || searchText.includes('framework')) return frameworkBanner;
+    }
+
+    return universalBanner; // Default to universal instead of cursor
   };
 
   const formatImplementationGuide = (guide: string | null) => {
@@ -239,7 +264,7 @@ const ProductDetailContent = () => {
                 {/* Banner Image */}
                 <div className="relative aspect-[3/1] overflow-hidden">
                   <img 
-                    src={getCategoryBanner(product.category)} 
+                    src={getCategoryBanner(product.category, product)} 
                     alt={`${product.category} banner`}
                     className="w-full h-full object-cover object-center"
                   />
