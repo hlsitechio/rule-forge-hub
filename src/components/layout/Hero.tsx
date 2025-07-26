@@ -22,6 +22,12 @@ export const Hero = () => {
             <span className="text-foreground">Marketplace</span>
           </h1>
           
+          <div className="mb-6">
+            <p className="text-sm md:text-base text-accent font-semibold tracking-wide uppercase mb-2">
+              Enterprise-tested for Cursor, Windsurf, Bolt.new, Lovable and more
+            </p>
+          </div>
+          
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
             Premium AI rules and templates for <span className="text-accent">Cursor</span>, <span className="text-accent">Windsurf</span>, <span className="text-accent">Lovable</span>, and <span className="text-accent">Bolt.new</span>. 
             Stop creating from scratch.
