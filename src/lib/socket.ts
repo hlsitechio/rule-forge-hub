@@ -163,8 +163,8 @@ let socketClient: SocketIOClient | null = null;
 
 export const getSocketClient = (): SocketIOClient => {
   if (!socketClient) {
-    // Use your Supabase project URL
-    const socketUrl = `wss://oqvjazfvwxafxmgwtzti.functions.supabase.co/functions/v1/socketio-server`;
+    // Connect to your local backend server
+    const socketUrl = 'http://localhost:3001';
     socketClient = new SocketIOClient(socketUrl);
   }
   return socketClient;

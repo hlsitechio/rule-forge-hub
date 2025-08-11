@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Shield, Activity, Database, Users, Wifi, AlertTriangle } from 'lucide-react';
 import { StatusMonitor } from '@/components/admin/StatusMonitor';
 import { RealTimeActivity } from '@/components/admin/RealTimeActivity';
+import { BackendIntegration } from '@/components/admin/BackendIntegration';
 
 const ADMIN_EMAIL = 'hlarosesurprenant@gmail.com';
 
@@ -56,6 +57,9 @@ export default function AdminDashboard() {
           <span className="font-medium">{user.email}</span>
         </div>
       </div>
+
+      {/* Backend Integration */}
+      <BackendIntegration />
 
       {/* Status Monitor */}
       <StatusMonitor />
