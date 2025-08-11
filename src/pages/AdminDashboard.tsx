@@ -2,14 +2,7 @@ import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { User } from '@supabase/supabase-js';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { SystemHealthMonitor } from '@/components/admin/SystemHealthMonitor';
-import { ApiLogsMonitor } from '@/components/admin/ApiLogsMonitor';
-import { DatabaseMonitor } from '@/components/admin/DatabaseMonitor';
-import { UserActivityMonitor } from '@/components/admin/UserActivityMonitor';
-import { RealTimeConnections } from '@/components/admin/RealTimeConnections';
-import { ErrorTracking } from '@/components/admin/ErrorTracking';
 import { Shield, Activity, Database, Users, Wifi, AlertTriangle } from 'lucide-react';
 
 const ADMIN_EMAIL = 'hlarosesurprenant@gmail.com';
@@ -62,118 +55,88 @@ export default function AdminDashboard() {
         </div>
       </div>
 
-      <Tabs defaultValue="overview" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-6">
-          <TabsTrigger value="overview" className="flex items-center gap-2">
-            <Activity className="h-4 w-4" />
-            Overview
-          </TabsTrigger>
-          <TabsTrigger value="api-logs" className="flex items-center gap-2">
-            <Database className="h-4 w-4" />
-            API Logs
-          </TabsTrigger>
-          <TabsTrigger value="database" className="flex items-center gap-2">
-            <Database className="h-4 w-4" />
-            Database
-          </TabsTrigger>
-          <TabsTrigger value="users" className="flex items-center gap-2">
-            <Users className="h-4 w-4" />
-            Users
-          </TabsTrigger>
-          <TabsTrigger value="realtime" className="flex items-center gap-2">
-            <Wifi className="h-4 w-4" />
-            Real-time
-          </TabsTrigger>
-          <TabsTrigger value="errors" className="flex items-center gap-2">
-            <AlertTriangle className="h-4 w-4" />
-            Errors
-          </TabsTrigger>
-        </TabsList>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Activity className="h-5 w-5" />
+              System Health
+            </CardTitle>
+            <CardDescription>Backend monitoring will connect to your API endpoints</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="text-center py-8 text-muted-foreground">
+              <Database className="h-12 w-12 mx-auto mb-4 opacity-50" />
+              <p>Connect to your backend API at:</p>
+              <code className="text-sm">GET /admin/health</code>
+            </div>
+          </CardContent>
+        </Card>
 
-        <TabsContent value="overview" className="space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>System Health</CardTitle>
-                <CardDescription>Real-time system status and performance</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <SystemHealthMonitor />
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader>
-                <CardTitle>Quick Stats</CardTitle>
-                <CardDescription>Key metrics at a glance</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <UserActivityMonitor summary={true} />
-              </CardContent>
-            </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Users className="h-5 w-5" />
+              User Analytics
+            </CardTitle>
+            <CardDescription>Track user activity and sessions</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="text-center py-8 text-muted-foreground">
+              <Users className="h-12 w-12 mx-auto mb-4 opacity-50" />
+              <p>Connect to your backend API at:</p>
+              <code className="text-sm">GET /admin/users/activity</code>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Wifi className="h-5 w-5" />
+              Real-time Monitoring
+            </CardTitle>
+            <CardDescription>WebSocket connections and live data</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="text-center py-8 text-muted-foreground">
+              <Wifi className="h-12 w-12 mx-auto mb-4 opacity-50" />
+              <p>Connect to your backend API at:</p>
+              <code className="text-sm">GET /admin/websocket/stats</code>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Admin Access Confirmed</CardTitle>
+          <CardDescription>
+            You have admin access to monitor your backend systems. 
+            Connect your backend API to the endpoints shown above to see live data.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            <div className="p-4 bg-muted rounded-lg">
+              <h4 className="font-medium mb-2">Required Backend Endpoints:</h4>
+              <ul className="space-y-1 text-sm text-muted-foreground">
+                <li>• <code>GET /admin/health</code> - System health status</li>
+                <li>• <code>GET /admin/logs</code> - API request logs</li>
+                <li>• <code>GET /admin/database/stats</code> - Database performance</li>
+                <li>• <code>GET /admin/users/activity</code> - User activity tracking</li>
+                <li>• <code>GET /admin/websocket/stats</code> - Real-time connections</li>
+                <li>• <code>GET /admin/errors</code> - Error tracking and analysis</li>
+              </ul>
+            </div>
+            <div className="p-4 bg-green-50 dark:bg-green-950 rounded-lg border border-green-200 dark:border-green-800">
+              <p className="text-sm text-green-800 dark:text-green-200">
+                ✅ Admin authentication configured for: <strong>{user.email}</strong>
+              </p>
+            </div>
           </div>
-        </TabsContent>
-
-        <TabsContent value="api-logs">
-          <Card>
-            <CardHeader>
-              <CardTitle>API Request Logs</CardTitle>
-              <CardDescription>Monitor all API requests and responses</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <ApiLogsMonitor />
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="database">
-          <Card>
-            <CardHeader>
-              <CardTitle>Database Monitoring</CardTitle>
-              <CardDescription>Database performance and query analysis</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <DatabaseMonitor />
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="users">
-          <Card>
-            <CardHeader>
-              <CardTitle>User Activity</CardTitle>
-              <CardDescription>Track user sessions and activity</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <UserActivityMonitor />
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="realtime">
-          <Card>
-            <CardHeader>
-              <CardTitle>Real-time Connections</CardTitle>
-              <CardDescription>Monitor WebSocket connections and live users</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <RealTimeConnections />
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="errors">
-          <Card>
-            <CardHeader>
-              <CardTitle>Error Tracking</CardTitle>
-              <CardDescription>Monitor and analyze system errors</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <ErrorTracking />
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+        </CardContent>
+      </Card>
     </div>
   );
 }
