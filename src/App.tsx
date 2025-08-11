@@ -19,6 +19,8 @@ import Support from "./pages/Support";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 import Cookies from "./pages/Cookies";
+import Auth from "./pages/Auth";
+import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
 
 const App = () => (
@@ -31,7 +33,9 @@ const App = () => (
           <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/auth" element={<Auth />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/product" element={<Categories />} />
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/purchase-success" element={<PurchaseSuccess />} />
