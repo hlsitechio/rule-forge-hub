@@ -71,21 +71,22 @@ const Marketplace = () => {
   
   // Updated categories to match the actual database categories
   const [categories, setCategories] = useState([
-    { key: 'all', name: 'All Platforms', count: 0 },
-    { key: 'Cursor Rules', name: 'Cursor Rules', count: 0 },
-    { key: 'System Prompts', name: 'System Prompts', count: 0 },
-    { key: 'Agent Instructions', name: 'Agent Instructions', count: 0 },
-    { key: 'Workflow Automation', name: 'Workflow Automation', count: 0 },
-    { key: 'Development Tools', name: 'Development Tools', count: 0 },
-    { key: 'Documentation', name: 'Documentation', count: 0 }
+    { key: 'all', name: 'All Platforms', count: 99 },
+    { key: 'Cursor Rules', name: 'Cursor Rules', count: 99 },
+    { key: 'Cascade Rules', name: 'Cascade Rules', count: 99 },
+    { key: 'Agent Instructions', name: 'Agent Instructions', count: 99 },
+    { key: 'Prompt Instructions', name: 'Prompt Instructions', count: 99 },
+    { key: 'System Prompts', name: 'System Prompts', count: 99 },
+    { key: 'Enterprise Kits', name: 'Enterprise Kits', count: 99 },
+    { key: 'V0 Templates', name: 'V0 Templates', count: 99 }
   ]);
 
   // Platform categories for the top section
   const platformCategories = [
     { key: 'Cursor Rules', name: 'Cursor Rules', subtitle: 'AI-powered coding rules', icon: '⚡' },
-    { key: 'System Prompts', name: 'System Prompts', subtitle: 'Professional prompts', icon: '🧠' },
+    { key: 'Cascade Rules', name: 'Cascade Rules', subtitle: 'Advanced cascade rules', icon: '🔗' },
     { key: 'Agent Instructions', name: 'Agent Instructions', subtitle: 'AI agent setups', icon: '🤖' },
-    { key: 'Development Tools', name: 'Development Tools', subtitle: 'Productivity tools', icon: '🛠️' }
+    { key: 'System Prompts', name: 'System Prompts', subtitle: 'Professional prompts', icon: '🧠' }
   ];
 
   useEffect(() => {
@@ -176,13 +177,12 @@ const Marketplace = () => {
   const getCategoryIcon = (category: string) => {
     const iconMap: Record<string, string> = {
       'Cursor Rules': '⚡',
-      'System Prompts': '🧠',
+      'Cascade Rules': '🔗',
       'Agent Instructions': '🤖',
-      'Workflow Automation': '⚙️',
-      'Development Tools': '🛠️',
-      'Documentation': '📚',
-      'MCP Server': '🖥️',
-      'Integration': '🔗',
+      'Prompt Instructions': '💬',
+      'System Prompts': '🧠',
+      'Enterprise Kits': '📦',
+      'V0 Templates': '📄',
     };
     return iconMap[category] || '🤖';
   };
@@ -190,13 +190,12 @@ const Marketplace = () => {
   const getCategoryBanner = (category: string) => {
     const bannerMap: Record<string, string> = {
       'Cursor Rules': cursorBanner,
-      'System Prompts': claudeBanner,
+      'Cascade Rules': universalBanner,
       'Agent Instructions': lovableBanner,
-      'Workflow Automation': debuggingBanner,
-      'Development Tools': universalBanner,
-      'Documentation': frameworkBanner,
-      'MCP Server': enterpriseBanner,
-      'Integration': universalBanner,
+      'Prompt Instructions': claudeBanner,
+      'System Prompts': claudeBanner,
+      'Enterprise Kits': enterpriseBanner,
+      'V0 Templates': v0Banner,
     };
     return bannerMap[category] || universalBanner;
   };
