@@ -4,7 +4,7 @@ import { AuthProvider } from '@/components/auth/AuthProvider';
 import { motion } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Code, Brain, Zap, Settings, FileText, Bot, Server, Puzzle } from 'lucide-react';
+import { Code, Brain, Bot, FileText, MessageSquare, Package, Layers } from 'lucide-react';
 
 const categories = [
   {
@@ -12,15 +12,15 @@ const categories = [
     name: 'Cursor Rules',
     description: 'AI-powered coding rules and configurations for Cursor IDE',
     icon: Code,
-    count: 24,
+    count: 99,
     color: 'bg-blue-500/10 text-blue-500 border-blue-500/20'
   },
   {
-    id: 'system-prompts',
-    name: 'System Prompts',
-    description: 'Professional system prompts for various AI models',
-    icon: Brain,
-    count: 18,
+    id: 'cascade-rules',
+    name: 'Cascade Rules',
+    description: 'Advanced cascade rules for complex AI workflows',
+    icon: Layers,
+    count: 99,
     color: 'bg-purple-500/10 text-purple-500 border-purple-500/20'
   },
   {
@@ -28,48 +28,40 @@ const categories = [
     name: 'Agent Instructions',
     description: 'Specialized instructions for AI agents and assistants',
     icon: Bot,
-    count: 15,
+    count: 99,
     color: 'bg-green-500/10 text-green-500 border-green-500/20'
   },
   {
-    id: 'workflow-automation',
-    name: 'Workflow Automation',
-    description: 'Automated workflows and process optimization templates',
-    icon: Zap,
-    count: 12,
+    id: 'prompt-instructions',
+    name: 'Prompt Instructions',
+    description: 'Optimized prompt instructions for better AI responses',
+    icon: MessageSquare,
+    count: 99,
     color: 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20'
   },
   {
-    id: 'development-tools',
-    name: 'Development Tools',
-    description: 'Developer productivity tools and configurations',
-    icon: Settings,
-    count: 21,
+    id: 'system-prompts',
+    name: 'System Prompts',
+    description: 'Professional system prompts for various AI models',
+    icon: Brain,
+    count: 99,
     color: 'bg-red-500/10 text-red-500 border-red-500/20'
   },
   {
-    id: 'documentation',
-    name: 'Documentation',
-    description: 'Templates and guides for technical documentation',
-    icon: FileText,
-    count: 9,
+    id: 'enterprise-kits',
+    name: 'Enterprise Kits',
+    description: 'Complete enterprise-grade AI configuration packages',
+    icon: Package,
+    count: 99,
     color: 'bg-indigo-500/10 text-indigo-500 border-indigo-500/20'
   },
   {
-    id: 'mcp-server',
-    name: 'MCP Server',
-    description: 'Model Context Protocol servers and configurations',
-    icon: Server,
-    count: 6,
+    id: 'v0-templates',
+    name: 'V0 Templates',
+    description: 'Ready-to-use templates for V0 AI development',
+    icon: FileText,
+    count: 99,
     color: 'bg-cyan-500/10 text-cyan-500 border-cyan-500/20'
-  },
-  {
-    id: 'integration',
-    name: 'Integration',
-    description: 'API integrations and connectivity solutions',
-    icon: Puzzle,
-    count: 8,
-    color: 'bg-orange-500/10 text-orange-500 border-orange-500/20'
   }
 ];
 
