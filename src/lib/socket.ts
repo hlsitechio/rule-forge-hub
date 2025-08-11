@@ -26,6 +26,8 @@ export class SocketIOClient {
 
         this.socket.on('connect', () => {
           console.log('Connected to Socket.IO server:', this.socket?.id);
+          console.log('Socket.IO server URL:', this.url);
+          console.log('Socket.IO transport:', this.socket?.io.engine.transport.name);
           this.reconnectAttempts = 0;
           resolve(this.socket!);
         });
