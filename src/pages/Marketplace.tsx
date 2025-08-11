@@ -71,7 +71,6 @@ const Marketplace = () => {
   
   // Updated categories to match the actual database categories
   const [categories, setCategories] = useState([
-    { key: 'all', name: 'All Platforms', count: 99 },
     { key: 'Cursor Rules', name: 'Cursor Rules', count: 99 },
     { key: 'Cascade Rules', name: 'Cascade Rules', count: 99 },
     { key: 'Agent Instructions', name: 'Agent Instructions', count: 99 },
