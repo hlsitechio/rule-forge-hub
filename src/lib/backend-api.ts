@@ -1,5 +1,5 @@
-// Backend API client for local server on port 3001
-const API_BASE_URL = 'http://localhost:3001';
+// Backend API client for local server on port 3003
+const API_BASE_URL = 'http://localhost:3003';
 
 export interface HealthStatus {
   status: 'healthy' | 'unhealthy';
@@ -65,6 +65,7 @@ class BackendAPI {
         signal: controller.signal,
         headers: {
           'Content-Type': 'application/json',
+          'Access-Control-Request-Private-Network': 'true',
           ...options.headers,
         },
       });
