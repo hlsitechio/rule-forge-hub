@@ -163,7 +163,7 @@ let socketClient: SocketIOClient | null = null;
 
 export const getSocketClient = (): SocketIOClient => {
   if (!socketClient) {
-    // Connect to your local backend server
+    // Connect to your local backend server (same as admin UI)
     const socketUrl = 'http://localhost:3001';
     socketClient = new SocketIOClient(socketUrl);
   }
