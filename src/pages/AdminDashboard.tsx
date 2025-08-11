@@ -4,6 +4,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { User } from '@supabase/supabase-js';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Shield, Activity, Database, Users, Wifi, AlertTriangle } from 'lucide-react';
+import { StatusMonitor } from '@/components/admin/StatusMonitor';
 
 const ADMIN_EMAIL = 'hlarosesurprenant@gmail.com';
 
@@ -54,6 +55,9 @@ export default function AdminDashboard() {
           <span className="font-medium">{user.email}</span>
         </div>
       </div>
+
+      {/* Status Monitor */}
+      <StatusMonitor />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card>
