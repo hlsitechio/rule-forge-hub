@@ -5,6 +5,7 @@ import { User } from '@supabase/supabase-js';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Shield, Activity, Database, Users, Wifi, AlertTriangle } from 'lucide-react';
 import { StatusMonitor } from '@/components/admin/StatusMonitor';
+import { RealTimeActivity } from '@/components/admin/RealTimeActivity';
 
 const ADMIN_EMAIL = 'hlarosesurprenant@gmail.com';
 
@@ -111,6 +112,9 @@ export default function AdminDashboard() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Real-Time Activity */}
+      <RealTimeActivity />
 
       <Card>
         <CardHeader>
