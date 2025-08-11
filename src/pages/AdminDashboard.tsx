@@ -7,6 +7,7 @@ import { Shield, Activity, Database, Users, Wifi, AlertTriangle } from 'lucide-r
 import { StatusMonitor } from '@/components/admin/StatusMonitor';
 import { RealTimeActivity } from '@/components/admin/RealTimeActivity';
 import { BackendIntegration } from '@/components/admin/BackendIntegration';
+import { SocketIOAdminUI } from '@/components/admin/SocketIOAdminUI';
 
 const ADMIN_EMAIL = 'hlarosesurprenant@gmail.com';
 
@@ -119,6 +120,9 @@ export default function AdminDashboard() {
 
       {/* Real-Time Activity */}
       <RealTimeActivity />
+
+      {/* Socket.IO Admin UI */}
+      <SocketIOAdminUI />
 
       <Card>
         <CardHeader>
