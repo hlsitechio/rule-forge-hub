@@ -1,6 +1,5 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { Server } from "https://deno.land/x/socket_io@0.2.0/mod.ts";
-import { instrument } from "https://deno.land/x/socket_io@0.2.0/admin-ui.ts";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -17,60 +16,6 @@ serve(async (req) => {
   }
 
   const { pathname } = new URL(req.url);
-  
-  // Handle Socket.IO Admin UI requests
-  if (pathname.startsWith('/admin') || pathname === '/socket.io/') {
-    try {
-      // Create Socket.IO server for admin UI
-      const io = new Server({
-        cors: {
-          origin: "*",
-          methods: ["GET", "POST"]
-        },
-        transports: ['websocket', 'polling']
-      });
-
-      // Instrument the server with admin UI
-      instrument(io, {
-        auth: false, // Disable auth for development - you can add auth later
-        mode: "development",
-        namespaceName: "/admin"
-      });
-
-      // Handle admin UI static files
-      if (pathname.startsWith('/admin')) {
-        // Return the admin UI interface
-        const adminHTML = `
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Socket.IO Admin UI</title>
-    <script src="https://cdn.socket.io/4.8.0/socket.io.min.js"></script>
-    <script src="https://unpkg.com/@socket.io/admin-ui@0.5.1/ui/dist/bundle.js"></script>
-</head>
-<body>
-    <div id="admin-ui"></div>
-    <script>
-        // Connect to your Socket.IO server
-        const socket = io('wss://oqvjazfvwxafxmgwtzti.supabase.co/functions/v1/socketio-server', {
-          transports: ['websocket', 'polling']
-        });
-        
-        // Initialize admin UI
-        const adminUI = new AdminUI(socket);
-        adminUI.mount('#admin-ui');
-    </script>
-</body>
-</html>`;
-        
-        return new Response(adminHTML, {
-          headers: { ...corsHeaders, 'Content-Type': 'text/html' }
-        });
-      }
-    } catch (error) {
-      console.error("Admin UI error:", error);
-    }
-  }
   
   try {
     // Check if this is a WebSocket upgrade request
@@ -91,13 +36,7 @@ serve(async (req) => {
       transports: ['websocket', 'polling']
     });
 
-    // Instrument the server with admin UI
-    instrument(io, {
-      auth: false, // Disable auth for development - you can add auth later
-      mode: "development"
-    });
-
-    console.log("Socket.IO server created with Admin UI enabled");
+    console.log("Socket.IO server created");
 
     // Handle Socket.IO connections
     io.on("connection", (socket) => {
