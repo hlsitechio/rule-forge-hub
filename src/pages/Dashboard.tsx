@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { AuthProvider, useAuth } from '@/components/auth/AuthProvider';
+import { useAuth } from '@/components/auth/AuthProvider';
 import { Header } from '@/components/layout/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -30,15 +30,15 @@ interface Purchase {
 }
 
 const DashboardContent = () => {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
   const [purchases, setPurchases] = useState<Purchase[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!user) {
-      navigate('/');
+    if (!user && !authLoading) {
+      navigate('/auth');
       return;
     }
 
@@ -81,7 +81,7 @@ const DashboardContent = () => {
     };
 
     fetchPurchases();
-  }, [user, navigate, toast]);
+  }, [user, authLoading, navigate, toast]);
 
   const copyToClipboard = (text: string, title: string) => {
     navigator.clipboard.writeText(text);
@@ -101,7 +101,7 @@ const DashboardContent = () => {
     return iconMap[category] || '🤖';
   };
 
-  if (loading) {
+  if (authLoading || loading || !user) {
     return (
       <div className="min-h-screen bg-background">
         <Header />
@@ -284,11 +284,7 @@ const DashboardContent = () => {
 };
 
 const Dashboard = () => {
-  return (
-    <AuthProvider>
-      <DashboardContent />
-    </AuthProvider>
-  );
+  return <DashboardContent />;
 };
 
 export default Dashboard;
