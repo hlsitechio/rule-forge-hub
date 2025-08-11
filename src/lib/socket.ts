@@ -14,7 +14,7 @@ export class SocketIOClient {
         console.log('Connecting to Socket.IO server:', this.url);
         
         this.socket = io(this.url, {
-          transports: ['websocket', 'polling'],
+          transports: ['websocket'], // Use WebSocket only for consistency
           upgrade: true,
           rememberUpgrade: true,
           timeout: 10000,
