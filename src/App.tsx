@@ -50,7 +50,7 @@ const App = () => (
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
-        {import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}
+        {/* Temporarily disabled devtools */}
       </BrowserRouter>
     </TooltipProvider>
     </AuthProvider>
